@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>17 Big picture | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="17 Big picture | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17 Big picture | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="17.1 Introduction Metaprogramming is the hardest topic in this book because it brings together many formerly unrelated topics and forces you grapple with issues that you probably haven’t thought...">
+<meta property="og:description" content="17.1 Introduction Metaprogramming is the hardest topic in this book because it brings together many formerly unrelated topics and forces you grapple with issues that you probably haven’t thought...">
+<meta name="twitter:description" content="17.1 Introduction Metaprogramming is the hardest topic in this book because it brings together many formerly unrelated topics and forces you grapple with issues that you probably haven’t thought...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="active" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="meta-big-picture" class="section level1" number="17">
+<h1>
+<span class="header-section-number">17</span> Big picture<a class="anchor" aria-label="anchor" href="#meta-big-picture"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-16" class="section level2" number="17.1">
+<h2>
+<span class="header-section-number">17.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-16"><i class="fas fa-link"></i></a>
+</h2>
+<p>Metaprogramming is the hardest topic in this book because it brings together many formerly unrelated topics and forces you grapple with issues that you probably haven’t thought about before. You’ll also need to learn a lot of new vocabulary, and at first it will seem like every new term is defined by three other terms that you haven’t heard of. Even if you’re an experienced programmer in another language, your existing skills are unlikely to be much help as few modern popular languages expose the level of metaprogramming that R provides. So don’t be surprised if you’re frustrated or confused at first; this is a natural part of the process that happens to everyone!</p>
+<p>But I think it’s easier to learn metaprogramming now than ever before. Over the last few years, the theory and practice have matured substantially, providing a strong foundation paired with tools that allow you to solve common problems. In this chapter, you’ll get the big picture of all the main pieces and how they fit together.</p>
+<div id="outline-15" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-15"><i class="fas fa-link"></i></a>
+</h3>
+<p>Each section in this chapter introduces one big new idea:</p>
+<ul>
+<li><p>Section <a href="meta-big-picture.html#code-data">17.2</a> shows that code is data and teaches you how to create and modify expressions by capturing code.</p></li>
+<li><p>Section <a href="meta-big-picture.html#code-tree">17.3</a> describes the tree-like structure of code, called an
+abstract syntax tree.</p></li>
+<li><p>Section <a href="meta-big-picture.html#coding-code">17.4</a> shows how to create new expressions programmatically.</p></li>
+<li><p>Section <a href="meta-big-picture.html#eval-intro">17.5</a> shows how to execute expressions by evaluating them in an environment.</p></li>
+<li><p>Section <a href="meta-big-picture.html#eval-funs">17.6</a> illustrates how to customise evaluation by supplying custom functions in a new environment.</p></li>
+<li><p>Section <a href="meta-big-picture.html#eval-data">17.7</a> extends that customisation to data masks, which blur the line between environments and data frames.</p></li>
+<li><p>Section <a href="meta-big-picture.html#quosure-intro">17.8</a> introduces a new data structure called the quosure that makes all this simpler and more correct.</p></li>
+</ul>
+</div>
+<div id="prerequisites-10" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-10"><i class="fas fa-link"></i></a>
+</h3>
+<p>This chapter introduces the big ideas using rlang; you’ll learn the base equivalents in later chapters. We’ll also use the lobstr package to explore the tree structure of code.</p>
+<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rlang.r-lib.org">rlang</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/lobstr">lobstr</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'lobstr' was built under R version 4.1.2</span></code></pre></div>
+<p>Make sure that you’re also familiar with the environment (Section <a href="environments.html#env-basics">7.2</a>) and data frame (Section <a href="vectors-chap.html#tibble">3.6</a>) data structures.</p>
+</div>
+</div>
+<div id="code-data" class="section level2" number="17.2">
+<h2>
+<span class="header-section-number">17.2</span> Code is data<a class="anchor" aria-label="anchor" href="#code-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>The first big idea is that code is data: you can capture code and compute on it as you can with any other type of data. The first way you can capture code is with <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::expr()</a></code>. You can think of <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr()</a></code> as returning exactly what you pass in:</p>
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; mean(x, na.rm = TRUE)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">100</span> <span class="op">+</span> <span class="fl">1000</span><span class="op">)</span>
+<span class="co">#&gt; 10 + 100 + 1000</span></code></pre></div>
+<p>More formally, captured code is called an <strong>expression</strong>. An expression isn’t a single type of object, but is a collective term for any of four types (call, symbol, constant, or pairlist), which you’ll learn more about in Chapter <a href="expressions.html#expressions">18</a>.</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr()</a></code> lets you capture code that you’ve typed. You need a different tool to capture code passed to a function because <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr()</a></code> doesn’t work:</p>
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">capture_it</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">capture_it</span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span><span class="op">)</span>
+<span class="co">#&gt; x</span></code></pre></div>
+<p>Here you need to use a function specifically designed to capture user input in a function argument: <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code>. Think of the “en” in the context of “enrich”: <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code> takes a lazily evaluated argument and turns it into an expression:</p>
+<div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">capture_it</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">capture_it</span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span><span class="op">)</span>
+<span class="co">#&gt; a + b + c</span></code></pre></div>
+<p>Because <code>capture_it()</code> uses <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code> we say that it automatically quotes its first argument. You’ll learn more about this term in Section <a href="quasiquotation.html#vocabulary">19.2.1</a>.</p>
+<p>Once you have captured an expression, you can inspect and modify it. Complex expressions behave much like lists. That means you can modify them using <code>[[</code> and <code>$</code>:</p>
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Add a new argument</span>
+<span class="va">f</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fl">3</span>
+<span class="va">f</span>
+<span class="co">#&gt; f(x = 1, y = 2, z = 3)</span>
+
+<span class="co"># Or remove an argument:</span>
+<span class="va">f</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="va">f</span>
+<span class="co">#&gt; f(y = 2, z = 3)</span></code></pre></div>
+<p>The first element of the call is the function to be called, which means the first argument is in the second position. You’ll learn the full details in Section <a href="expressions.html#expression-details">18.3</a>.</p>
+</div>
+<div id="code-tree" class="section level2" number="17.3">
+<h2>
+<span class="header-section-number">17.3</span> Code is a tree<a class="anchor" aria-label="anchor" href="#code-tree"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do more complex manipulation with expressions, you need to fully understand their structure. Behind the scenes, almost every programming language represents code as a tree, often called the <strong>abstract syntax tree</strong>, or AST for short. R is unusual in that you can actually inspect and manipulate this tree.</p>
+<p>A very convenient tool for understanding the tree-like structure is <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">lobstr::ast()</a></code>. Given some code, this function displays the underlying tree structure. Function calls form the branches of the tree, and are shown by rectangles. The leaves of the tree are symbols (like <code>a</code>) and constants (like <code>"b"</code>).</p>
+<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">a</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-f </span>
+<span class="co">#&gt; +-a </span>
+<span class="co">#&gt; \-"b"</span></code></pre></div>
+<p>Nested function calls create more deeply branching trees:</p>
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">f1</span><span class="op">(</span><span class="fu">f2</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>, <span class="fu">f3</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">f4</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-f1 </span>
+<span class="co">#&gt; +-o-f2 </span>
+<span class="co">#&gt; | +-a </span>
+<span class="co">#&gt; | \-b </span>
+<span class="co">#&gt; \-o-f3 </span>
+<span class="co">#&gt;   +-1 </span>
+<span class="co">#&gt;   \-o-f4 </span>
+<span class="co">#&gt;     \-2</span></code></pre></div>
+<p>Because all function forms can be written in prefix form (Section <a href="functions.html#prefix-form">6.8.2</a>), every R expression can be displayed in this way:</p>
+<div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; o-`+` </span>
+<span class="co">#&gt; +-1 </span>
+<span class="co">#&gt; \-o-`*` </span>
+<span class="co">#&gt;   +-2 </span>
+<span class="co">#&gt;   \-3</span></code></pre></div>
+<p>Displaying the AST in this way is a useful tool for exploring R’s grammar, the topic of Section <a href="expressions.html#grammar">18.4</a>.</p>
+</div>
+<div id="coding-code" class="section level2" number="17.4">
+<h2>
+<span class="header-section-number">17.4</span> Code can generate code<a class="anchor" aria-label="anchor" href="#coding-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>As well as seeing the tree from code typed by a human, you can also use code to create new trees. There are two main tools: <code><a href="https://rlang.r-lib.org/reference/call2.html">call2()</a></code> and unquoting.</p>
+<p><code><a href="https://rlang.r-lib.org/reference/call2.html">rlang::call2()</a></code> constructs a function call from its components: the function to call, and the arguments to call it with.</p>
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; f(1, 2, 3)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="st">"*"</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; 1 + 2 * 3</span></code></pre></div>
+<p><code><a href="https://rlang.r-lib.org/reference/call2.html">call2()</a></code> is often convenient to program with, but is a bit clunky for interactive use. An alternative technique is to build complex code trees by combining simpler code trees with a template. <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code> have built-in support for this idea via <code>!!</code> (pronounced bang-bang), the <strong>unquote operator</strong>.</p>
+<p>The precise details are the topic of Section <a href="quasiquotation.html#unquoting">19.4</a>, but basically <code>!!x</code> inserts the code tree stored in <code>x</code> into the expression. This makes it easy to build complex trees from simple fragments:</p>
+<div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">x</span><span class="op">)</span>
+<span class="va">yy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">xx</span> <span class="op">/</span> <span class="op">!</span><span class="op">!</span><span class="va">yy</span><span class="op">)</span>
+<span class="co">#&gt; (x + x)/(y + y)</span></code></pre></div>
+<p>Notice that the output preserves the operator precedence so we get <code>(x + x) / (y + y)</code> not <code>x + x / y + y</code> (i.e. <code>x + (x / y) + y</code>). This is important, particularly if you’ve been wondering if it wouldn’t be easier to just paste strings together.</p>
+<p>Unquoting gets even more useful when you wrap it up into a function, first using <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code> to capture the user’s expression, then <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr()</a></code> and <code>!!</code> to create a new expression using a template. The example below shows how you can generate an expression that computes the coefficient of variation:</p>
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">var</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">var</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">cv</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; sd(x)/mean(x)</span>
+<span class="fu">cv</span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; sd(x + y)/mean(x + y)</span></code></pre></div>
+<p>(This isn’t very useful here, but being able to create this sort of building block is very useful when solving more complex problems.)</p>
+<p>Importantly, this works even when given weird variable names:</p>
+<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">cv</span><span class="op">(</span><span class="va">`)`</span><span class="op">)</span>
+<span class="co">#&gt; sd(`)`)/mean(`)`)</span></code></pre></div>
+<p>Dealing with weird names<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;More technically, these are called non-syntactic names and are the topic of Section &lt;a href="names-values.html#non-syntactic"&gt;2.2.1&lt;/a&gt;.&lt;/p&gt;'><sup>86</sup></a> is another good reason to avoid <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> when generating R code. You might think this is an esoteric concern, but not worrying about it when generating SQL code in web applications led to SQL injection attacks that have collectively cost billions of dollars.</p>
+</div>
+<div id="eval-intro" class="section level2" number="17.5">
+<h2>
+<span class="header-section-number">17.5</span> Evaluation runs code<a class="anchor" aria-label="anchor" href="#eval-intro"><i class="fas fa-link"></i></a>
+</h2>
+<p>Inspecting and modifying code gives you one set of powerful tools. You get another set of powerful tools when you <strong>evaluate</strong>, i.e. execute or run, an expression. Evaluating an expression requires an environment, which tells R what the symbols in the expression mean. You’ll learn the details of evaluation in Chapter <a href="evaluation.html#evaluation">20</a>.</p>
+<p>The primary tool for evaluating expressions is <code><a href="https://rdrr.io/r/base/eval.html">base::eval()</a></code>, which takes an expression and an environment:</p>
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/env.html">env</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 11</span>
+<span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/env.html">env</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2</span>, y <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 102</span></code></pre></div>
+<p>If you omit the environment, <code>eval</code> uses the current environment:</p>
+<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">100</span>
+<span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 110</span></code></pre></div>
+<p>One of the big advantages of evaluating code manually is that you can tweak the environment. There are two main reasons to do this:</p>
+<ul>
+<li>To temporarily override functions to implement a domain specific language.</li>
+<li>To add a data mask so you can refer to variables in a data frame as if
+they are variables in an environment.</li>
+</ul>
+</div>
+<div id="eval-funs" class="section level2" number="17.6">
+<h2>
+<span class="header-section-number">17.6</span> Customising evaluation with functions<a class="anchor" aria-label="anchor" href="#eval-funs"><i class="fas fa-link"></i></a>
+</h2>
+<p>The above example used an environment that bound <code>x</code> and <code>y</code> to vectors. It’s less obvious that you also bind names to functions, allowing you to override the behaviour of existing functions. This is a big idea that we’ll come back to in Chapter <a href="translation.html#translation">21</a> where I explore generating HTML and LaTeX from R. The example below gives you a taste of the power. Here I evaluate code in a special environment where <code>*</code> and <code>+</code> have been overridden to work with strings instead of numbers:</p>
+<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">string_math</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/env.html">env</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rlang.r-lib.org/reference/caller_env.html">caller_env</a></span><span class="op">(</span><span class="op">)</span>,
+    `+` <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,
+    `*` <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/strrep.html">strrep</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+  <span class="op">)</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">e</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Hadley"</span>
+<span class="fu">string_math</span><span class="op">(</span><span class="st">"Hello "</span> <span class="op">+</span> <span class="va">name</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Hello Hadley"</span>
+<span class="fu">string_math</span><span class="op">(</span><span class="op">(</span><span class="st">"x"</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="st">"-y"</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] "xx-yxx-yxx-y"</span></code></pre></div>
+<p>dplyr takes this idea to the extreme, running code in an environment that generates SQL for execution in a remote database:</p>
+<div class="sourceCode" id="cb681"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.1.1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
+
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, filename <span class="op">=</span> <span class="st">":memory:"</span><span class="op">)</span>
+<span class="va">mtcars_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">mtcars</span><span class="op">)</span>
+
+<span class="va">mtcars_db</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">:</span><span class="va">hp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; &lt;SQL&gt;</span>
+<span class="co">#&gt; SELECT `mpg`, `cyl`, `disp`, `hp`</span>
+<span class="co">#&gt; FROM `mtcars`</span>
+<span class="co">#&gt; WHERE (`cyl` &gt; 2.0)</span>
+<span class="co">#&gt; LIMIT 10</span>
+
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="eval-data" class="section level2" number="17.7">
+<h2>
+<span class="header-section-number">17.7</span> Customising evaluation with data<a class="anchor" aria-label="anchor" href="#eval-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Rebinding functions is an extremely powerful technique, but it tends to require a lot of investment. A more immediately practical application is modifying evaluation to look for variables in a data frame instead of an environment. This idea powers the base <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> and <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code> functions, as well as many tidyverse functions like <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">ggplot2::aes()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>. It’s possible to use <code><a href="https://rdrr.io/r/base/eval.html">eval()</a></code> for this, but there are a few potential pitfalls (Section <a href="evaluation.html#base-evaluation">20.6</a>), so we’ll switch to <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html">rlang::eval_tidy()</a></code> instead.</p>
+<p>As well as expression and environment, <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy()</a></code> also takes a <strong>data mask</strong>, which is typically a data frame:</p>
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">expr</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+<span class="co">#&gt; [1] 6 6 4 6 8</span></code></pre></div>
+<p>Evaluating with a data mask is a useful technique for interactive analysis because it allows you to write <code>x + y</code> rather than <code>df$x + df$y</code>. However, that convenience comes at a cost: ambiguity. In Section <a href="evaluation.html#data-masks">20.4</a> you’ll learn how to deal with ambiguity using special <code>.data</code> and <code>.env</code> pronouns.</p>
+<p>We can wrap this pattern up into a function by using <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code>. This gives us a function very similar to <code><a href="https://rdrr.io/r/base/with.html">base::with()</a></code>:</p>
+<div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">with2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">expr</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">with2</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; [1] 6 6 4 6 8</span></code></pre></div>
+<p>Unfortunately, this function has a subtle bug and we need a new data structure to help deal with it.</p>
+</div>
+<div id="quosure-intro" class="section level2" number="17.8">
+<h2>
+<span class="header-section-number">17.8</span> Quosures<a class="anchor" aria-label="anchor" href="#quosure-intro"><i class="fas fa-link"></i></a>
+</h2>
+<p>To make the problem more obvious, I’m going to modify <code>with2()</code>. The basic problem still occurs without this modification but it’s much harder to see.</p>
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">with2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">expr</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>We can see the problem when we use <code>with2()</code> to refer to a variable called <code>a</code>. We want the value of <code>a</code> to come from the binding we can see (10), not the binding internal to the function (1000):</p>
+<div class="sourceCode" id="cb685"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="fu">with2</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span> <span class="op">+</span> <span class="va">a</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1001 1002 1003</span></code></pre></div>
+<p>The problem arises because we need to evaluate the captured expression in the environment where it was written (where <code>a</code> is 10), not the environment inside of <code>with2()</code> (where <code>a</code> is 1000).</p>
+<p>Fortunately we can solve this problem by using a new data structure: the <strong>quosure</strong> which bundles an expression with an environment. <code><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy()</a></code> knows how to work with quosures so all we need to do is switch out <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code> for <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enquo()</a></code>:</p>
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">with2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">expr</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+  <span class="fu"><a href="https://rlang.r-lib.org/reference/eval_tidy.html">eval_tidy</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enquo</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">with2</span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span> <span class="op">+</span> <span class="va">a</span><span class="op">)</span>
+<span class="co">#&gt; [1] 11 12 13</span></code></pre></div>
+<p>Whenever you use a data mask, you must always use <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enquo()</a></code> instead of <code><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">enexpr()</a></code>. This is the topic of Chapter <a href="evaluation.html#evaluation">20</a>.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="metaprogramming.html">Introduction</a></div>
+<div class="next"><a href="expressions.html"><span class="header-section-number">18</span> Expressions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#meta-big-picture"><span class="header-section-number">17</span> Big picture</a></li>
+<li>
+<a class="nav-link" href="#introduction-16"><span class="header-section-number">17.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-15">Outline</a></li>
+<li><a class="nav-link" href="#prerequisites-10">Prerequisites</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#code-data"><span class="header-section-number">17.2</span> Code is data</a></li>
+<li><a class="nav-link" href="#code-tree"><span class="header-section-number">17.3</span> Code is a tree</a></li>
+<li><a class="nav-link" href="#coding-code"><span class="header-section-number">17.4</span> Code can generate code</a></li>
+<li><a class="nav-link" href="#eval-intro"><span class="header-section-number">17.5</span> Evaluation runs code</a></li>
+<li><a class="nav-link" href="#eval-funs"><span class="header-section-number">17.6</span> Customising evaluation with functions</a></li>
+<li><a class="nav-link" href="#eval-data"><span class="header-section-number">17.7</span> Customising evaluation with data</a></li>
+<li><a class="nav-link" href="#quosure-intro"><span class="header-section-number">17.8</span> Quosures</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Big-picture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Big-picture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

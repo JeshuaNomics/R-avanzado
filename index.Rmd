@@ -1,11 +1,10 @@
 ---
-title: "Advanced R"
-author: "Hadley Wickham"
+title: "R avanzado"
+author: "Jeshua Romero Guadarrama"
 site: bookdown::bookdown_site
-
 bibliography: book.bib
 csl: chicago-fullnote-bibliography.csl
-suppress-bibliography: true
+suppress-bibliography: True
 ---
 
 `r if (knitr::is_latex_output()) '<!--'` 

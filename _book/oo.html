@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Introduction | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="Introduction | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduction | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="In the following five chapters you’ll learn about object-oriented programming (OOP). OOP is a little more challenging in R than in other languages because: There are multiple OOP systems to choose...">
+<meta property="og:description" content="In the following five chapters you’ll learn about object-oriented programming (OOP). OOP is a little more challenging in R than in other languages because: There are multiple OOP systems to choose...">
+<meta name="twitter:description" content="In the following five chapters you’ll learn about object-oriented programming (OOP). OOP is a little more challenging in R than in other languages because: There are multiple OOP systems to choose...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="active" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="oo" class="section level1 unnumbered">
+<h1>Introduction<a class="anchor" aria-label="anchor" href="#oo"><i class="fas fa-link"></i></a>
+</h1>
+<p>In the following five chapters you’ll learn about <strong>object-oriented programming</strong> (OOP). OOP is a little more challenging in R than in other languages because:</p>
+<ul>
+<li><p>There are multiple OOP systems to choose from. In this book, I’ll focus
+on the three that I believe are most important: <strong>S3</strong>, <strong>R6</strong>, and <strong>S4</strong>.
+S3 and S4 are provided by base R. R6 is provided by the R6 package, and is
+similar to the Reference Classes, or <strong>RC</strong> for short, from base R.</p></li>
+<li><p>There is disagreement about the relative importance of the OOP systems.
+I think S3 is most important, followed by R6, then S4. Others believe that
+S4 is most important, followed by RC, and that S3 should be avoided. This
+means that different R communities use different systems.</p></li>
+<li><p>S3 and S4 use generic function OOP which is rather different from the
+encapsulated OOP used by most languages popular today<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The exception is Julia, which also uses generic function OOP. Compared to R, Julia’s implementation is fully developed and extremely performant.&lt;/p&gt;"><sup>60</sup></a>. We’ll come
+back to precisely what those terms mean shortly, but basically, while the
+underlying ideas of OOP are the same across languages, their expressions are
+rather different. This means that you can’t immediately transfer your
+existing OOP skills to R.</p></li>
+</ul>
+<p>Generally in R, functional programming is much more important than object-oriented programming, because you typically solve complex problems by decomposing them into simple functions, not simple objects. Nevertheless, there are important reasons to learn each of the three systems:</p>
+<ul>
+<li><p>S3 allows your functions to return rich results with user-friendly display
+and programmer-friendly internals. S3 is used throughout base R, so it’s
+important to master if you want to extend base R functions to work with new
+types of input.</p></li>
+<li><p>R6 provides a standardised way to escape R’s copy-on-modify semantics.
+This is particularly important if you want to model objects that exist
+independently of R. Today, a common need for R6 is to model data that comes
+from a web API, and where changes come from inside or outside of R.</p></li>
+<li><p>S4 is a rigorous system that forces you to think carefully about program
+design. It’s particularly well-suited for building large systems that evolve
+over time and will receive contributions from many programmers. This is
+why it is used by the Bioconductor project, so another reason to learn S4
+is to equip you to contribute to that project.</p></li>
+</ul>
+<p>The goal of this brief introductory chapter is to give you some important vocabulary and some tools to identify OOP systems in the wild. The following chapters then dive into the details of R’s OOP systems:</p>
+<ol style="list-style-type: decimal">
+<li><p>Chapter <a href="base-types.html#base-types">12</a> details the base types which form the foundation
+underlying all other OO system.</p></li>
+<li><p>Chapter <a href="s3.html#s3">13</a> introduces S3, the simplest and most commonly used
+OO system.</p></li>
+<li><p>Chapter <a href="r6.html#r6">14</a> discusses R6, an encapsulated OO system built on
+top of environments.</p></li>
+<li><p>Chapter <a href="s4.html#s4">15</a> introduces S4, which is similar to S3 but more formal and
+more strict.</p></li>
+<li><p>Chapter <a href="oo-tradeoffs.html#oo-tradeoffs">16</a> compares these three main OO systems. By
+understanding the trade-offs of each system you can appreciate when to use
+one or the other.</p></li>
+</ol>
+<p>This book focusses on the mechanics of OOP, not its effective use, and it may be challenging to fully understand if you have not done object-oriented programming before. You might wonder why I chose not to provide more immediately useful coverage. I have focused on mechanics here because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require a book-length treatment; there’s simply not enough room in <em>Advanced R</em> to cover it in the depth required.</p>
+<div id="oop-systems" class="section level2 unnumbered">
+<h2>OOP systems<a class="anchor" aria-label="anchor" href="#oop-systems"><i class="fas fa-link"></i></a>
+</h2>
+<p>Different people use OOP terms in different ways, so this section provides a quick overview of important vocabulary. The explanations are necessarily compressed, but we will come back to these ideas multiple times.</p>
+<p>The main reason to use OOP is <strong>polymorphism</strong> (literally: many shapes). Polymorphism means that a developer can consider a function’s interface separately from its implementation, making it possible to use the same function form for different types of input. This is closely related to the idea of <strong>encapsulation</strong>: the user doesn’t need to worry about details of an object because they are encapsulated behind a standard interface.</p>
+<p>To be concrete, polymorphism is what allows <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to produce different outputs for numeric and factor variables:</p>
+<div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">carat</span><span class="op">)</span>
+<span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span class="co">#&gt;    0.20    0.40    0.70    0.80    1.04    5.01</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">cut</span><span class="op">)</span>
+<span class="co">#&gt;      Fair      Good Very Good   Premium     Ideal </span>
+<span class="co">#&gt;      1610      4906     12082     13791     21551</span></code></pre></div>
+<p>You could imagine <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> containing a series of if-else statements, but that would mean only the original author could add new implementations. An OOP system makes it possible for any developer to extend the interface with implementations for new types of input.</p>
+<p>To be more precise, OO systems call the type of an object its <strong>class</strong>, and an implementation for a specific class is called a <strong>method</strong>. Roughly speaking, a class defines what an object <em>is</em> and methods describe what that object can <em>do</em>.
+The class defines the <strong>fields</strong>, the data possessed by every instance of that class. Classes are organised in a hierarchy so that if a method does not exist for one class, its parent’s method is used, and the child is said to <strong>inherit</strong> behaviour. For example, in R, an ordered factor inherits from a regular factor, and a generalised linear model inherits from a linear model. The process of finding the correct method given a class is called <strong>method dispatch</strong>.</p>
+<p>There are two main paradigms of object-oriented programming which differ in how methods and classes are related. In this book, we’ll borrow the terminology of <em>Extending R</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;John M Chambers, &lt;em&gt;Extending &lt;span&gt;R&lt;/span&gt;&lt;/em&gt; (CRC Press, 2016).&lt;/p&gt;"><sup>61</sup></a></span> and call these paradigms encapsulated and functional:</p>
+<ul>
+<li><p>In <strong>encapsulated</strong> OOP, methods belong to objects or classes, and method
+calls typically look like <code>object.method(arg1, arg2)</code>. This is called
+encapsulated because the object encapsulates both data (with fields) and
+behaviour (with methods), and is the paradigm found in most popular
+languages.</p></li>
+<li><p>In <strong>functional</strong> OOP, methods belong to <strong>generic</strong> functions, and method
+calls look like ordinary function calls: <code>generic(object, arg2, arg3)</code>.
+This is called functional because from the outside it looks like a regular
+function call, and internally the components are also functions.</p></li>
+</ul>
+<p>With this terminology in hand, we can now talk precisely about the different OO systems available in R.</p>
+</div>
+<div id="oop-in-r" class="section level2 unnumbered">
+<h2>OOP in R<a class="anchor" aria-label="anchor" href="#oop-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Base R provides three OOP systems: S3, S4, and reference classes (RC):</p>
+<ul>
+<li><p><strong>S3</strong> is R’s first OOP system, and is described in <em>Statistical Models
+in S</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;John M Chambers and Trevor J Hastie, &lt;em&gt;Statistical Models in &lt;span&gt;S&lt;/span&gt;&lt;/em&gt; (Wadsworth &amp;amp; Brooks/Cole Advanced Books &amp;amp; Software, 1992).&lt;/p&gt;"><sup>62</sup></a></span> S3 is an informal implementation of functional OOP
+and relies on common conventions rather than ironclad guarantees.
+This makes it easy to get started with, providing a low cost way of
+solving many simple problems.</p></li>
+<li>
+<p><strong>S4</strong> is a formal and rigorous rewrite of S3, and was introduced in
+<em>Programming with Data</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;John M Chambers, &lt;em&gt;Programming with Data: A Guide to the s Language&lt;/em&gt; (Springer, 1998).&lt;/p&gt;"><sup>63</sup></a></span> It requires more upfront
+work than S3, but in return provides more guarantees and greater
+encapsulation. S4 is implemented in the base <strong>methods</strong> package, which is
+always installed with R.</p>
+<p>(You might wonder if S1 and S2 exist. They don’t: S3 and S4 were named
+according to the versions of S that they accompanied. The first two
+versions of S didn’t have any OOP framework.)</p>
+</li>
+<li><p><strong>RC</strong> implements encapsulated OO. RC objects are a special type of S4
+objects that are also <strong>mutable</strong>, i.e., instead of using R’s usual
+copy-on-modify semantics, they can be modified in place. This makes them
+harder to reason about, but allows them to solve problems that are difficult
+to solve in the functional OOP style of S3 and S4.</p></li>
+</ul>
+<p>A number of other OOP systems are provided by CRAN packages:</p>
+<ul>
+<li><p><strong>R6</strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Winston Chang, &lt;em&gt;R6: Classes with Reference Semantics&lt;/em&gt;, 2017, &lt;a href="https://r6.r-lib.org" role="doc-biblioref"&gt;https://r6.r-lib.org&lt;/a&gt;.&lt;/p&gt;'><sup>64</sup></a></span> implements encapsulated OOP like RC, but resolves some
+important issues. In this book, you’ll learn about R6 instead of RC, for
+reasons described in Section <a href="r6.html#why-r6">14.5</a>.</p></li>
+<li><p><strong>R.oo</strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Henrik Bengtsson, &lt;span&gt;“The &lt;span class="nocase"&gt;R.oo&lt;/span&gt; Package - Object-Oriented Programming with References Using Standard &lt;span&gt;R&lt;/span&gt; Code,”&lt;/span&gt; in &lt;em&gt;Proceedings of the 3rd International Workshop on Distributed Statistical Computing (DSC 2003)&lt;/em&gt;, ed. Kurt Hornik, Friedrich Leisch, and Achim Zeileis (Vienna, Austria: https://www.r-project.org/conferences/DSC-2003/Proceedings/, 2003), &lt;a href="https://www.r-project.org/conferences/DSC-2003/Proceedings/Bengtsson.pdf" role="doc-biblioref"&gt;https://www.r-project.org/conferences/DSC-2003/Proceedings/Bengtsson.pdf&lt;/a&gt;.&lt;/p&gt;'><sup>65</sup></a></span> provides some formalism on top of S3, and makes it
+possible to have mutable S3 objects.</p></li>
+<li><p><strong>proto</strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Gabor Grothendieck, Louis Kates, and Thomas Petzoldt, &lt;em&gt;Proto: Prototype Object-Based Programming&lt;/em&gt;, 2016, &lt;a href="https://CRAN.R-project.org/package=proto" role="doc-biblioref"&gt;https://CRAN.R-project.org/package=proto&lt;/a&gt;.&lt;/p&gt;'><sup>66</sup></a></span> implements another style of OOP based on the idea of
+<strong>prototypes</strong>, which blur the distinctions between classes and instances
+of classes (objects). I was briefly enamoured with prototype based
+programming<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Hadley Wickham, &lt;span&gt;“Mutatr: Mutable Objects for &lt;span&gt;R&lt;/span&gt;,”&lt;/span&gt; &lt;em&gt;Computational Statistics&lt;/em&gt; 26, no. 3 (2011): 405--418, &lt;a href="https://doi.org/10.1007/s00180-011-0235-7" role="doc-biblioref"&gt;https://doi.org/10.1007/s00180-011-0235-7&lt;/a&gt;.&lt;/p&gt;'><sup>67</sup></a></span> and used it in ggplot2, but now think it’s better to
+stick with the standard forms.</p></li>
+</ul>
+<p>Apart from R6, which is widely used, these systems are primarily of theoretical interest. They do have their strengths, but few R users know and understand them, so it is hard for others to read and contribute to your code.</p>
+</div>
+<div id="sloop" class="section level2 unnumbered">
+<h2>sloop<a class="anchor" aria-label="anchor" href="#sloop"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we go on I want to introduce the sloop package:</p>
+<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/sloop">sloop</a></span><span class="op">)</span></code></pre></div>
+<p>The sloop package (think “sail the seas of OOP”) provides a number of helpers that fill in missing pieces in base R. The first of these is <code><a href="https://sloop.r-lib.org/reference/otype.html">sloop::otype()</a></code>. It makes it easy to figure out the OOP system used by a wild-caught object:</p>
+<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/otype.html">otype</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; [1] "base"</span>
+
+<span class="fu"><a href="https://sloop.r-lib.org/reference/otype.html">otype</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S3"</span>
+
+<span class="va">mle_obj</span> <span class="op">&lt;-</span> <span class="fu">stats4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats4/mle.html">mle</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/otype.html">otype</a></span><span class="op">(</span><span class="va">mle_obj</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S4"</span></code></pre></div>
+<p>Use this function to figure out which chapter to read to understand how to work with an existing object.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></div>
+<div class="next"><a href="base-types.html"><span class="header-section-number">12</span> Base types</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#oo">Introduction</a></li>
+<li><a class="nav-link" href="#oop-systems">OOP systems</a></li>
+<li><a class="nav-link" href="#oop-in-r">OOP in R</a></li>
+<li><a class="nav-link" href="#sloop">sloop</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/OO.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/OO.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

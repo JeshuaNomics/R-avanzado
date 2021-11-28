@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>14 R6 | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="14 R6 | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14 R6 | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="14.1 Introduction  This chapter describes the R6 OOP system. R6 has two special properties: It uses the encapsulated OOP paradigm, which means that methods belong to objects, not generics, and you...">
+<meta property="og:description" content="14.1 Introduction  This chapter describes the R6 OOP system. R6 has two special properties: It uses the encapsulated OOP paradigm, which means that methods belong to objects, not generics, and you...">
+<meta name="twitter:description" content="14.1 Introduction  This chapter describes the R6 OOP system. R6 has two special properties: It uses the encapsulated OOP paradigm, which means that methods belong to objects, not generics, and you...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="active" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r6" class="section level1" number="14">
+<h1>
+<span class="header-section-number">14</span> R6<a class="anchor" aria-label="anchor" href="#r6"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-13" class="section level2" number="14.1">
+<h2>
+<span class="header-section-number">14.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-13"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>This chapter describes the R6 OOP system. R6 has two special properties:</p>
+<ul>
+<li><p>It uses the encapsulated OOP paradigm, which means that methods belong to
+objects, not generics, and you call them like <code>object$method()</code>.</p></li>
+<li><p>R6 objects are <strong>mutable</strong>, which means that they are modified in place, and
+hence have reference semantics.</p></li>
+</ul>
+<p>If you’ve learned OOP in another programming language, it’s likely that R6 will feel very natural, and you’ll be inclined to prefer it over S3. Resist the temptation to follow the path of least resistance: in most cases R6 will lead you to non-idiomatic R code. We’ll come back to this theme in Section <a href="oo-tradeoffs.html#s3-r6">16.3</a>.</p>
+<p>R6 is very similar to a base OOP system called <strong>reference classes</strong>, or RC for short. I describe why I teach R6 and not RC in Section <a href="r6.html#why-r6">14.5</a>.</p>
+<div id="outline-12" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-12"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="r6.html#r6-classes">14.2</a> introduces <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6::R6Class()</a></code>, the one function that
+you need to know to create R6 classes. You’ll learn about the constructor
+method, <code>$new()</code>, which allows you to create R6 objects, as well as other
+important methods like <code>$initialize()</code> and <code>$print()</code>.</p></li>
+<li><p>Section <a href="r6.html#r6-access">14.3</a> discusses the access mechanisms of R6: private and
+active fields. Together, these allow you to hide data from the user, or
+expose private data for reading but not writing.</p></li>
+<li><p>Section <a href="r6.html#r6-semantics">14.4</a> explores the consequences of R6’s reference
+semantics. You’ll learn about the use of finalizers to automatically
+clean up any operations performed in the initializer, and a common gotcha
+if you use an R6 object as a field in another R6 object.</p></li>
+<li><p>Section <a href="r6.html#why-r6">14.5</a> describes why I cover R6, rather than the base RC
+system.</p></li>
+</ul>
+</div>
+<div id="prerequisites-7" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-7"><i class="fas fa-link"></i></a>
+</h3>
+<p>Because <a href="https://r6.r-lib.org">R6</a> is not built into base R, you’ll need to install and load the R6 package to use it:</p>
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("R6")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r6.r-lib.org">R6</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'R6' was built under R version 4.1.2</span></code></pre></div>
+<p>R6 objects have reference semantics which means that they are modified in-place, not copied-on-modify. If you’re not familiar with these terms, brush up your vocab by reading Section <a href="names-values.html#modify-in-place">2.5</a>.</p>
+</div>
+</div>
+<div id="r6-classes" class="section level2" number="14.2">
+<h2>
+<span class="header-section-number">14.2</span> Classes and methods<a class="anchor" aria-label="anchor" href="#r6-classes"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+
+</p>
+<p>R6 only needs a single function call to create both the class and its methods: <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6::R6Class()</a></code>. This is the only function from the package that you’ll ever use!<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;That means if you’re creating R6 in a package, you only need to make sure it’s listed in the &lt;code&gt;Imports&lt;/code&gt; field of the &lt;code&gt;DESCRIPTION&lt;/code&gt;. There’s no need to import the package into the &lt;code&gt;NAMESPACE&lt;/code&gt;.&lt;/p&gt;"><sup>74</sup></a></p>
+<p>The following example shows the two most important arguments to <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class()</a></code>:</p>
+<ul>
+<li><p>The first argument is the <code>classname</code>. It’s not strictly needed, but it
+improves error messages and makes it possible to use R6 objects with S3
+generics. By convention, R6 classes have <code>UpperCamelCase</code> names.</p></li>
+<li><p>The second argument, <code>public</code>, supplies a list of methods (functions) and
+fields (anything else) that make up the public interface of the object.
+By convention, methods and fields use <code>snake_case</code>. Methods can access
+the methods and fields of the current object via <code>self$</code>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Unlike in Python, the &lt;code&gt;self&lt;/code&gt; variable is automatically provided by R6, and does not form part of the method signature.&lt;/p&gt;"><sup>75</sup></a>
+</p></li>
+</ul>
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Accumulator</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Accumulator"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  sum <span class="op">=</span> <span class="fl">0</span>,
+  add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">+</span> <span class="va">x</span> 
+    <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>You should always assign the result of <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class()</a></code> into a variable with the same name as the class, because <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class()</a></code> returns an R6 object that defines the class:</p>
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Accumulator</span>
+<span class="co">#&gt; &lt;Accumulator&gt; object generator</span>
+<span class="co">#&gt;   Public:</span>
+<span class="co">#&gt;     sum: 0</span>
+<span class="co">#&gt;     add: function (x = 1) </span>
+<span class="co">#&gt;     clone: function (deep = FALSE) </span>
+<span class="co">#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;</span>
+<span class="co">#&gt;   Locked objects: TRUE</span>
+<span class="co">#&gt;   Locked class: FALSE</span>
+<span class="co">#&gt;   Portable: TRUE</span></code></pre></div>
+<p>
+You construct a new object from the class by calling the <code>new()</code> method. In R6, methods belong to objects, so you use <code>$</code> to access <code>new()</code>:</p>
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">Accumulator</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> </code></pre></div>
+<p>You can then call methods and access fields with <code>$</code>:</p>
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> 
+<span class="va">x</span><span class="op">$</span><span class="va">sum</span>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
+<p>In this class, the fields and methods are public, which means that you can get or set the value of any field. Later, we’ll see how to use private fields and methods to prevent casual access to the internals of your class.</p>
+<p>To make it clear when we’re talking about fields and methods as opposed to variables and functions, I’ll prefix their names with <code>$</code>. For example, the <code>Accumulate</code> class has field <code>$sum</code> and method <code>$add()</code>.</p>
+<div id="method-chaining" class="section level3" number="14.2.1">
+<h3>
+<span class="header-section-number">14.2.1</span> Method chaining<a class="anchor" aria-label="anchor" href="#method-chaining"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p><code>$add()</code> is called primarily for its side-effect of updating <code>$sum</code>.</p>
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Accumulator</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Accumulator"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  sum <span class="op">=</span> <span class="fl">0</span>,
+  add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">+</span> <span class="va">x</span> 
+    <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>Side-effect R6 methods should always return <code>self</code> invisibly. This returns the “current” object and makes it possible to chain together multiple method calls:</p>
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">$</span><span class="va">sum</span>
+<span class="co">#&gt; [1] 24</span></code></pre></div>
+<p>For, readability, you might put one method call on each line:</p>
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span>
+  <span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">$</span>
+  <span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">$</span>
+  <span class="va">sum</span>
+<span class="co">#&gt; [1] 44</span></code></pre></div>
+<p>This technique is called <strong>method chaining</strong> and is commonly used in languages like Python and JavaScript. Method chaining is deeply related to the pipe, and we’ll discuss the pros and cons of each approach in Section <a href="oo-tradeoffs.html#tradeoffs-pipe">16.3.3</a>.</p>
+</div>
+<div id="r6-important-methods" class="section level3" number="14.2.2">
+<h3>
+<span class="header-section-number">14.2.2</span> Important methods<a class="anchor" aria-label="anchor" href="#r6-important-methods"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>There are two important methods that should be defined for most classes: <code>$initialize()</code> and <code>$print()</code>. They’re not required, but providing them will make your class easier to use.</p>
+<p><code>$initialize()</code> overrides the default behaviour of <code>$new()</code>. For example, the following code defines an Person class with fields <code>$name</code> and <code>$age</code>. To ensure that that <code>$name</code> is always a single string, and <code>$age</code> is always a single number, I placed checks in <code>$initialize()</code>.</p>
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Person</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Person"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  name <span class="op">=</span> <span class="cn">NULL</span>,
+  age <span class="op">=</span> <span class="cn">NA</span>,
+  initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">age</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
+    
+    <span class="va">self</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="va">name</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="va">age</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="va">hadley</span> <span class="op">&lt;-</span> <span class="va">Person</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"Hadley"</span>, age <span class="op">=</span> <span class="st">"thirty-eight"</span><span class="op">)</span>
+<span class="co">#&gt; Error in initialize(...): is.numeric(age) is not TRUE</span>
+
+<span class="va">hadley</span> <span class="op">&lt;-</span> <span class="va">Person</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"Hadley"</span>, age <span class="op">=</span> <span class="fl">38</span><span class="op">)</span></code></pre></div>
+<p>If you have more expensive validation requirements, implement them in a separate <code>$validate()</code> and only call when needed.</p>
+<p>Defining <code>$print()</code> allows you to override the default printing behaviour. As with any R6 method called for its side effects, <code>$print()</code> should return <code>invisible(self)</code>.</p>
+<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Person</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Person"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  name <span class="op">=</span> <span class="cn">NULL</span>,
+  age <span class="op">=</span> <span class="cn">NA</span>,
+  initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">age</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="va">name</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="va">age</span>
+  <span class="op">}</span>,
+  print <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Person: \n"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"  Name: "</span>, <span class="va">self</span><span class="op">$</span><span class="va">name</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"  Age:  "</span>, <span class="va">self</span><span class="op">$</span><span class="va">age</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="va">hadley2</span> <span class="op">&lt;-</span> <span class="va">Person</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"Hadley"</span><span class="op">)</span>
+<span class="va">hadley2</span>
+<span class="co">#&gt; Person: </span>
+<span class="co">#&gt;   Name: Hadley</span>
+<span class="co">#&gt;   Age:  NA</span></code></pre></div>
+<p>This code illustrates an important aspect of R6. Because methods are bound to individual objects, the previously created <code>hadley</code> object does not get this new method:</p>
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hadley</span>
+<span class="co">#&gt; &lt;Person&gt;</span>
+<span class="co">#&gt;   Public:</span>
+<span class="co">#&gt;     age: 38</span>
+<span class="co">#&gt;     clone: function (deep = FALSE) </span>
+<span class="co">#&gt;     initialize: function (name, age = NA) </span>
+<span class="co">#&gt;     name: Hadley</span>
+
+<span class="va">hadley</span><span class="op">$</span><span class="va">print</span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+<p>From the perspective of R6, there is no relationship between <code>hadley</code> and <code>hadley2</code>; they just coincidentally share the same class name. This doesn’t cause problems when using already developed R6 objects but can make interactive experimentation confusing. If you’re changing the code and can’t figure out why the results of method calls aren’t any different, make sure you’ve re-constructed R6 objects with the new class.</p>
+</div>
+<div id="adding-methods-after-creation" class="section level3" number="14.2.3">
+<h3>
+<span class="header-section-number">14.2.3</span> Adding methods after creation<a class="anchor" aria-label="anchor" href="#adding-methods-after-creation"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Instead of continuously creating new classes, it’s also possible to modify the fields and methods of an existing class. This is useful when exploring interactively, or when you have a class with many functions that you’d like to break up into pieces. Add new elements to an existing class with <code>$set()</code>, supplying the visibility (more on in Section <a href="r6.html#r6-access">14.3</a>), the name, and the component.</p>
+<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Accumulator</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Accumulator"</span><span class="op">)</span>
+<span class="va">Accumulator</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="st">"public"</span>, <span class="st">"sum"</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">Accumulator</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="st">"public"</span>, <span class="st">"add"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">sum</span> <span class="op">+</span> <span class="va">x</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<p>As above, new methods and fields are only available to new objects; they are not retrospectively added to existing objects.</p>
+</div>
+<div id="inheritance" class="section level3" number="14.2.4">
+<h3>
+<span class="header-section-number">14.2.4</span> Inheritance<a class="anchor" aria-label="anchor" href="#inheritance"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>To inherit behaviour from an existing class, provide the class object to the <code>inherit</code> argument:</p>
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AccumulatorChatty</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"AccumulatorChatty"</span>, 
+  inherit <span class="op">=</span> <span class="va">Accumulator</span>,
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Adding "</span>, <span class="va">x</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+      <span class="va">super</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="va">AccumulatorChatty</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">x2</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="va">sum</span>
+<span class="co">#&gt; Adding 10</span>
+<span class="co">#&gt; Adding 1</span>
+<span class="co">#&gt; [1] 11</span></code></pre></div>
+<p><code>$add()</code> overrides the superclass implementation, but we can still delegate to the superclass implementation by using <code>super$</code>. (This is analogous to <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code> in S3, as discussed in Section <a href="s3.html#s3-inheritance">13.6</a>.) Any methods which are not overridden will use the implementation in the parent class.</p>
+</div>
+<div id="introspection" class="section level3" number="14.2.5">
+<h3>
+<span class="header-section-number">14.2.5</span> Introspection<a class="anchor" aria-label="anchor" href="#introspection"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Every R6 object has an S3 class that reflects its hierarchy of R6 classes. This means that the easiest way to determine the class (and all classes it inherits from) is to use <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>:</p>
+<div class="sourceCode" id="cb609"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">hadley2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Person" "R6"</span></code></pre></div>
+<p>The S3 hierarchy includes the base “R6” class. This provides common behaviour, including a <code>print.R6()</code> method which calls <code>$print()</code>, as described above.</p>
+<p>
+You can list all methods and fields with <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>:</p>
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">hadley2</span><span class="op">)</span>
+<span class="co">#&gt; [1] ".__enclos_env__" "age"             "name"            "clone"          </span>
+<span class="co">#&gt; [5] "print"           "initialize"</span></code></pre></div>
+<p>We defined <code>$name</code>, <code>$age</code>, <code>$print</code>, and <code>$initialize</code>. As suggested by the name, <code>.__enclos_env__</code> is an internal implementation detail that you shouldn’t touch; we’ll come back to <code>$clone()</code> in Section <a href="r6.html#r6-semantics">14.4</a>.</p>
+</div>
+<div id="exercises-44" class="section level3" number="14.2.6">
+<h3>
+<span class="header-section-number">14.2.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-44"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Create a bank account R6 class that stores a balance and allows you to
+deposit and withdraw money. Create a subclass that throws an error
+if you attempt to go into overdraft. Create another subclass that allows
+you to go into overdraft, but charges you a fee.</p></li>
+<li>
+<p>Create an R6 class that represents a shuffled deck of cards. You should be
+able to draw cards from the deck with <code>$draw(n)</code>, and return all cards to
+the deck and reshuffle with <code>$reshuffle()</code>. Use the following code to make
+a vector of cards.</p>
+<div class="sourceCode" id="cb611"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">suit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"♠"</span>, <span class="st">"♥"</span>, <span class="st">"♦"</span>, <span class="st">"♣"</span><span class="op">)</span>
+<span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">10</span>, <span class="st">"J"</span>, <span class="st">"Q"</span>, <span class="st">"K"</span><span class="op">)</span>
+<span class="va">cards</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">value</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">suit</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>Why can’t you model a bank account or a deck of cards with an S3 class?</p></li>
+<li><p>Create an R6 class that allows you to get and set the current time zone.
+You can access the current time zone with <code><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone()</a></code> and set it
+with <code>Sys.setenv(TZ = "newtimezone")</code>. When setting the time zone, make
+sure the new time zone is in the list provided by <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>.</p></li>
+<li><p>Create an R6 class that manages the current working directory.
+It should have <code>$get()</code> and <code>$set()</code> methods.</p></li>
+<li><p>Why can’t you model the time zone or current working directory with an S3
+class?</p></li>
+<li><p>What base type are R6 objects built on top of? What attributes do they
+have?</p></li>
+</ol>
+</div>
+</div>
+<div id="r6-access" class="section level2" number="14.3">
+<h2>
+<span class="header-section-number">14.3</span> Controlling access<a class="anchor" aria-label="anchor" href="#r6-access"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p><code><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class()</a></code> has two other arguments that work similarly to <code>public</code>:</p>
+<ul>
+<li><p><code>private</code> allows you to create fields and methods that are only available
+from within the class, not outside of it.</p></li>
+<li><p><code>active</code> allows you to use accessor functions to define dynamic, or
+active, fields.</p></li>
+</ul>
+<p>These are described in the following sections.</p>
+<div id="privacy" class="section level3" number="14.3.1">
+<h3>
+<span class="header-section-number">14.3.1</span> Privacy<a class="anchor" aria-label="anchor" href="#privacy"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>With R6 you can define <strong>private</strong> fields and methods, elements that can only be accessed from within the class, not from the outside<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Because R is such a flexible language, it’s technically still possible to access private values, but you’ll have to try much harder, spelunking in to the details of R6’s implementation.&lt;/p&gt;"><sup>76</sup></a>. There are two things that you need to know to take advantage of private elements:</p>
+<ul>
+<li><p>The <code>private</code> argument to <code>R6Class</code> works in the same way as the <code>public</code>
+argument: you give it a named list of methods (functions) and fields
+(everything else).</p></li>
+<li><p>Fields and methods defined in <code>private</code> are available within the methods
+using <code>private$</code> instead of <code>self$</code>. You cannot access private fields or
+methods outside of the class.</p></li>
+</ul>
+<p>To make this concrete, we could make <code>$age</code> and <code>$name</code> fields of the Person class private. With this definition of <code>Person</code> we can only set <code>$age</code> and <code>$name</code> during object creation, and we cannot access their values from outside of the class.</p>
+<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Person</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Person"</span>, 
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">age</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="va">name</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="va">age</span>
+    <span class="op">}</span>,
+    print <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Person: \n"</span><span class="op">)</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"  Name: "</span>, <span class="va">private</span><span class="op">$</span><span class="va">name</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"  Age:  "</span>, <span class="va">private</span><span class="op">$</span><span class="va">age</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span>,
+  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    age <span class="op">=</span> <span class="cn">NA</span>,
+    name <span class="op">=</span> <span class="cn">NULL</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">hadley3</span> <span class="op">&lt;-</span> <span class="va">Person</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"Hadley"</span><span class="op">)</span>
+<span class="va">hadley3</span>
+<span class="co">#&gt; Person: </span>
+<span class="co">#&gt;   Name: Hadley</span>
+<span class="co">#&gt;   Age:  NA</span>
+<span class="va">hadley3</span><span class="op">$</span><span class="va">name</span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+<p>The distinction between public and private fields is important when you create complex networks of classes, and you want to make it as clear as possible what is ok for others to access. Anything that’s private can be more easily refactored because you know others aren’t relying on it. Private methods tend to be less important in R compared to other programming languages because the object hierarchies in R tend to be simpler.</p>
+</div>
+<div id="active-fields" class="section level3" number="14.3.2">
+<h3>
+<span class="header-section-number">14.3.2</span> Active fields<a class="anchor" aria-label="anchor" href="#active-fields"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Active fields allow you to define components that look like fields from the outside, but are defined with functions, like methods. Active fields are implemented using <strong>active bindings</strong> (Section <a href="environments.html#advanced-bindings">7.2.6</a>). Each active binding is a function that takes a single argument: <code>value</code>. If the argument is <code><a href="https://rlang.r-lib.org/reference/missing.html">missing()</a></code>, the value is being retrieved; otherwise it’s being modified.</p>
+<p>For example, you could make an active field <code>random</code> that returns a different value every time you access it:</p>
+<div class="sourceCode" id="cb613"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Rando</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Rando"</span>, active <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  random <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing.html">missing</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>  
+    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+      <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Can't set `$random`"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">Rando</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">x</span><span class="op">$</span><span class="va">random</span>
+<span class="co">#&gt; [1] 0.0808</span>
+<span class="va">x</span><span class="op">$</span><span class="va">random</span>
+<span class="co">#&gt; [1] 0.834</span>
+<span class="va">x</span><span class="op">$</span><span class="va">random</span>
+<span class="co">#&gt; [1] 0.601</span></code></pre></div>
+<p>
+Active fields are particularly useful in conjunction with private fields, because they make it possible to implement components that look like fields from the outside but provide additional checks. For example, we can use them to make a read-only <code>age</code> field, and to ensure that <code>name</code> is a length 1 character vector.</p>
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Person</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"Person"</span>, 
+  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    .age <span class="op">=</span> <span class="cn">NA</span>,
+    .name <span class="op">=</span> <span class="cn">NULL</span>
+  <span class="op">)</span>,
+  active <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    age <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing.html">missing</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="va">private</span><span class="op">$</span><span class="va">.age</span>
+      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+        <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`$age` is read only"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+      <span class="op">}</span>
+    <span class="op">}</span>,
+    name <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing.html">missing</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="va">private</span><span class="op">$</span><span class="va">.name</span>
+      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
+        <span class="va">private</span><span class="op">$</span><span class="va">.name</span> <span class="op">&lt;-</span> <span class="va">value</span>
+        <span class="va">self</span>
+      <span class="op">}</span>
+    <span class="op">}</span>
+  <span class="op">)</span>,
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">age</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">.name</span> <span class="op">&lt;-</span> <span class="va">name</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">.age</span> <span class="op">&lt;-</span> <span class="va">age</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">hadley4</span> <span class="op">&lt;-</span> <span class="va">Person</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"Hadley"</span>, age <span class="op">=</span> <span class="fl">38</span><span class="op">)</span>
+<span class="va">hadley4</span><span class="op">$</span><span class="va">name</span>
+<span class="co">#&gt; [1] "Hadley"</span>
+<span class="va">hadley4</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="co">#&gt; Error in (function (value) : is.character(value) is not TRUE</span>
+<span class="va">hadley4</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">20</span>
+<span class="co">#&gt; Error: `$age` is read only</span></code></pre></div>
+</div>
+<div id="exercises-45" class="section level3" number="14.3.3">
+<h3>
+<span class="header-section-number">14.3.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-45"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Create a bank account class that prevents you from directly setting the
+account balance, but you can still withdraw from and deposit to. Throw
+an error if you attempt to go into overdraft.</p></li>
+<li><p>Create a class with a write-only <code>$password</code> field. It should have
+<code>$check_password(password)</code> method that returns <code>TRUE</code> or <code>FALSE</code>, but
+there should be no way to view the complete password.</p></li>
+<li><p>Extend the <code>Rando</code> class with another active binding that allows you to
+access the previous random value. Ensure that active binding is the only
+way to access the value.</p></li>
+<li><p>Can subclasses access private fields/methods from their parent? Perform
+an experiment to find out.</p></li>
+</ol>
+</div>
+</div>
+<div id="r6-semantics" class="section level2" number="14.4">
+<h2>
+<span class="header-section-number">14.4</span> Reference semantics<a class="anchor" aria-label="anchor" href="#r6-semantics"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>One of the big differences between R6 and most other objects is that they have reference semantics. The primary consequence of reference semantics is that objects are not copied when modified:</p>
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y1</span> <span class="op">&lt;-</span> <span class="va">Accumulator</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> 
+<span class="va">y2</span> <span class="op">&lt;-</span> <span class="va">y1</span>
+
+<span class="va">y1</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>y1 <span class="op">=</span> <span class="va">y1</span><span class="op">$</span><span class="va">sum</span>, y2 <span class="op">=</span> <span class="va">y2</span><span class="op">$</span><span class="va">sum</span><span class="op">)</span>
+<span class="co">#&gt; y1 y2 </span>
+<span class="co">#&gt; 10 10</span></code></pre></div>
+<p>Instead, if you want a copy, you’ll need to explicitly <code>$clone()</code> the object:</p>
+<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y1</span> <span class="op">&lt;-</span> <span class="va">Accumulator</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> 
+<span class="va">y2</span> <span class="op">&lt;-</span> <span class="va">y1</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">y1</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>y1 <span class="op">=</span> <span class="va">y1</span><span class="op">$</span><span class="va">sum</span>, y2 <span class="op">=</span> <span class="va">y2</span><span class="op">$</span><span class="va">sum</span><span class="op">)</span>
+<span class="co">#&gt; y1 y2 </span>
+<span class="co">#&gt; 10  0</span></code></pre></div>
+<p>(<code>$clone()</code> does not recursively clone nested R6 objects. If you want that, you’ll need to use <code>$clone(deep = TRUE)</code>.)</p>
+<p>There are three other less obvious consequences:</p>
+<ul>
+<li><p>It is harder to reason about code that uses R6 objects because you need to
+understand more context.</p></li>
+<li><p>It makes sense to think about when an R6 object is deleted, and you
+can write a <code>$finalize()</code> to complement the <code>$initialize()</code>.</p></li>
+<li><p>If one of the fields is an R6 object, you must create it inside
+<code>$initialize()</code>, not <code><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class()</a></code>.</p></li>
+</ul>
+<p>These consequences are described in more detail below.</p>
+<div id="reasoning" class="section level3" number="14.4.1">
+<h3>
+<span class="header-section-number">14.4.1</span> Reasoning<a class="anchor" aria-label="anchor" href="#reasoning"><i class="fas fa-link"></i></a>
+</h3>
+<p>Generally, reference semantics makes code harder to reason about. Take this very simple example:</p>
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">f</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
+<p>For the vast majority of functions, you know that the final line only modifies <code>z</code>.</p>
+<p>Take a similar example that uses an imaginary <code>List</code> reference class:</p>
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">List</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">List</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">f</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
+<p>The final line is much harder to reason about: if <code>f()</code> calls methods of <code>x</code> or <code>y</code>, it might modify them as well as <code>z</code>. This is the biggest potential downside of R6 and you should take care to avoid it by writing functions that either return a value, or modify their R6 inputs, but not both. That said, doing both can lead to substantially simpler code in some cases, and we’ll discuss this further in Section <a href="oo-tradeoffs.html#threading-state">16.3.2</a>.</p>
+</div>
+<div id="finalizer" class="section level3" number="14.4.2">
+<h3>
+<span class="header-section-number">14.4.2</span> Finalizer<a class="anchor" aria-label="anchor" href="#finalizer"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>One useful property of reference semantics is that it makes sense to think about when an R6 object is <strong>finalized</strong>, i.e. when it’s deleted. This doesn’t make sense for most objects because copy-on-modify semantics mean that there may be many transient versions of an object, as alluded to in Section <a href="names-values.html#gc">2.6</a>. For example, the following creates two factor objects: the second is created when the levels are modified, leaving the first to be destroyed by the garbage collector.</p>
+<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span></code></pre></div>
+<p>Since R6 objects are not copied-on-modify they are only deleted once, and it makes sense to think about <code>$finalize()</code> as a complement to <code>$initialize()</code>. Finalizers usually play a similar role to <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code> (as described in Section <a href="functions.html#on-exit">6.7.4</a>), cleaning up any resources created by the initializer. For example, the following class wraps up a temporary file, automatically deleting it when the class is finalized.</p>
+<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">TemporaryFile</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"TemporaryFile"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  path <span class="op">=</span> <span class="cn">NULL</span>,
+  initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">}</span>,
+  finalize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"Cleaning up "</span>, <span class="va">self</span><span class="op">$</span><span class="va">path</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">path</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>The finalize method will be run when the object is deleted (or more precisely, by the first garbage collection after the object has been unbound from all names) or when R exits. This means that the finalizer can be called effectively anywhere in your R code, and therefore it’s almost impossible to reason about finalizer code that touches shared data structures. Avoid these potential problems by only using the finalizer to clean up private resources allocated by initializer.</p>
+<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tf</span> <span class="op">&lt;-</span> <span class="va">TemporaryFile</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
+<span class="co">#&gt; Cleaning up /tmp/Rtmpk73JdI/file155f31d8424bd</span></code></pre></div>
+</div>
+<div id="r6-fields" class="section level3" number="14.4.3">
+<h3>
+<span class="header-section-number">14.4.3</span> R6 fields<a class="anchor" aria-label="anchor" href="#r6-fields"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>A final consequence of reference semantics can crop up where you don’t expect it. If you use an R6 class as the default value of a field, it will be shared across all instances of the object! Take the following code: we want to create a temporary database every time we call <code>TemporaryDatabase$new()</code>, but the current code always uses the same path.</p>
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">TemporaryDatabase</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"TemporaryDatabase"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  con <span class="op">=</span> <span class="cn">NULL</span>,
+  file <span class="op">=</span> <span class="va">TemporaryFile</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>,
+  initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">file</span><span class="op">$</span><span class="va">path</span><span class="op">)</span>
+  <span class="op">}</span>,
+  finalize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">con</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="va">db_a</span> <span class="op">&lt;-</span> <span class="va">TemporaryDatabase</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">db_b</span> <span class="op">&lt;-</span> <span class="va">TemporaryDatabase</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">db_a</span><span class="op">$</span><span class="va">file</span><span class="op">$</span><span class="va">path</span> <span class="op">==</span> <span class="va">db_b</span><span class="op">$</span><span class="va">file</span><span class="op">$</span><span class="va">path</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>(If you’re familiar with Python, this is very similar to the “mutable default argument” problem.)</p>
+<p>The problem arises because <code>TemporaryFile$new()</code> is called only once when the <code>TemporaryDatabase</code> class is defined. To fix the problem, we need to make sure it’s called every time that <code>TemporaryDatabase$new()</code> is called, i.e. we need to put it in <code>$initialize()</code>:</p>
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">TemporaryDatabase</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html">R6Class</a></span><span class="op">(</span><span class="st">"TemporaryDatabase"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  con <span class="op">=</span> <span class="cn">NULL</span>,
+  file <span class="op">=</span> <span class="cn">NULL</span>,
+  initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">file</span> <span class="op">&lt;-</span> <span class="va">TemporaryFile</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+    <span class="va">self</span><span class="op">$</span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, path <span class="op">=</span> <span class="va">file</span><span class="op">$</span><span class="va">path</span><span class="op">)</span>
+  <span class="op">}</span>,
+  finalize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">con</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="va">db_a</span> <span class="op">&lt;-</span> <span class="va">TemporaryDatabase</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="va">db_b</span> <span class="op">&lt;-</span> <span class="va">TemporaryDatabase</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">db_a</span><span class="op">$</span><span class="va">file</span><span class="op">$</span><span class="va">path</span> <span class="op">==</span> <span class="va">db_b</span><span class="op">$</span><span class="va">file</span><span class="op">$</span><span class="va">path</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+</div>
+<div id="exercises-46" class="section level3" number="14.4.4">
+<h3>
+<span class="header-section-number">14.4.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-46"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Create a class that allows you to write a line to a specified file.
+You should open a connection to the file in <code>$initialize()</code>, append a
+line using <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> in <code>$append_line()</code>, and close the connection in
+<code>$finalize()</code>.</li>
+</ol>
+</div>
+</div>
+<div id="why-r6" class="section level2" number="14.5">
+<h2>
+<span class="header-section-number">14.5</span> Why R6?<a class="anchor" aria-label="anchor" href="#why-r6"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>R6 is very similar to a built-in OO system called <strong>reference classes</strong>, or RC for short. I prefer R6 to RC because:</p>
+<ul>
+<li><p>R6 is much simpler. Both R6 and RC are built on top of environments, but
+while R6 uses S3, RC uses S4. This means to fully understand RC, you need
+to understand how the more complicated S4 works.</p></li>
+<li><p>R6 has comprehensive online documentation at <a href="https://r6.r-lib.org" class="uri">https://r6.r-lib.org</a>.</p></li>
+<li><p>R6 has a simpler mechanism for cross-package subclassing, which just
+works without you having to think about it. For RC, read the details in the
+“External Methods; Inter-Package Superclasses” section of <code>?setRefClass</code>.</p></li>
+<li><p>RC mingles variables and fields in the same stack of environments so that you
+get (<code>field</code>) and set (<code>field &lt;&lt;- value</code>) fields like regular values. R6 puts
+fields in a separate environment so you get (<code>self$field</code>) and set
+(<code>self$field &lt;- value</code>) with a prefix. The R6 approach is more verbose but
+I like it because it is more explicit.</p></li>
+<li><p>R6 is much faster than RC. Generally, the speed of method dispatch is not
+important outside of microbenchmarks. However, RC is quite slow, and switching
+from RC to R6 led to a substantial performance improvement in the shiny package.
+For more details, see <code><a href="https://r6.r-lib.org/articles/Performance.html">vignette("Performance", "R6")</a></code>.</p></li>
+<li><p>RC is tied to R. That means if any bugs are fixed, you can only take
+advantage of the fixes by requiring a newer version of R. This makes it
+difficult for packages (like those in the tidyverse) that need to work across
+many R versions.</p></li>
+<li><p>Finally, because the ideas that underlie R6 and RC are similar, it will only
+require a small amount of additional effort to learn RC if you need to.</p></li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="s3.html"><span class="header-section-number">13</span> S3</a></div>
+<div class="next"><a href="s4.html"><span class="header-section-number">15</span> S4</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r6"><span class="header-section-number">14</span> R6</a></li>
+<li>
+<a class="nav-link" href="#introduction-13"><span class="header-section-number">14.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-12">Outline</a></li>
+<li><a class="nav-link" href="#prerequisites-7">Prerequisites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#r6-classes"><span class="header-section-number">14.2</span> Classes and methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#method-chaining"><span class="header-section-number">14.2.1</span> Method chaining</a></li>
+<li><a class="nav-link" href="#r6-important-methods"><span class="header-section-number">14.2.2</span> Important methods</a></li>
+<li><a class="nav-link" href="#adding-methods-after-creation"><span class="header-section-number">14.2.3</span> Adding methods after creation</a></li>
+<li><a class="nav-link" href="#inheritance"><span class="header-section-number">14.2.4</span> Inheritance</a></li>
+<li><a class="nav-link" href="#introspection"><span class="header-section-number">14.2.5</span> Introspection</a></li>
+<li><a class="nav-link" href="#exercises-44"><span class="header-section-number">14.2.6</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#r6-access"><span class="header-section-number">14.3</span> Controlling access</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#privacy"><span class="header-section-number">14.3.1</span> Privacy</a></li>
+<li><a class="nav-link" href="#active-fields"><span class="header-section-number">14.3.2</span> Active fields</a></li>
+<li><a class="nav-link" href="#exercises-45"><span class="header-section-number">14.3.3</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#r6-semantics"><span class="header-section-number">14.4</span> Reference semantics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reasoning"><span class="header-section-number">14.4.1</span> Reasoning</a></li>
+<li><a class="nav-link" href="#finalizer"><span class="header-section-number">14.4.2</span> Finalizer</a></li>
+<li><a class="nav-link" href="#r6-fields"><span class="header-section-number">14.4.3</span> R6 fields</a></li>
+<li><a class="nav-link" href="#exercises-46"><span class="header-section-number">14.4.4</span> Exercises</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#why-r6"><span class="header-section-number">14.5</span> Why R6?</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/R6.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/R6.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

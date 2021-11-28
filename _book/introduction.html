@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 Introduction | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="1 Introduction | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 Introduction | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to examine how the language works. This book is...">
+<meta property="og:description" content="I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to examine how the language works. This book is...">
+<meta name="twitter:description" content="I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to examine how the language works. This book is...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="active" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+</h1>
+<p>I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to examine how the language works. This book is my attempt to pass on what I’ve learned so that you can understand the intricacies of R as quickly and painlessly as possible. Reading it will help you avoid the mistakes I’ve made and dead ends I’ve gone down, and will teach you useful tools, techniques, and idioms that can help you to attack many types of problems. In the process, I hope to show that, despite its sometimes frustrating quirks, R is, at its heart, an elegant and beautiful language, well tailored for data science.</p>
+<div id="why-r" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Why R?<a class="anchor" aria-label="anchor" href="#why-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>If you are new to R, you might wonder what makes learning such a quirky language worthwhile. To me, some of the best features are:</p>
+<ul>
+<li><p>It’s free, open source, and available on every major platform. As a result, if
+you do your analysis in R, anyone can easily replicate it, regardless of
+where they live or how much money they earn.</p></li>
+<li><p>R has a diverse and welcoming community, both online (e.g. 
+<a href="https://twitter.com/search?q=%23rstats">the #rstats twitter community</a>) and in person (like the
+<a href="https://www.meetup.com/topics/r-programming-language/">many R meetups</a>). Two particularly inspiring community groups are
+<a href="https://rweekly.org">rweekly newsletter</a> which makes it easy to keep up to date with
+R, and <a href="http://r-ladies.org">R-Ladies</a> which has made a wonderfully welcoming community
+for women and other minority genders.</p></li>
+<li><p>A massive set of packages for statistical modelling, machine learning,
+visualisation, and importing and manipulating data. Whatever model or
+graphic you’re trying to do, chances are that someone has already tried
+to do it and you can learn from their efforts.</p></li>
+<li><p>Powerful tools for communicating your results. <a href="https://rmarkdown.rstudio.com">RMarkdown</a> makes
+it easy to turn your results into HTML files, PDFs, Word documents,
+PowerPoint presentations, dashboards and more. <a href="http://shiny.rstudio.com">Shiny</a> allows you to
+make beautiful interactive apps without any knowledge of HTML or javascript.</p></li>
+<li><p>RStudio, <a href="http://www.rstudio.com/ide/">the IDE</a>, provides an integrated
+development environment, tailored to the needs of data science, interactive
+data analysis, and statistical programming.</p></li>
+<li><p>Cutting edge tools. Researchers in statistics and machine learning will often
+publish an R package to accompany their articles. This means immediate
+access to the very latest statistical techniques and implementations.</p></li>
+<li><p>Deep-seated language support for data analysis. This includes features
+like missing values, data frames, and vectorisation.</p></li>
+<li><p>A strong foundation of functional programming. The ideas of functional
+programming are well suited to the challenges of data science, and the
+R language is functional at heart, and provides many primitives needed
+for effective functional programming.</p></li>
+<li><p>RStudio, <a href="https://www.rstudio.com">the company</a>, which makes money by
+selling professional products to teams of R users, and turns around and
+invests much of that money back into the open source community (over 50%
+of software engineers at RStudio work on open source projects). I work for
+RStudio because I fundamentally believe in its mission.</p></li>
+<li><p>Powerful metaprogramming facilities. R’s metaprogramming capabilities allow
+you to write magically succinct and concise functions and provide an excellent
+environment for designing domain-specific languages like ggplot2, dplyr,
+data.table, and more.</p></li>
+<li><p>The ease with which R can connect to high-performance programming languages
+like C, Fortran, and C++.</p></li>
+</ul>
+<p>Of course, R is not perfect. R’s biggest challenge (and opportunity!) is that most R users are not programmers. This means that:</p>
+<ul>
+<li><p>Much of the R code you’ll see in the wild is written in haste to solve
+a pressing problem. As a result, code is not very elegant, fast, or easy to
+understand. Most users do not revise their code to address these shortcomings.</p></li>
+<li><p>Compared to other programming languages, the R community is more focussed on
+results than processes. Knowledge of software engineering best practices is
+patchy. For example, not enough R programmers use source code control or
+automated testing.</p></li>
+<li><p>Metaprogramming is a double-edged sword. Too many R functions use
+tricks to reduce the amount of typing at the cost of making code that
+is hard to understand and that can fail in unexpected ways.</p></li>
+<li><p>Inconsistency is rife across contributed packages, and even within base R.
+You are confronted with over 25 years of evolution every time you use R,
+and this can make learning R tough because there are so many special cases to
+remember.</p></li>
+<li><p>R is not a particularly fast programming language, and poorly written R code
+can be terribly slow. R is also a profligate user of memory.</p></li>
+</ul>
+<p>Personally, I think these challenges create a great opportunity for experienced programmers to have a profound positive impact on R and the R community. R users do care about writing high quality code, particularly for reproducible research, but they don’t yet have the skills to do so. I hope this book will not only help more R users to become R programmers, but also encourage programmers from other languages to contribute to R.</p>
+</div>
+<div id="who-should-read" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Who should read this book<a class="anchor" aria-label="anchor" href="#who-should-read"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is aimed at two complementary audiences:</p>
+<ul>
+<li><p>Intermediate R programmers who want to dive deeper into R, understand how
+the language works, and learn new strategies for solving diverse problems.</p></li>
+<li><p>Programmers from other languages who are learning R and want to understand
+why R works the way it does.</p></li>
+</ul>
+<p>To get the most out of this book, you’ll need to have written a decent amount of code in R or another programming language. You should be familiar with the basics of data analysis (i.e. data import, manipulation, and visualisation), have written a number of functions, and be familiar with the installation and use of CRAN packages.</p>
+<p>This book walks the narrow line between being a reference book (primarily used for lookup), and being linearly readable. This involves some tradeoffs, because it’s difficult to linearise material while still keeping related materials together, and some concepts are much easier to explain if you’re already familiar with specific technical vocabulary. I’ve tried to use footnotes and cross-references to make sure you can still make sense even if you just dip your toes in a chapter.</p>
+</div>
+<div id="what-you-will-get" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> What you will get out of this book<a class="anchor" aria-label="anchor" href="#what-you-will-get"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book delivers the knowledge that I think an advanced R programmer should possess: a deep understanding of the fundamentals coupled with a broad vocabulary that means that you can tactically learn more about a topic when needed.</p>
+<p>After reading this book, you will:</p>
+<ul>
+<li><p>Be familiar with the foundations of R. You will understand complex data types
+and the best ways to perform operations on them. You will have a deep
+understanding of how functions work, you’ll know what environments are, and
+how to make use of the condition system.</p></li>
+<li><p>Understand what functional programming means, and why it is a useful tool for
+data science. You’ll be able to quickly learn how to use existing tools, and
+have the knowledge to create your own functional tools when needed.</p></li>
+<li><p>Know about R’s rich variety of object-oriented systems. You’ll be most
+familiar with S3, but you’ll know of S4 and R6 and where to look for more
+information when needed.</p></li>
+<li><p>Appreciate the double-edged sword of metaprogramming. You’ll be able to
+create functions that use tidy evaluation, saving typing and creating elegant
+code to express important operations. You’ll also understand the dangers
+and when to avoid it.</p></li>
+<li><p>Have a good intuition for which operations in R are slow or use a lot of
+memory. You’ll know how to use profiling to pinpoint performance
+bottlenecks, and you’ll know enough C++ to convert slow R functions to
+fast C++ equivalents.</p></li>
+</ul>
+</div>
+<div id="what-you-will-not-learn" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> What you will not learn<a class="anchor" aria-label="anchor" href="#what-you-will-not-learn"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is about R the programming language, not R the data analysis tool. If you are looking to improve your data science skills, I instead recommend that you learn about the <a href="https://www.tidyverse.org/">tidyverse</a>, a collection of consistent packages developed by me and my colleagues. In this book you’ll learn the techniques used to develop the tidyverse packages; if you want to instead learn how to use them, I recommend <a href="http://r4ds.had.co.nz/"><em>R for Data Science</em></a>.</p>
+<p>If you want to share your R code with others, you will need to make an R package. This allows you to bundle code along with documentation and unit tests, and easily distribute it via CRAN. In my opinion, the easiest way to develop packages is with <a href="http://devtools.r-lib.org">devtools</a>, <a href="http://klutometis.github.io/roxygen/">roxygen2</a>, <a href="http://testthat.r-lib.org">testthat</a>, and <a href="http://usethis.r-lib.org">usethis</a>. You can learn about using these packages to make your own package in <a href="http://r-pkgs.had.co.nz/"><em>R packages</em></a>.</p>
+</div>
+<div id="meta-techniques" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Meta-techniques<a class="anchor" aria-label="anchor" href="#meta-techniques"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are two meta-techniques that are tremendously helpful for improving your skills as an R programmer: reading source code and adopting a scientific mindset.</p>
+<p>Reading source code is important because it will help you write better code. A great place to start developing this skill is to look at the source code of the functions and packages you use most often. You’ll find things that are worth emulating in your own code and you’ll develop a sense of taste for what makes good R code. You will also see things that you don’t like, either because its virtues are not obvious or it offends your sensibilities. Such code is nonetheless valuable, because it helps make concrete your opinions on good and bad code.</p>
+<p>A scientific mindset is extremely helpful when learning R. If you don’t understand how something works, you should develop a hypothesis, design some experiments, run them, and record the results. This exercise is extremely useful since if you can’t figure something out and need to get help, you can easily show others what you tried. Also, when you learn the right answer, you’ll be mentally prepared to update your world view.</p>
+</div>
+<div id="recommended-reading" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Recommended reading<a class="anchor" aria-label="anchor" href="#recommended-reading"><i class="fas fa-link"></i></a>
+</h2>
+<p>Because the R community mostly consists of data scientists, not computer scientists, there are relatively few books that go deep in the technical underpinnings of R. In my personal journey to understand R, I’ve found it particularly helpful to use resources from other programming languages. R has aspects of both functional and object-oriented (OO) programming languages. Learning how these concepts are expressed in R will help you leverage your existing knowledge of other programming languages, and will help you identify areas where you can improve.</p>
+<p>To understand why R’s object systems work the way they do, I found <em>The Structure and Interpretation of Computer Programs</em><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You can read it online for free at &lt;a href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html" class="uri"&gt;https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html&lt;/a&gt;&lt;/p&gt;'><sup>4</sup></a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Harold Abelson, Gerald Jay Sussman, and Julie Sussman, &lt;em&gt;Structure and Interpretation of Computer Programs&lt;/em&gt; (MIT Press, 1996).&lt;/p&gt;"><sup>5</sup></a></span> (SICP) to be particularly helpful. It’s a concise but deep book, and after reading it, I felt for the first time that I could actually design my own object-oriented system. The book was my first introduction to the encapsulated paradigm of object-oriented programming found in R, and it helped me understand the strengths and weaknesses of this system. SICP also teaches the functional mindset where you create functions that are simple individually, and which become powerful when composed together.</p>
+<p>To understand the trade-offs that R has made compared to other programming languages, I found <em>Concepts, Techniques and Models of Computer Programming</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Peter Van-Roy and Seif Haridi, &lt;em&gt;Concepts, Techniques, and Models of Computer Programming&lt;/em&gt; (MIT press, 2004).&lt;/p&gt;"><sup>6</sup></a></span> extremely helpful. It helped me understand that R’s copy-on-modify semantics make it substantially easier to reason about code, and that while its current implementation is not particularly efficient, it is a solvable problem.</p>
+<p>If you want to learn to be a better programmer, there’s no place better to turn than <em>The Pragmatic Programmer</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Andrew Hunt and David Thomas, &lt;em&gt;The Pragmatic Programmer&lt;/em&gt; (Addison Wesley, 1990).&lt;/p&gt;"><sup>7</sup></a></span> This book is language agnostic, and provides great advice for how to be a better programmer.</p>
+</div>
+<div id="getting-help" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Getting help<a class="anchor" aria-label="anchor" href="#getting-help"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>Currently, there are three main venues to get help when you’re stuck and can’t figure out what’s causing the problem: <a href="https://community.rstudio.com/">RStudio Community</a>, <a href="http://stackoverflow.com">StackOverflow</a> and the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R-help mailing list</a>. You can get fantastic help in each venue, but they do have their own cultures and expectations. It’s usually a good idea to spend a little time lurking, learning about community expectations, before you put up your first post.</p>
+<p>Some good general advice:</p>
+<ul>
+<li><p>Make sure you have the latest version of R and of the package (or packages)
+you are having problems with. It may be that your problem is the result of
+a recently fixed bug.</p></li>
+<li><p>Spend some time creating a <strong>repr</strong>oducible <strong>ex</strong>ample, or reprex.
+This will help others help you, and often leads to a solution without
+asking others, because in the course of making the problem reproducible you
+often figure out the root cause. I highly recommend learning and using
+the <a href="https://reprex.tidyverse.org/">reprex</a> package.</p></li>
+</ul>
+<!-- GVW: is someone going to go through once you're done and create a glossary? If you've flagged things like "reprex" in bold, it ought to be easy to find terms. --><p>If you are looking for specific help solving the exercises in this book, solutions from Malte Grosser and Henning Bumann are available at <a href="https://advanced-r-solutions.rbind.io" class="uri">https://advanced-r-solutions.rbind.io</a>.</p>
+</div>
+<div id="intro-ack" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Acknowledgments<a class="anchor" aria-label="anchor" href="#intro-ack"><i class="fas fa-link"></i></a>
+</h2>
+<p>I would like to thank the many contributors to R-devel and R-help and, more recently, Stack Overflow and RStudio Community. There are too many to name individually, but I’d particularly like to thank Luke Tierney, John Chambers, JJ Allaire, and Brian Ripley for generously giving their time and correcting my countless misunderstandings.</p>
+<p>This book was <a href="https://github.com/hadley/adv-r/">written in the open</a>, and chapters were advertised on <a href="https://twitter.com/hadleywickham">twitter</a> when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn’t be nearly as good as it is, and I’m deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, Duncan Murdoch, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.</p>
+<pre><code>#&gt; Warning: package 'dplyr' was built under R version 4.1.1</code></pre>
+<p>A big thank you to all 386 contributors (in alphabetical order by username): Aaron Wolen (@aaronwolen), @absolutelyNoWarranty, Adam Hunt (@adamphunt), @agrabovsky, Alexander Grueneberg (@agrueneberg), Anthony Damico (@ajdamico), James Manton (@ajdm), Aaron Schumacher (@ajschumacher), Alan Dipert (@alandipert), Alex Brown (@alexbbrown), @alexperrone, Alex Whitworth (@alexWhitworth), Alexandros Kokkalis (@alko989), @amarchin, Amelia McNamara (@AmeliaMN), Bryce Mecum (@amoeba), Andrew Laucius (@andrewla), Andrew Bray (@andrewpbray), Andrie de Vries (@andrie), Angela Li (@angela-li), @aranlunzer, Ari Lamstein (@arilamstein), @asnr, Andy Teucher (@ateucher), Albert Vilella (@avilella), baptiste (@baptiste), Brian G. Barkley (@BarkleyBG), Mara Averick (@batpigandme), Byron (@bcjaeger), Brandon Greenwell (@bgreenwell), Brandon Hurr (@bhive01), Jason Knight (@binarybana), Brett Klamer (@bklamer), Jesse Anderson (@blindjesse), Brian Mayer (@blmayer), Benjamin L. Moore (@blmoore), Brian Diggs (@BrianDiggs), Brian S. Yandell (@byandell), @carey1024, Chip Hogg (@chiphogg), Chris Muir (@ChrisMuir), Christopher Gandrud (@christophergandrud), Clay Ford (@clayford), Colin Fay (@ColinFay), @cortinah, Cameron Plouffe (@cplouffe), Carson Sievert (@cpsievert), Craig Citro (@craigcitro), Craig Grabowski (@craiggrabowski), Christopher Roach (@croach), Peter Meilstrup (@crowding), Crt Ahlin (@crtahlin), Carlos Scheidegger (@cscheid), Colin Gillespie (@csgillespie), Christopher Brown (@ctbrown), Davor Cubranic (@cubranic), Darren Cusanovich (@cusanovich), Christian G. Warden (@cwarden), Charlotte Wickham (@cwickham), Dean Attali (@daattali), Dan Sullivan (@dan87134), Daniel Barnett (@daniel-barnett), Daniel (@danielruc91), Kenny Darrell (@darrkj), Tracy Nance (@datapixie), Dave Childers (@davechilders), David Vukovic (@david-vukovic), David Rubinger (@davidrubinger), David Chudzicki (@dchudz), Deependra Dhakal (@DeependraD), Daisuke ICHIKAWA (@dichika), david kahle (@dkahle), David LeBauer (@dlebauer), David Schweizer (@dlschweizer), David Montaner (@dmontaner), @dmurdoch, Zhuoer Dong (@dongzhuoer), Doug Mitarotonda (@dougmitarotonda), DragoÈ™ Moldovan-GrÃ¼nfeld (@dragosmg), Jonathan Hill (@Dripdrop12), @drtjc, Julian During (@duju211), @duncanwadsworth, @eaurele, Dirk Eddelbuettel (@eddelbuettel), @EdFineOKL, Eduard SzÃ¶cs (@EDiLD), Edwin Thoen (@EdwinTh), Ethan Heinzen (@eheinzen), @eijoac, Joel Schwartz (@eipi10), Eric Ronald Legrand (@elegrand), Elio Campitelli (@eliocamp), Ellis Valentiner (@ellisvalentiner), Emil Hvitfeldt (@EmilHvitfeldt), Emil Rehnberg (@EmilRehnberg), Daniel Lee (@erget), Eric C. Anderson (@eriqande), Enrico Spinielli (@espinielli), @etb, David Hajage (@eusebe), Fabian Scheipl (@fabian-s), @flammy0530, FranÃ§ois Michonneau (@fmichonneau), Francois Pepin (@fpepin), Frank Farach (@frankfarach), @freezby, Frans van DunnÃ© (@FvD), @fyears, @gagnagaman, Garrett Grolemund (@garrettgman), Gavin Simpson (@gavinsimpson), Brooke Anderson (@geanders), @gezakiss7, @gggtest, GÃ¶kÃ§en Eraslan (@gokceneraslan), Josh Goldberg (@GoldbergData), Georg Russ (@gr650), @grasshoppermouse, Gregor Thomas (@gregorp), Garrett See (@gsee), Ari Friedman (@gsk3), Gunnlaugur Thor Briem (@gthb), Greg Wilson (@gvwilson), Hamed (@hamedbh), Jeff Hammerbacher (@hammer), Harley Day (@harleyday), @hassaad85, @helmingstay, Henning (@henningsway), Henrik Bengtsson (@HenrikBengtsson), Ching Boon (@hoscb), @hplieninger, HÃ¶rmet Yiltiz (@hyiltiz), Iain Dillingham (@iaindillingham), @IanKopacka, Ian Lyttle (@ijlyttle), Ilan Man (@ilanman), Imanuel Costigan (@imanuelcostigan), Thomas BÃ¼rli (@initdch), Os Keyes (@Ironholds), @irudnyts, i (@isomorphisms), Irene Steves (@isteves), Jan Gleixner (@jan-glx), Jannes Muenchow (@jannes-m), Jason Asher (@jasonasher), Jason Davies (@jasondavies), Chris (@jastingo), jcborras (@jcborras), Joe Cheng (@jcheng5), John Blischak (@jdblischak), @jeharmse, Lukas Burk (@jemus42), Jennifer (Jenny) Bryan (@jennybc), Justin Jent (@jentjr), Jeston (@JestonBlu), Josh Cook (@jhrcook), Jim Hester (@jimhester), @JimInNashville, @jimmyliu2017, Jim Vine (@jimvine), Jinlong Yang (@jinlong25), J.J. Allaire (@jjallaire), @JMHay, Jochen Van de Velde (@jochenvdv), Johann Hibschman (@johannh), John Baumgartner (@johnbaums), John Horton (@johnjosephhorton), @johnthomas12, Jon Calder (@jonmcalder), Jon Harmon (@jonthegeek), Julia Gustavsen (@jooolia), JorneBiccler (@JorneBiccler), Jeffrey Arnold (@jrnold), Joyce Robbins (@jtr13), Juan Manuel Truppia (@juancentro), @juangomezduaso, Kevin Markham (@justmarkham), john verzani (@jverzani), Michael Kane (@kaneplusplus), Bart Kastermans (@kasterma), Kevin D’Auria (@kdauria), Karandeep Singh (@kdpsingh), Ken Williams (@kenahoo), Kendon Bell (@kendonB), Kent Johnson (@kent37), Kevin Ushey (@kevinushey), ç”µçº¿æ† (@kfeng123), Karl Forner (@kforner), Kirill Sevastyanenko (@kirillseva), Brian Knaus (@knausb), Kirill MÃ¼ller (@krlmlr), Kriti Sen Sharma (@ksens), Kai Tang (å”æºï¼‰ (@ktang), Kevin Wright (@kwstat), <a href="mailto:suo.lawrence.liu@gmail.com" class="email">suo.lawrence.liu@gmail.com</a> (@Lawrence-Liu), @ldfmrails, Kevin Kainan Li (@legendre6891), Rachel Severson (@leighseverson), Laurent Gatto (@lgatto), C. Jason Liang (@liangcj), Steve Lianoglou (@lianos), Yongfu Liao (@liao961120), Likan (@likanzhan), @lindbrook, Lingbing Feng (@Lingbing), Marcel Ramos (@LiNk-NY), Zhongpeng Lin (@linzhp), Lionel Henry (@lionel-), LluÃ­s (@llrs), myq (@lrcg), Luke W Johnston (@lwjohnst86), Kevin Lynagh (@lynaghk), @MajoroMask, Malcolm Barrett (@malcolmbarrett), @mannyishere, @mascaretti, Matt (@mattbaggott), Matthew Grogan (@mattgrogan), @matthewhillary, Matthieu Gomez (@matthieugomez), Matt Malin (@mattmalin), Mauro Lepore (@maurolepore), Max Ghenis (@MaxGhenis), Maximilian Held (@maxheld83), Michal Bojanowski (@mbojan), Mark Rosenstein (@mbrmbr), Michael Sumner (@mdsumner), Jun Mei (@meijun), merkliopas (@merkliopas), mfrasco (@mfrasco), Michael Bach (@michaelbach), Michael Bishop (@MichaelMBishop), Michael Buckley (@michaelmikebuckley), Michael Quinn (@michaelquinn32), @miguelmorin, Michael (@mikekaminsky), Mine Cetinkaya-Rundel (@mine-cetinkaya-rundel), @mjsduncan, Mamoun Benghezal (@MoBeng), Matt Pettis (@mpettis), Martin Morgan (@mtmorgan), Guy Dawson (@Mullefa), Nacho Caballero (@nachocab), Natalya Rapstine (@natalya-patrikeeva), Nick Carchedi (@ncarchedi), Pascal Burkhard (@Nenuial), Noah Greifer (@ngreifer), Nicholas Vasile (@nickv9), Nikos Ignatiadis (@nignatiadis), Nina Munkholt Jakobsen (@nmjakobsen), Xavier Laviron (@norival), Nick Pullen (@nstjhp), Oge Nnadi (@ogennadi), Oliver Paisley (@oliverpaisley), Pariksheet Nanda (@omsai), Ã˜ystein SÃ¸rensen (@osorensen), Paul (@otepoti), Otho Mantegazza (@othomantegazza), Dewey Dunnington (@paleolimbot), Paola Corrales (@paocorrales), Parker Abercrombie (@parkerabercrombie), Patrick Hausmann (@patperu), Patrick Miller (@patr1ckm), Patrick Werkmeister (@Patrick01), @paulponcet, @pdb61, Tom Crockett (@pelotom), @pengyu, Jeremiah (@perryjer1), Peter Hickey (@PeteHaitch), Phil Chalmers (@philchalmers), Jose Antonio MagaÃ±a Mesa (@picarus), Pierre Casadebaig (@picasa), Antonio Piccolboni (@piccolbo), Pierre Roudier (@pierreroudier), Poor Yorick (@pooryorick), Marie-Helene Burle (@prosoitos), Peter Schulam (@pschulam), John (@quantbo), Quyu Kong (@qykong), Ramiro Magno (@ramiromagno), Ramnath Vaidyanathan (@ramnathv), Kun Ren (@renkun-ken), Richard Reeve (@richardreeve), Richard Cotton (@richierocks), Robert M Flight (@rmflight), R. Mark Sharp (@rmsharp), Robert Krzyzanowski (@robertzk), @robiRagan, Romain FranÃ§ois (@romainfrancois), Ross Holmberg (@rossholmberg), Ricardo Pietrobon (@rpietro), @rrunner, Ryan Walker (@rtwalker), @rubenfcasal, Rob Weyant (@rweyant), Rumen Zarev (@rzarev), Nan Wang (@sailingwave), Samuel Perreault (@samperochkin), @sbgraves237, Scott Kostyshak (@scottkosty), Scott Leishman (@scttl), Sean Hughes (@seaaan), Sean Anderson (@seananderson), Sean Carmody (@seancarmody), Sebastian (@sebastian-c), Matthew Sedaghatfar (@sedaghatfar), @see24, Sven E. Templer (@setempler), @sflippl, @shabbybanks, Steven Pav (@shabbychef), Shannon Rush (@shannonrush), S’busiso Mkhondwane (@sibusiso16), Sigfried Gold (@Sigfried), Simon O’Hanlon (@simonohanlon101), Simon Potter (@sjp), Leo Razoumov (@slonik-az), Richard M. Smith (@Smudgerville), Steve (@SplashDance), Scott Ritchie (@sritchie73), Tim Cole (@statist7), @ste-fan, @stephens999, Steve Walker (@stevencarlislewalker), Stefan Widgren (@stewid), Homer Strong (@strongh), Suman Khanal (@sumanstats), Dirk (@surmann), Sebastien Vigneau (@svigneau), Steven Nydick (@swnydick), Taekyun Kim (@taekyunk), Tal Galili (@talgalili), @Tazinho, Tyler Bradley (@tbradley1013), Tom B (@tbuckl), @tdenes, @thomasherbig, Thomas (@thomaskern), Thomas Lin Pedersen (@thomasp85), Thomas Zumbrunn (@thomaszumbrunn), Tim Waterhouse (@timwaterhouse), TJ Mahr (@tjmahr), Thomas Nagler (@tnagler), Anton Antonov (@tonytonov), Ben Torvaney (@Torvaney), Jeff Allen (@trestletech), Tyler Rinker (@trinker), Chitu Okoli (@Tripartio), Kirill Tsukanov (@tskir), Terence Teo (@tteo), Tim Triche, Jr. (@ttriche), @tyhenkaline, Tyler Ritchie (@tylerritchie), Tyler Littlefield (@tyluRp), Varun Agrawal (@varun729), Vijay Barve (@vijaybarve), Victor (@vkryukov), Vaidotas Zemlys-BaleviÄius (@vzemlys), Winston Chang (@wch), Linda Chin (@wchi144), Welliton Souza (@Welliton309), Gregg Whitworth (@whitwort), Will Beasley (@wibeasley), William R Bauer (@WilCrofter), William Doane (@WilDoane), Sean Wilkinson (@wilkinson), Christof Winter (@winterschlaefer), Jake Thompson (@wjakethompson), Bill Carver (@wmc3), Wolfgang Huber (@wolfganghuber), Krishna Sankar (@xsankar), Yihui Xie (@yihui), yang (@yiluheihei), Yoni Ben-Meshulam (@yoni), @yuchouchen, Yuqi Liao (@yuqiliao), Hiroaki Yutani (@yutannihilation), Zachary Foster (@zachary-foster), @zachcp, @zackham, Sergio Oller (@zeehio), Edward Cho (@zerokarmaleft), Albert Zhao (@zxzb).</p>
+</div>
+<div id="conventions" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Conventions<a class="anchor" aria-label="anchor" href="#conventions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Throughout this book I use <code>f()</code> to refer to functions, <code>g</code> to refer to variables and function parameters, and <code>h/</code> to paths.</p>
+<p>Larger code blocks intermingle input and output. Output is commented (<code>#&gt;</code>) so that if you have an electronic version of the book, e.g., <a href="https://adv-r.hadley.nz/" class="uri">https://adv-r.hadley.nz/</a>, you can easily copy and paste examples into R.</p>
+<p>Many examples use random numbers. These are made reproducible by <code>set.seed(1014)</code>, which is executed automatically at the start of each chapter.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="colophon" class="section level2" number="1.10">
+<h2>
+<span class="header-section-number">1.10</span> Colophon<a class="anchor" aria-label="anchor" href="#colophon"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book was written in <a href="http://bookdown.org/">bookdown</a> inside <a href="http://www.rstudio.com/ide/">RStudio</a>. The <a href="https://adv-r.hadley.nz/">website</a> is hosted with <a href="http://netlify.com/">netlify</a>, and automatically updated after every commit by <a href="https://travis-ci.org/">travis-ci</a>. The complete source is available from <a href="https://github.com/hadley/adv-r">GitHub</a>. Code in the printed book is set in <a href="http://levien.com/type/myfonts/inconsolata.html">inconsolata</a>. Emoji images in the printed book come from the open-licensed <a href="https://github.com/twitter/twemoji">Twitter Emoji</a>.</p>
+<p>This version of the book was built with R version 4.1.0 (2021-05-18) and the following packages.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">package</th>
+<th align="left">version</th>
+<th align="left">source</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">bench</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">bookdown</td>
+<td align="left">0.24</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="odd">
+<td align="left">bslib</td>
+<td align="left">0.3.1</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="even">
+<td align="left">dbplyr</td>
+<td align="left">2.1.1</td>
+<td align="left">CRAN (R 4.0.5)</td>
+</tr>
+<tr class="odd">
+<td align="left">desc</td>
+<td align="left">1.4.0</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="even">
+<td align="left">downlit</td>
+<td align="left">0.4.0</td>
+<td align="left">CRAN (R 4.1.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">emo</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">ggbeeswarm</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">ggplot2</td>
+<td align="left">3.3.5</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="even">
+<td align="left">jsonlite</td>
+<td align="left">1.7.2</td>
+<td align="left">CRAN (R 4.1.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">knitr</td>
+<td align="left">1.36</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="even">
+<td align="left">lobstr</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">memoise</td>
+<td align="left">2.0.1</td>
+<td align="left">CRAN (R 4.1.0)</td>
+</tr>
+<tr class="even">
+<td align="left">png</td>
+<td align="left">0.1-7</td>
+<td align="left">CRAN (R 4.1.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">profvis</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Rcpp</td>
+<td align="left">1.0.7</td>
+<td align="left">CRAN (R 4.1.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">rlang</td>
+<td align="left">0.4.11</td>
+<td align="left">CRAN (R 4.1.0)</td>
+</tr>
+<tr class="even">
+<td align="left">RSQLite</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">scales</td>
+<td align="left">1.1.1</td>
+<td align="left">CRAN (R 4.0.5)</td>
+</tr>
+<tr class="even">
+<td align="left">sessioninfo</td>
+<td align="left">1.2.1</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="odd">
+<td align="left">sloop</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">testthat</td>
+<td align="left">3.1.0</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="odd">
+<td align="left">tidyr</td>
+<td align="left">1.1.4</td>
+<td align="left">CRAN (R 4.1.2)</td>
+</tr>
+<tr class="even">
+<td align="left">vctrs</td>
+<td align="left">0.3.8</td>
+<td align="left">CRAN (R 4.0.5)</td>
+</tr>
+<tr class="odd">
+<td align="left">xml2</td>
+<td align="left">1.3.2</td>
+<td align="left">CRAN (R 4.0.5)</td>
+</tr>
+<tr class="even">
+<td align="left">zeallot</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="preface.html">Preface</a></div>
+<div class="next"><a href="foundations-intro.html">Introduction</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="nav-link" href="#why-r"><span class="header-section-number">1.1</span> Why R?</a></li>
+<li><a class="nav-link" href="#who-should-read"><span class="header-section-number">1.2</span> Who should read this book</a></li>
+<li><a class="nav-link" href="#what-you-will-get"><span class="header-section-number">1.3</span> What you will get out of this book</a></li>
+<li><a class="nav-link" href="#what-you-will-not-learn"><span class="header-section-number">1.4</span> What you will not learn</a></li>
+<li><a class="nav-link" href="#meta-techniques"><span class="header-section-number">1.5</span> Meta-techniques</a></li>
+<li><a class="nav-link" href="#recommended-reading"><span class="header-section-number">1.6</span> Recommended reading</a></li>
+<li><a class="nav-link" href="#getting-help"><span class="header-section-number">1.7</span> Getting help</a></li>
+<li><a class="nav-link" href="#intro-ack"><span class="header-section-number">1.8</span> Acknowledgments</a></li>
+<li><a class="nav-link" href="#conventions"><span class="header-section-number">1.9</span> Conventions</a></li>
+<li><a class="nav-link" href="#colophon"><span class="header-section-number">1.10</span> Colophon</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

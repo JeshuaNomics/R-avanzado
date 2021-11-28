@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Introduction | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="Introduction | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduction | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="One of the most intriguing things about R is its ability to do metaprogramming. This is the idea that code is data that can be inspected and modified programmatically. This is a powerful idea; one...">
+<meta property="og:description" content="One of the most intriguing things about R is its ability to do metaprogramming. This is the idea that code is data that can be inspected and modified programmatically. This is a powerful idea; one...">
+<meta name="twitter:description" content="One of the most intriguing things about R is its ability to do metaprogramming. This is the idea that code is data that can be inspected and modified programmatically. This is a powerful idea; one...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="active" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="metaprogramming" class="section level1 unnumbered">
+<h1>Introduction<a class="anchor" aria-label="anchor" href="#metaprogramming"><i class="fas fa-link"></i></a>
+</h1>
+<p>
+</p>
+<p>One of the most intriguing things about R is its ability to do <strong>metaprogramming</strong>. This is the idea that code is data that can be inspected and modified programmatically. This is a powerful idea; one that deeply influences much R code. At the most basic level, it allows you to do things like write <code><a href="http://purrr.tidyverse.org">library(purrr)</a></code> instead of <code><a href="http://purrr.tidyverse.org">library("purrr")</a></code> and enable <code>plot(x, sin(x))</code> to automatically label the axes with <code>x</code> and <code>sin(x)</code>. At a deeper level, it allows you to do things like use <code>y ~ x1 + x2</code> to represent a model that predicts the value of <code>y</code> from <code>x1</code> and <code>x2</code>, to translate <code>subset(df, x == y)</code> into <code>df[df$x == df$y, , drop = FALSE]</code>, and to use <code>dplyr::filter(db, is.na(x))</code> to generate the SQL <code>WHERE x IS NULL</code> when <code>db</code> is a remote database table.</p>
+<p>Closely related to metaprogramming is <strong>non-standard evaluation</strong>, NSE for short. This term, which is commonly used to describe the behaviour of R functions, is problematic in two ways. Firstly, NSE is actually a property of the argument (or arguments) of a function, so talking about NSE functions is a little sloppy. Secondly, it’s confusing to define something by what it’s not (standard), so in this book I’ll introduce more precise vocabulary.</p>
+<p>Specifically, this book focuses on tidy evaluation (sometimes called tidy eval for short). Tidy evaluation is implemented in the rlang package,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Lionel Henry and Hadley Wickham, &lt;em&gt;Rlang: Tools for Low-Level &lt;span&gt;R&lt;/span&gt; Programming&lt;/em&gt;, 2018, &lt;a href="https://rlang.r-lib.org" role="doc-biblioref"&gt;https://rlang.r-lib.org&lt;/a&gt;.&lt;/p&gt;'><sup>84</sup></a></span> and I’ll use rlang extensively in these chapters. This will allow you to focus on the big ideas, without being distracted by the quirks of implementation that arise from R’s history. After I introduce each big idea with rlang, I’ll then circle back to talk about how those ideas are expressed in base R. This approach may seem backward to some, but it’s like learning how to drive using an automatic transmission rather than a stick shift: it allows you to focus on the big picture before having to learn the details. This book focusses on the theoretical side of tidy evaluation, so you can fully understand how it works from the ground up. If you are looking for a more practical introduction, I recommend the tidy evaluation book at <a href="https://tidyeval.tidyverse.org" class="uri">https://tidyeval.tidyverse.org</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;As I write this chapter, the tidy evaluation book is still a work-in-progress, but by the time you read this it will hopefully be finished.&lt;/p&gt;"><sup>85</sup></a>.</p>
+<p>You’ll learn about metaprogramming and tidy evaluation in the following five chapters:</p>
+<ol style="list-style-type: decimal">
+<li><p>Chapter <a href="meta-big-picture.html#meta-big-picture">17</a> gives a high level description of the whole
+metaprogramming story, briefly learning about all major components
+and how they fit together to form a cohesive whole.</p></li>
+<li><p>Chapter <a href="expressions.html#expressions">18</a> shows that that all R code can be described as a
+tree. You’ll learn how to visualise these trees, how the rules of R’s
+grammar convert linear sequences of characters into these trees, and how to
+use recursive functions to work with code trees.</p></li>
+<li><p>Chapter <a href="quasiquotation.html#quasiquotation">19</a> presents tools from rlang that you can use to
+capture (quote) unevaluated function arguments. You’ll also learn about
+quasiquotation, which provides a set of techniques to unquote input to make
+it possible to easily generate new trees from code fragments.</p></li>
+<li><p>Chapter <a href="evaluation.html#evaluation">20</a> moves on to evaluating captured code. Here you’ll
+learn about an important data structure, the <strong>quosure</strong>, which ensures
+correct evaluation by capturing both the code to evaluate, and the
+environment in which to evaluate it. This chapter will show you how to put
+all the pieces together to understand how NSE works in base R, and how to
+write functions that work like <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>.</p></li>
+<li><p>Chapter <a href="translation.html#translation">21</a> finishes up by combining first-class environments, lexical
+scoping, and metaprogramming to translate R code into other languages,
+namely HTML and LaTeX.</p></li>
+</ol>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></div>
+<div class="next"><a href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#metaprogramming">Introduction</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Meta.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Meta.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
