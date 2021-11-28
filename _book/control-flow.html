@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Control flow | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="5 Control flow | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Control flow | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="5.1 Introduction There are two primary tools of control flow: choices and loops. Choices, like if statements and switch() calls, allow you to run different code depending on the input. Loops, like...">
+<meta property="og:description" content="5.1 Introduction There are two primary tools of control flow: choices and loops. Choices, like if statements and switch() calls, allow you to run different code depending on the input. Loops, like...">
+<meta name="twitter:description" content="5.1 Introduction There are two primary tools of control flow: choices and loops. Choices, like if statements and switch() calls, allow you to run different code depending on the input. Loops, like...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="active" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="control-flow" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Control flow<a class="anchor" aria-label="anchor" href="#control-flow"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-4" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are two primary tools of control flow: choices and loops. Choices, like <code>if</code> statements and <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> calls, allow you to run different code depending on the input. Loops, like <code>for</code> and <code>while</code>, allow you to repeatedly run code, typically with changing options. I’d expect that you’re already familiar with the basics of these functions so I’ll briefly cover some technical details and then introduce some useful, but lesser known, features.</p>
+<p>The condition system (messages, warnings, and errors), which you’ll learn about in Chapter <a href="conditions.html#conditions">8</a>, also provides non-local control flow.</p>
+<div id="quiz-3" class="section level3 unnumbered">
+<h3>Quiz<a class="anchor" aria-label="anchor" href="#quiz-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Want to skip this chapter? Go for it, if you can answer the questions below. Find the answers at the end of the chapter in Section <a href="control-flow.html#control-flow-answers">5.4</a>.</p>
+<ul>
+<li><p>What is the difference between <code>if</code> and <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>?</p></li>
+<li>
+<p>In the following code, what will the value of <code>y</code> be if <code>x</code> is <code>TRUE</code>?
+What if <code>x</code> is <code>FALSE</code>? What if <code>x</code> is <code>NA</code>?</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">3</span></code></pre></div>
+</li>
+<li><p>What does <code>switch("x", x = , y = 2, z = 3)</code> return?</p></li>
+</ul>
+</div>
+<div id="outline-3" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-3"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="control-flow.html#choices">5.2</a> dives into the details of <code>if</code>, then discusses
+the close relatives <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> and <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>.</p></li>
+<li><p>Section <a href="control-flow.html#loops">5.3</a> starts off by reminding you of the basic structure
+of the for loop in R, discusses some common pitfalls, and then talks
+about the related <code>while</code> and <code>repeat</code> statements.</p></li>
+</ul>
+</div>
+</div>
+<div id="choices" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Choices<a class="anchor" aria-label="anchor" href="#choices"><i class="fas fa-link"></i></a>
+</h2>
+<p>The basic form of an if statement in R is as follows:</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">condition</span><span class="op">)</span> <span class="va">true_action</span>
+<span class="kw">if</span> <span class="op">(</span><span class="va">condition</span><span class="op">)</span> <span class="va">true_action</span> <span class="kw">else</span> <span class="va">false_action</span></code></pre></div>
+<p>If <code>condition</code> is <code>TRUE</code>, <code>true_action</code> is evaluated; if <code>condition</code> is <code>FALSE</code>, the optional <code>false_action</code> is evaluated.</p>
+<p>Typically the actions are compound statements contained within <code>{</code>:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">grade</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">90</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"A"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">80</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"B"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">50</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"C"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="st">"F"</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p><code>if</code> returns a value so that you can assign the results:</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="fl">1</span> <span class="kw">else</span> <span class="fl">2</span>
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fl">1</span> <span class="kw">else</span> <span class="fl">2</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 2</span></code></pre></div>
+<p>(I recommend assigning the results of an <code>if</code> statement only when the entire expression fits on one line; otherwise it tends to be hard to read.)</p>
+<p>When you use the single argument form without an else statement, <code>if</code> invisibly (Section <a href="functions.html#invisible">6.7.2</a>) returns <code>NULL</code> if the condition is <code>FALSE</code>. Since functions like <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> drop <code>NULL</code> inputs, this allows for a compact expression of certain idioms:</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">greet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">birthday</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
+    <span class="st">"Hi "</span>, <span class="va">name</span>,
+    <span class="kw">if</span> <span class="op">(</span><span class="va">birthday</span><span class="op">)</span> <span class="st">" and HAPPY BIRTHDAY"</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">greet</span><span class="op">(</span><span class="st">"Maria"</span>, <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Hi Maria"</span>
+<span class="fu">greet</span><span class="op">(</span><span class="st">"Jaime"</span>, <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Hi Jaime and HAPPY BIRTHDAY"</span></code></pre></div>
+<div id="invalid-inputs" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> Invalid inputs<a class="anchor" aria-label="anchor" href="#invalid-inputs"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>condition</code> should evaluate to a single <code>TRUE</code> or <code>FALSE</code>. Most other inputs will generate an error:</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="st">"x"</span><span class="op">)</span> <span class="fl">1</span>
+<span class="co">#&gt; Error in if ("x") 1: argumento no interpetable como lógico</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">logical</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fl">1</span>
+<span class="co">#&gt; Error in if (logical()) 1: argumento tiene longitud cero</span>
+<span class="kw">if</span> <span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="fl">1</span>
+<span class="co">#&gt; Error in if (NA) 1: valor ausente donde TRUE/FALSE es necesario</span></code></pre></div>
+<p>The exception is a logical vector of length greater than 1, which generates a warning:</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="fl">1</span>
+<span class="co">#&gt; Warning in if (c(TRUE, FALSE)) 1: la condición tiene longitud &gt; 1 y sólo el</span>
+<span class="co">#&gt; primer elemento será usado</span>
+<span class="co">#&gt; [1] 1</span></code></pre></div>
+<p>In R 3.5.0 and greater, thanks to <a href="https://github.com/HenrikBengtsson/Wishlist-for-R/issues/38">Henrik Bengtsson</a>, you can turn this into an error by setting an environment variable:</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"_R_CHECK_LENGTH_1_CONDITION_"</span> <span class="op">=</span> <span class="st">"true"</span><span class="op">)</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="fl">1</span>
+<span class="co">#&gt; Error in if (c(TRUE, FALSE)) 1: the condition has length &gt; 1</span></code></pre></div>
+<p>I think this is good practice as it reveals a clear mistake that you might otherwise miss if it were only shown as a warning.</p>
+</div>
+<div id="vectorised-if" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> Vectorised if<a class="anchor" aria-label="anchor" href="#vectorised-if"><i class="fas fa-link"></i></a>
+</h3>
+<p>Given that <code>if</code> only works with a single <code>TRUE</code> or <code>FALSE</code>, you might wonder what to do if you have a vector of logical values. Handling vectors of values is the job of <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>: a vectorised function with <code>test</code>, <code>yes</code>, and <code>no</code> vectors (that will be recycled to the same length):</p>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">5</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"XXX"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  [1] "1"   "2"   "3"   "4"   "XXX" "6"   "7"   "8"   "9"   "XXX"</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"even"</span>, <span class="st">"odd"</span><span class="op">)</span>
+<span class="co">#&gt;  [1] "odd"  "even" "odd"  "even" "odd"  "even" "odd"  "even" "odd"  "even"</span></code></pre></div>
+<p>Note that missing values will be propagated into the output.</p>
+<p>I recommend using <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> only when the <code>yes</code> and <code>no</code> vectors are the same type as it is otherwise hard to predict the output type. See <a href="https://vctrs.r-lib.org/articles/stability.html#ifelse" class="uri">https://vctrs.r-lib.org/articles/stability.html#ifelse</a> for additional discussion.</p>
+<p>Another vectorised equivalent is the more general <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when()</a></code>. It uses a special syntax to allow any number of condition-vector pairs:</p>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+  <span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">35</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="st">"fizz buzz"</span>,
+  <span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">5</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="st">"fizz"</span>,
+  <span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">7</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="st">"buzz"</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">~</span> <span class="st">"???"</span>,
+  <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt;  [1] "1"    "2"    "3"    "4"    "fizz" "6"    "buzz" "8"    "9"    "fizz"</span></code></pre></div>
+</div>
+<div id="switch" class="section level3" number="5.2.3">
+<h3>
+<span class="header-section-number">5.2.3</span> <code>switch()</code> statement<a class="anchor" aria-label="anchor" href="#switch"><i class="fas fa-link"></i></a>
+</h3>
+<p>Closely related to <code>if</code> is the <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>-statement. It’s a compact, special purpose equivalent that lets you replace code like:</p>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_option</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"a"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"option 1"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"b"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"option 2"</span> 
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"c"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"option 3"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid `x` value"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>with the more succinct:</p>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x_option</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="va">x</span>,
+    a <span class="op">=</span> <span class="st">"option 1"</span>,
+    b <span class="op">=</span> <span class="st">"option 2"</span>,
+    c <span class="op">=</span> <span class="st">"option 3"</span>,
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid `x` value"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>The last component of a <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> should always throw an error, otherwise unmatched inputs will invisibly return <code>NULL</code>:</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="st">"c"</span>, a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+<p>If multiple inputs have the same output, you can leave the right hand side of <code>=</code> empty and the input will “fall through” to the next value. This mimics the behaviour of C’s <code>switch</code> statement:</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">legs</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="va">x</span>,
+    cow <span class="op">=</span> ,
+    horse <span class="op">=</span> ,
+    dog <span class="op">=</span> <span class="fl">4</span>,
+    human <span class="op">=</span> ,
+    chicken <span class="op">=</span> <span class="fl">2</span>,
+    plant <span class="op">=</span> <span class="fl">0</span>,
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Unknown input"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">legs</span><span class="op">(</span><span class="st">"cow"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="fu">legs</span><span class="op">(</span><span class="st">"dog"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
+<p>It is also possible to use <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> with a numeric <code>x</code>, but is harder to read, and has undesirable failure modes if <code>x</code> is a not a whole number. I recommend using <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> only with character inputs.</p>
+</div>
+<div id="exercises-12" class="section level3" number="5.2.4">
+<h3>
+<span class="header-section-number">5.2.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-12"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>What type of vector does each of the following calls to <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
+return?</p>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span></code></pre></div>
+<p>Read the documentation and write down the rules in your own words.</p>
+</li>
+<li>
+<p>Why does the following code work?</p>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="st">"not empty"</span> <span class="kw">else</span> <span class="st">"empty"</span>
+<span class="co">#&gt; [1] "not empty"</span>
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="op">)</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="st">"not empty"</span> <span class="kw">else</span> <span class="st">"empty"</span>
+<span class="co">#&gt; [1] "empty"</span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="loops" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+</p>
+<p><code>for</code> loops are used to iterate over items in a vector. They have the following basic form:</p>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">item</span> <span class="kw">in</span> <span class="va">vector</span><span class="op">)</span> <span class="va">perform_action</span></code></pre></div>
+<p>For each item in <code>vector</code>, <code>perform_action</code> is called once; updating the value of <code>item</code> each time.</p>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<p>(When iterating over a vector of indices, it’s conventional to use very short variable names like <code>i</code>, <code>j</code>, or <code>k</code>.)</p>
+<p>N.B.: <code>for</code> assigns the <code>item</code> to the current environment, overwriting any existing variable with the same name:</p>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">100</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span>
+<span class="va">i</span>
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<p>There are two ways to terminate a <code>for</code> loop early:</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/base/Control.html">next</a></code> exits the current iteration.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/Control.html">break</a></code> exits the entire <code>for</code> loop.</li>
+</ul>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&lt;</span> <span class="fl">3</span><span class="op">)</span> 
+    <span class="kw">next</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&gt;=</span> <span class="fl">5</span><span class="op">)</span>
+    <span class="kw">break</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span></code></pre></div>
+<div id="common-pitfalls" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Common pitfalls<a class="anchor" aria-label="anchor" href="#common-pitfalls"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>There are three common pitfalls to watch out for when using <code>for</code>. First, if you’re generating data, make sure to preallocate the output container. Otherwise the loop will be very slow; see Sections <a href="perf-measure.html#memory-profiling">23.2.2</a> and <a href="perf-improve.html#avoid-copies">24.6</a> for more details. The <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> function is helpful here.</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">50</span>, <span class="fl">20</span><span class="op">)</span>
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">out</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">means</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Next, beware of iterating over <code>1:length(x)</code>, which will fail in unhelpful ways if <code>x</code> has length 0:</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">out</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">means</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; Error in rnorm(10, means[[i]]): invalid arguments</span></code></pre></div>
+<p>This occurs because <code>:</code> works with both increasing and decreasing sequences:</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 0</span></code></pre></div>
+<p>Use <code>seq_along(x)</code> instead. It always returns a value the same length as <code>x</code>:</p>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span>
+<span class="co">#&gt; integer(0)</span>
+
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">out</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">means</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Finally, you might encounter problems when iterating over S3 vectors, as loops typically strip the attributes:</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2010-01-01"</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">xs</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 18262</span>
+<span class="co">#&gt; [1] 14610</span></code></pre></div>
+<p>Work around this by calling <code>[[</code> yourself:</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">xs</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "2020-01-01"</span>
+<span class="co">#&gt; [1] "2010-01-01"</span></code></pre></div>
+</div>
+<div id="for-family" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Related tools<a class="anchor" aria-label="anchor" href="#for-family"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>for</code> loops are useful if you know in advance the set of values that you want to iterate over. If you don’t know, there are two related tools with more flexible specifications:</p>
+<ul>
+<li><p><code>while(condition) action</code>: performs <code>action</code> while <code>condition</code> is <code>TRUE</code>.</p></li>
+<li><p><code>repeat(action)</code>: repeats <code>action</code> forever (i.e. until it encounters <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>).</p></li>
+</ul>
+<p>R does not have an equivalent to the <code>do {action} while (condition)</code> syntax found in other languages.</p>
+<p>You can rewrite any <code>for</code> loop to use <code>while</code> instead, and you can rewrite any <code>while</code> loop to use <code>repeat</code>, but the converses are not true. That means <code>while</code> is more flexible than <code>for</code>, and <code>repeat</code> is more flexible than <code>while</code>. It’s good practice, however, to use the least-flexible solution to a problem, so you should use <code>for</code> wherever possible.</p>
+<p>Generally speaking you shouldn’t need to use <code>for</code> loops for data analysis tasks, as <code>map()</code> and <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> already provide less flexible solutions to most problems. You’ll learn more in Chapter <a href="functionals.html#functionals">9</a>.</p>
+</div>
+<div id="exercises-13" class="section level3" number="5.3.3">
+<h3>
+<span class="header-section-number">5.3.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-13"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Why does this code succeed without errors or warnings?</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">out</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">^</span> <span class="fl">2</span>
+<span class="op">}</span>
+<span class="va">out</span></code></pre></div>
+</li>
+<li>
+<p>When the following code is evaluated, what can you say about the
+vector being iterated?</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="va">xs</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">xs</span>, <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">xs</span>
+<span class="co">#&gt; [1] 1 2 3 2 4 6</span></code></pre></div>
+</li>
+<li>
+<p>What does the following code tell you about when the index is updated?</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">*</span> <span class="fl">2</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span> 
+<span class="op">}</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 6</span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="control-flow-answers" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Quiz answers<a class="anchor" aria-label="anchor" href="#control-flow-answers"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p><code>if</code> works with scalars; <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> works with vectors.</p></li>
+<li><p>When <code>x</code> is <code>TRUE</code>, <code>y</code> will be <code>3</code>; when <code>FALSE</code>, <code>y</code> will be <code>NULL</code>;
+when <code>NA</code> the if statement will throw an error.</p></li>
+<li><p>This <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> statement makes use of fall-through so it will return 2.
+See details in Section <a href="control-flow.html#switch">5.2.3</a>.</p></li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></div>
+<div class="next"><a href="functions.html"><span class="header-section-number">6</span> Functions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#control-flow"><span class="header-section-number">5</span> Control flow</a></li>
+<li>
+<a class="nav-link" href="#introduction-4"><span class="header-section-number">5.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#quiz-3">Quiz</a></li>
+<li><a class="nav-link" href="#outline-3">Outline</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#choices"><span class="header-section-number">5.2</span> Choices</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#invalid-inputs"><span class="header-section-number">5.2.1</span> Invalid inputs</a></li>
+<li><a class="nav-link" href="#vectorised-if"><span class="header-section-number">5.2.2</span> Vectorised if</a></li>
+<li><a class="nav-link" href="#switch"><span class="header-section-number">5.2.3</span> switch() statement</a></li>
+<li><a class="nav-link" href="#exercises-12"><span class="header-section-number">5.2.4</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#loops"><span class="header-section-number">5.3</span> Loops</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#common-pitfalls"><span class="header-section-number">5.3.1</span> Common pitfalls</a></li>
+<li><a class="nav-link" href="#for-family"><span class="header-section-number">5.3.2</span> Related tools</a></li>
+<li><a class="nav-link" href="#exercises-13"><span class="header-section-number">5.3.3</span> Exercises</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#control-flow-answers"><span class="header-section-number">5.4</span> Quiz answers</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Control-flow.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Control-flow.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

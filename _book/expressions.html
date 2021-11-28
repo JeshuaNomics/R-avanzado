@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>18 Expressions | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="18 Expressions | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="18 Expressions | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="18.1 Introduction  To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first...">
+<meta property="og:description" content="18.1 Introduction  To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first...">
+<meta name="twitter:description" content="18.1 Introduction  To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="active" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="expressions" class="section level1" number="18">
+<h1>
+<span class="header-section-number">18</span> Expressions<a class="anchor" aria-label="anchor" href="#expressions"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-17" class="section level2" number="18.1">
+<h2>
+<span class="header-section-number">18.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-17"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first of these is the distinction between an operation and its result. Take the following code, which multiplies a variable <code>x</code> by 10 and saves the result to a new variable called <code>y</code>. It doesn’t work because we haven’t defined a variable called <code>x</code>:</p>
+<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): objeto 'x' no encontrado</span></code></pre></div>
+<p>It would be nice if we could capture the intent of the code without executing it. In other words, how can we separate our description of the action from the action itself?</p>
+<p>One way is to use <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::expr()</a></code>:</p>
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span>
+<span class="va">z</span>
+<span class="co">#&gt; y &lt;- x * 10</span></code></pre></div>
+<p><code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code> returns an expression, an object that captures the structure of the code without evaluating it (i.e. running it). If you have an expression, you can evaluate it with <code><a href="https://rdrr.io/r/base/eval.html">base::eval()</a></code>:</p>
+<div class="sourceCode" id="cb689"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span>
+<span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
+<span class="va">y</span>
+<span class="co">#&gt; [1] 40</span></code></pre></div>
+<p>The focus of this chapter is the data structures that underlie expressions. Mastering this knowledge will allow you to inspect and modify captured code, and to generate code with code. We’ll come back to <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code> in Chapter <a href="quasiquotation.html#quasiquotation">19</a>, and to <code><a href="https://rdrr.io/r/base/eval.html">eval()</a></code> in Chapter <a href="evaluation.html#evaluation">20</a>.</p>
+<div id="outline-16" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-16"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="expressions.html#ast">18.2</a> introduces the idea of the abstract syntax tree (AST),
+and reveals the tree like structure that underlies all R code.</p></li>
+<li><p>Section <a href="expressions.html#expression-details">18.3</a> dives into the details of the data
+structures that underpin the AST: constants, symbols, and calls, which
+are collectively known as expressions.</p></li>
+<li><p>Section <a href="expressions.html#grammar">18.4</a> covers parsing, the act of converting the linear
+sequence of character in code into the AST, and uses that idea to explore
+some details of R’s grammar.</p></li>
+<li><p>Section <a href="expressions.html#ast-funs">18.5</a> shows you how you can use recursive functions to
+compute on the language, writing functions that compute with expressions.</p></li>
+<li><p>Section <a href="expressions.html#expression-special">18.6</a> circles back to three more
+specialised data structures: pairlists, missing arguments, and expression
+vectors.</p></li>
+</ul>
+</div>
+<div id="prerequisites-11" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-11"><i class="fas fa-link"></i></a>
+</h3>
+<p>Make sure you’ve read the metaprogramming overview in Chapter <a href="meta-big-picture.html#meta-big-picture">17</a> to get a broad overview of the motivation and the basic vocabulary. You’ll also need the <a href="https://rlang.r-lib.org">rlang</a> package to capture and compute on expressions, and the <a href="https://lobstr.r-lib.org">lobstr</a> package to visualise them.</p>
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rlang.r-lib.org">rlang</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/lobstr">lobstr</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'lobstr' was built under R version 4.1.2</span></code></pre></div>
+</div>
+</div>
+<div id="ast" class="section level2" number="18.2">
+<h2>
+<span class="header-section-number">18.2</span> Abstract syntax trees<a class="anchor" aria-label="anchor" href="#ast"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>Expressions are also called <strong>abstract syntax trees</strong> (ASTs) because the structure of code is hierarchical and can be naturally represented as a tree. Understanding this tree structure is crucial for inspecting and modifying expressions (i.e. metaprogramming).</p>
+<div id="drawing" class="section level3" number="18.2.1">
+<h3>
+<span class="header-section-number">18.2.1</span> Drawing<a class="anchor" aria-label="anchor" href="#drawing"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>We’ll start by introducing some conventions for drawing ASTs, beginning with a simple call that shows their main components: <code>f(x, "y", 1)</code>. I’ll draw trees in two ways<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;For more complex code, you can also use RStudio’s tree viewer which doesn’t obey quite the same graphical conventions, but allows you to interactively explore large ASTs. Try it out with &lt;code&gt;View(expr(f(x, "y", 1)))&lt;/code&gt;.&lt;/p&gt;'><sup>87</sup></a>:</p>
+<ul>
+<li>
+<p>By “hand” (i.e. with OmniGraffle):</p>
+<div class="inline-figure"><img src="diagrams/expressions/simple.png" width="189" style="display: block; margin: auto;"></div>
+</li>
+<li>
+<p>With <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">lobstr::ast()</a></code>:</p>
+<div class="sourceCode" id="cb691"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">x</span>, <span class="st">"y"</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-f </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; +-"y" </span>
+<span class="co">#&gt; \-1</span></code></pre></div>
+</li>
+</ul>
+<p>Both approaches share conventions as much as possible:</p>
+<ul>
+<li><p>The leaves of the tree are either symbols, like <code>f</code> and <code>x</code>, or constants,
+like <code>1</code> or <code>"y"</code>. Symbols are drawn in purple and have rounded corners.
+Constants have black borders and square corners. Strings and symbols are
+easily confused, so strings are always surrounded in quotes.</p></li>
+<li><p>The branches of the tree are call objects, which represent function calls,
+and are drawn as orange rectangles. The first child (<code>f</code>) is the function
+that gets called; the second and subsequent children (<code>x</code>, <code>"y"</code>, and <code>1</code>)
+are the arguments to that function.</p></li>
+</ul>
+<p>Colours will be shown when <em>you</em> call <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast()</a></code>, but do not appear in the book for complicated technical reasons.</p>
+<p>The above example only contained one function call, making for a very shallow tree. Most expressions will contain considerably more calls, creating trees with multiple levels. For example, consider the AST for <code>f(g(1, 2), h(3, 4, i()))</code>:</p>
+<div class="inline-figure"><img src="diagrams/expressions/complicated.png" width="302" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="fu">g</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">h</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fu">i</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-f </span>
+<span class="co">#&gt; +-o-g </span>
+<span class="co">#&gt; | +-1 </span>
+<span class="co">#&gt; | \-2 </span>
+<span class="co">#&gt; \-o-h </span>
+<span class="co">#&gt;   +-3 </span>
+<span class="co">#&gt;   +-4 </span>
+<span class="co">#&gt;   \-o-i</span></code></pre></div>
+<p>You can read the hand-drawn diagrams from left-to-right (ignoring vertical position), and the lobstr-drawn diagrams from top-to-bottom (ignoring horizontal position). The depth within the tree is determined by the nesting of function calls. This also determines evaluation order, as evaluation generally proceeds from deepest-to-shallowest, but this is not guaranteed because of lazy evaluation (Section <a href="functions.html#lazy-evaluation">6.5</a>). Also note the appearance of <code>i()</code>, a function call with no arguments; it’s a branch with a single (symbol) leaf.</p>
+</div>
+<div id="non-code-components" class="section level3" number="18.2.2">
+<h3>
+<span class="header-section-number">18.2.2</span> Non-code components<a class="anchor" aria-label="anchor" href="#non-code-components"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>You might have wondered what makes these <em>abstract</em> syntax trees. They are abstract because they only capture important structural details of the code, not whitespace or comments:</p>
+<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span>
+  <span class="fu">f</span><span class="op">(</span><span class="va">x</span>,  <span class="va">y</span><span class="op">)</span>  <span class="co"># important!</span>
+<span class="op">)</span>
+<span class="co">#&gt; o-f </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-y</span></code></pre></div>
+<p>There’s only one place where whitespace affects the AST:</p>
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;-` </span>
+<span class="co">#&gt; +-y </span>
+<span class="co">#&gt; \-x</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;` </span>
+<span class="co">#&gt; +-y </span>
+<span class="co">#&gt; \-o-`-` </span>
+<span class="co">#&gt;   \-x</span></code></pre></div>
+</div>
+<div id="infix-calls" class="section level3" number="18.2.3">
+<h3>
+<span class="header-section-number">18.2.3</span> Infix calls<a class="anchor" aria-label="anchor" href="#infix-calls"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Every call in R can be written in tree form because any call can be written in prefix form (Section <a href="functions.html#prefix-transform">6.8.1</a>). Take <code>y &lt;- x * 10</code> again: what are the functions that are being called? It is not as easy to spot as <code>f(x, 1)</code> because this expression contains two infix calls: <code>&lt;-</code> and <code>*</code>. That means that these two lines of code are equivalent:</p>
+<div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10</span>
+<span class="fu">`&lt;-`</span><span class="op">(</span><span class="va">y</span>, <span class="fu">`*`</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>And they both have this AST<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;The names of non-prefix functions are non-syntactic so I surround them with &lt;code&gt;``&lt;/code&gt;, as in Section &lt;a href="names-values.html#non-syntactic"&gt;2.2.1&lt;/a&gt;.&lt;/p&gt;'><sup>88</sup></a>:</p>
+<div class="inline-figure"><img src="diagrams/expressions/prefix.png" width="217" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;-` </span>
+<span class="co">#&gt; +-y </span>
+<span class="co">#&gt; \-o-`*` </span>
+<span class="co">#&gt;   +-x </span>
+<span class="co">#&gt;   \-10</span></code></pre></div>
+<p>There really is no difference between the ASTs, and if you generate an expression with prefix calls, R will still print it in infix form:</p>
+<div class="sourceCode" id="cb697"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">`&lt;-`</span><span class="op">(</span><span class="va">y</span>, <span class="fu">`*`</span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; y &lt;- x * 10</span></code></pre></div>
+<p>The order in which infix operators are applied is governed by a set of rules called operator precedence, and we’ll use <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">lobstr::ast()</a></code> to explore them in Section <a href="expressions.html#operator-precedence">18.4.1</a>.</p>
+</div>
+<div id="exercises-52" class="section level3" number="18.2.4">
+<h3>
+<span class="header-section-number">18.2.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-52"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Reconstruct the code represented by the trees below:</p>
+<pre><code>#&gt; o-f 
+#&gt; \-o-g 
+#&gt;   \-o-h
+#&gt; o-`+` 
+#&gt; +-o-`+` 
+#&gt; | +-1 
+#&gt; | \-2 
+#&gt; \-3
+#&gt; o-`*` 
+#&gt; +-o-`(` 
+#&gt; | \-o-`+` 
+#&gt; |   +-x 
+#&gt; |   \-y 
+#&gt; \-z</code></pre>
+</li>
+<li>
+<p>Draw the following trees by hand and then check your answers with
+<code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">lobstr::ast()</a></code>.</p>
+<div class="sourceCode" id="cb699"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f</span><span class="op">(</span><span class="fu">g</span><span class="op">(</span><span class="fu">h</span><span class="op">(</span><span class="fu">i</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">f</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">g</span><span class="op">(</span><span class="fl">2</span>, <span class="fu">h</span><span class="op">(</span><span class="fl">3</span>, <span class="fu">i</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">f</span><span class="op">(</span><span class="fu">g</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu">h</span><span class="op">(</span><span class="fl">3</span>, <span class="fu">i</span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p>What’s happening with the ASTs below? (Hint: carefully read <code><a href="https://rdrr.io/r/base/Arithmetic.html">?"^"</a></code>.)</p>
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">`x`</span> <span class="op">+</span> <span class="va">`y`</span><span class="op">)</span>
+<span class="co">#&gt; o-`+` </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-y</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">x</span> <span class="op">**</span> <span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; o-`^` </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-y</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-&gt;</span> <span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;-` </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-1</span></code></pre></div>
+</li>
+<li>
+<p>What is special about the AST below? (Hint: re-read Section
+<a href="functions.html#fun-components">6.2.1</a>.)</p>
+<div class="sourceCode" id="cb701"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">y</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; o-`function` </span>
+<span class="co">#&gt; +-o-x = 1 </span>
+<span class="co">#&gt; | \-y = 2 </span>
+<span class="co">#&gt; +-o-`{` </span>
+<span class="co">#&gt; \-&lt;inline srcref&gt;</span></code></pre></div>
+</li>
+<li><p>What does the call tree of an <code>if</code> statement with multiple <code>else if</code>
+conditions look like? Why?</p></li>
+</ol>
+</div>
+</div>
+<div id="expression-details" class="section level2" number="18.3">
+<h2>
+<span class="header-section-number">18.3</span> Expressions<a class="anchor" aria-label="anchor" href="#expression-details"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>Collectively, the data structures present in the AST are called expressions. An <strong>expression</strong> is any member of the set of base types created by parsing code: constant scalars, symbols, call objects, and pairlists. These are the data structures used to represent captured code from <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code>, and <code>is_expression(expr(...))</code> is always true<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;It is &lt;em&gt;possible&lt;/em&gt; to insert any other base object into an expression, but this is unusual and only needed in rare circumstances. We’ll come back to that idea in Section &lt;a href="quasiquotation.html#non-standard-ast"&gt;19.4.7&lt;/a&gt;.&lt;/p&gt;'><sup>89</sup></a>. Constants, symbols and call objects are the most important, and are discussed below. Pairlists and empty symbols are more specialised and we’ll come back to them in Sections <a href="expressions.html#pairlists">18.6.1</a> and Section <a href="expressions.html#empty-symbol">18.6.2</a>.</p>
+<p>NB: In base R documentation “expression” is used to mean two things. As well as the definition above, expression is also used to refer to the type of object returned by <code><a href="https://rdrr.io/r/base/expression.html">expression()</a></code> and <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code>, which are basically lists of expressions as defined above. In this book I’ll call these <strong>expression vectors</strong>, and I’ll come back to them in Section <a href="expressions.html#expression-vectors">18.6.3</a>.</p>
+<div id="constants" class="section level3" number="18.3.1">
+<h3>
+<span class="header-section-number">18.3.1</span> Constants<a class="anchor" aria-label="anchor" href="#constants"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Scalar constants are the simplest component of the AST. More precisely, a <strong>constant</strong> is either <code>NULL</code> or a length-1 atomic vector (or scalar, Section <a href="vectors-chap.html#scalars">3.2.1</a>) like <code>TRUE</code>, <code>1L</code>, <code>2.5</code> or <code>"x"</code>. You can test for a constant with <code><a href="https://rlang.r-lib.org/reference/is_expression.html">rlang::is_syntactic_literal()</a></code>.</p>
+<p>Constants are self-quoting in the sense that the expression used to represent a constant is the same constant:</p>
+<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fl">2L</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span>, <span class="st">"x"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
+<div id="symbols" class="section level3" number="18.3.2">
+<h3>
+<span class="header-section-number">18.3.2</span> Symbols<a class="anchor" aria-label="anchor" href="#symbols"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+
+</p>
+<p>A <strong>symbol</strong> represents the name of an object like <code>x</code>, <code>mtcars</code>, or <code>mean</code>. In base R, the terms symbol and name are used interchangeably (i.e. <code><a href="https://rdrr.io/r/base/name.html">is.name()</a></code> is identical to <code><a href="https://rdrr.io/r/base/name.html">is.symbol()</a></code>), but in this book I used symbol consistently because “name” has many other meanings.</p>
+<p>You can create a symbol in two ways: by capturing code that references an object with <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code>, or turning a string into a symbol with <code><a href="https://rlang.r-lib.org/reference/sym.html">rlang::sym()</a></code>:</p>
+<div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; x</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html">sym</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span>
+<span class="co">#&gt; x</span></code></pre></div>
+<p>You can turn a symbol back into a string with <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> or <code><a href="https://rlang.r-lib.org/reference/as_string.html">rlang::as_string()</a></code>. <code><a href="https://rlang.r-lib.org/reference/as_string.html">as_string()</a></code> has the advantage of clearly signalling that you’ll get a character vector of length 1.</p>
+<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/as_string.html">as_string</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "x"</span></code></pre></div>
+<p>You can recognise a symbol because it’s printed without quotes, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> tells you that it’s a symbol, and <code><a href="https://rdrr.io/r/base/name.html">is.symbol()</a></code> is <code>TRUE</code>:</p>
+<div class="sourceCode" id="cb705"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  symbol x</span>
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">is.symbol</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>The symbol type is not vectorised, i.e. a symbol is always length 1. If you want multiple symbols, you’ll need to put them in a list, using (e.g.) <code><a href="https://rlang.r-lib.org/reference/sym.html">rlang::syms()</a></code>.</p>
+</div>
+<div id="calls" class="section level3" number="18.3.3">
+<h3>
+<span class="header-section-number">18.3.3</span> Calls<a class="anchor" aria-label="anchor" href="#calls"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>A <strong>call object</strong> represents a captured function call. Call objects are a special type of list<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;More precisely, they’re pairlists, Section &lt;a href="expressions.html#pairlists"&gt;18.6.1&lt;/a&gt;, but this distinction rarely matters.&lt;/p&gt;'><sup>90</sup></a> where the first component specifies the function to call (usually a symbol), and the remaining elements are the arguments for that call. Call objects create branches in the AST, because calls can be nested inside other calls.</p>
+<p>You can identify a call object when printed because it looks just like a function call. Confusingly <code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code> and <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> print “language”<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Avoid &lt;code&gt;is.language()&lt;/code&gt; which returns &lt;code&gt;TRUE&lt;/code&gt; for symbols, calls, and expression vectors.&lt;/p&gt;"><sup>91</sup></a> for call objects, but <code><a href="https://rdrr.io/r/base/call.html">is.call()</a></code> returns <code>TRUE</code>:</p>
+<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"important.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-read.table </span>
+<span class="co">#&gt; +-"important.csv" </span>
+<span class="co">#&gt; \-row.names = FALSE</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"important.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "language"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/call.html">is.call</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<div id="subsetting-1" class="section level4" number="18.3.3.1">
+<h4>
+<span class="header-section-number">18.3.3.1</span> Subsetting<a class="anchor" aria-label="anchor" href="#subsetting-1"><i class="fas fa-link"></i></a>
+</h4>
+<p></p>
+<p>Calls generally behave like lists, i.e. you can use standard subsetting tools. The first element of the call object is the function to call, which is usually a symbol:</p>
+<div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; read.table</span>
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">is.symbol</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>The remainder of the elements are the arguments:</p>
+<div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] "important.csv"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $row.names</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>You can extract individual arguments with <code>[[</code> or, if named, <code>$</code>:</p>
+<div class="sourceCode" id="cb709"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; [1] "important.csv"</span>
+<span class="va">x</span><span class="op">$</span><span class="va">row.names</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>You can determine the number of arguments in a call object by subtracting 1 from its length:</p>
+<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
+<span class="co">#&gt; [1] 2</span></code></pre></div>
+<p>Extracting specific arguments from calls is challenging because of R’s flexible rules for argument matching: it could potentially be in any location, with the full name, with an abbreviated name, or with no name. To work around this problem, you can use <code><a href="https://rlang.r-lib.org/reference/call_standardise.html">rlang::call_standardise()</a></code> which standardises all arguments to use the full name:
+</p>
+<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/call_standardise.html">call_standardise</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; read.table(file = "important.csv", row.names = FALSE)</span></code></pre></div>
+<p>(NB: If the function uses <code>...</code> it’s not possible to standardise all arguments.)</p>
+<p>Calls can be modified in the same way as lists:</p>
+<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">header</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>
+<span class="va">x</span>
+<span class="co">#&gt; read.table("important.csv", row.names = FALSE, header = TRUE)</span></code></pre></div>
+</div>
+<div id="function-position" class="section level4" number="18.3.3.2">
+<h4>
+<span class="header-section-number">18.3.3.2</span> Function position<a class="anchor" aria-label="anchor" href="#function-position"><i class="fas fa-link"></i></a>
+</h4>
+<p></p>
+<p>The first element of the call object is the <strong>function position</strong>. This contains the function that will be called when the object is evaluated, and is usually a symbol<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Peculiarly, it can also be a number, as in the expression &lt;code&gt;3()&lt;/code&gt;. But this call will always fail to evaluate because a number is not a function.&lt;/p&gt;"><sup>92</sup></a>:</p>
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-foo</span></code></pre></div>
+<p>While R allows you to surround the name of the function with quotes, the parser converts it to a symbol:</p>
+<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="st">"foo"</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-foo</span></code></pre></div>
+<p>However, sometimes the function doesn’t exist in the current environment and you need to do some computation to retrieve it: for example, if the function is in another package, is a method of an R6 object, or is created by a function factory. In this case, the function position will be occupied by another call:</p>
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">pkg</span><span class="fu">::</span><span class="fu">foo</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-o-`::` </span>
+<span class="co">#&gt; | +-pkg </span>
+<span class="co">#&gt; | \-foo </span>
+<span class="co">#&gt; \-1</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="fu">foo</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-o-`$` </span>
+<span class="co">#&gt; | +-obj </span>
+<span class="co">#&gt; | \-foo </span>
+<span class="co">#&gt; \-1</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; o-o-foo </span>
+<span class="co">#&gt; | \-1 </span>
+<span class="co">#&gt; \-2</span></code></pre></div>
+<div class="inline-figure"><img src="diagrams/expressions/call-call.png" width="387" style="display: block; margin: auto;"></div>
+</div>
+<div id="call2" class="section level4" number="18.3.3.3">
+<h4>
+<span class="header-section-number">18.3.3.3</span> Constructing<a class="anchor" aria-label="anchor" href="#call2"><i class="fas fa-link"></i></a>
+</h4>
+<p>
+</p>
+<p>You can construct a call object from its components using <code><a href="https://rlang.r-lib.org/reference/call2.html">rlang::call2()</a></code>. The first argument is the name of the function to call (either as a string, a symbol, or another call). The remaining arguments will be passed along to the call:</p>
+<div class="sourceCode" id="cb716"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="st">"mean"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; mean(x = x, na.rm = TRUE)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">)</span>, x <span class="op">=</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; base::mean(x = x, na.rm = TRUE)</span></code></pre></div>
+<p>Infix calls created in this way still print as usual.</p>
+<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="st">"&lt;-"</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; x &lt;- 10</span></code></pre></div>
+<p>Using <code><a href="https://rlang.r-lib.org/reference/call2.html">call2()</a></code> to create complex expressions is a bit clunky. You’ll learn another technique in Chapter <a href="quasiquotation.html#quasiquotation">19</a>.</p>
+</div>
+</div>
+<div id="summary" class="section level3" number="18.3.4">
+<h3>
+<span class="header-section-number">18.3.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+</h3>
+<p>The following table summarises the appearance of the different expression subtypes in <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> and <code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code>:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th></th>
+<th><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code></th>
+<th><code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Scalar constant</td>
+<td>
+<code>logi</code>/<code>int</code>/<code>num</code>/<code>chr</code>
+</td>
+<td>
+<code>logical</code>/<code>integer</code>/<code>double</code>/<code>character</code>
+</td>
+</tr>
+<tr class="even">
+<td>Symbol</td>
+<td><code>symbol</code></td>
+<td><code>symbol</code></td>
+</tr>
+<tr class="odd">
+<td>Call object</td>
+<td><code>language</code></td>
+<td><code>language</code></td>
+</tr>
+<tr class="even">
+<td>Pairlist</td>
+<td>Dotted pair list</td>
+<td><code>pairlist</code></td>
+</tr>
+<tr class="odd">
+<td>Expression vector</td>
+<td><code><a href="https://rdrr.io/r/base/expression.html">expression()</a></code></td>
+<td><code>expression</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Both base R and rlang provide functions for testing for each type of input, although the types covered are slightly different. You can easily tell them apart because all the base functions start with <code>is.</code> and the rlang functions start with <code>is_</code>.</p>
+<div style="page-break-after: always;"></div>
+<!-- New page so that there's no beak inside the table -->
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th></th>
+<th>base</th>
+<th>rlang</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Scalar constant</td>
+<td>—</td>
+<td><code><a href="https://rlang.r-lib.org/reference/is_expression.html">is_syntactic_literal()</a></code></td>
+</tr>
+<tr class="even">
+<td>Symbol</td>
+<td><code><a href="https://rdrr.io/r/base/name.html">is.symbol()</a></code></td>
+<td><code><a href="https://rlang.r-lib.org/reference/is_symbol.html">is_symbol()</a></code></td>
+</tr>
+<tr class="odd">
+<td>Call object</td>
+<td><code><a href="https://rdrr.io/r/base/call.html">is.call()</a></code></td>
+<td><code><a href="https://rlang.r-lib.org/reference/is_call.html">is_call()</a></code></td>
+</tr>
+<tr class="even">
+<td>Pairlist</td>
+<td><code><a href="https://rdrr.io/r/base/list.html">is.pairlist()</a></code></td>
+<td><code><a href="https://rlang.r-lib.org/reference/is_pairlist.html">is_pairlist()</a></code></td>
+</tr>
+<tr class="odd">
+<td>Expression vector</td>
+<td><code><a href="https://rdrr.io/r/base/expression.html">is.expression()</a></code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="exercises-53" class="section level3" number="18.3.5">
+<h3>
+<span class="header-section-number">18.3.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-53"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Which two of the six types of atomic vector can’t appear in an expression?
+Why? Similarly, why can’t you create an expression that contains an atomic
+vector of length greater than one?</p></li>
+<li><p>What happens when you subset a call object to remove the first element?
+e.g. <code>expr(read.csv("foo.csv", header = TRUE))[-1]</code>. Why?</p></li>
+<li>
+<p>Describe the differences between the following call objects.</p>
+<div class="sourceCode" id="cb718"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="va">median</span>, <span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span>, <span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="va">median</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call2.html">call2</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p><code><a href="https://rlang.r-lib.org/reference/call_standardise.html">rlang::call_standardise()</a></code> doesn’t work so well for the following calls.
+Why? What makes <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> special?</p>
+<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/call_standardise.html">call_standardise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; mean(x = 1:10, na.rm = TRUE)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call_standardise.html">call_standardise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">T</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; mean(x = 1:10, n = T)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/call_standardise.html">call_standardise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, , <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; mean(x = 1:10, , TRUE)</span></code></pre></div>
+</li>
+<li>
+<p>Why does this code not make sense?</p>
+<div class="sourceCode" id="cb720"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>Construct the expression <code>if(x &gt; 1) "a" else "b"</code> using multiple calls to
+<code><a href="https://rlang.r-lib.org/reference/call2.html">call2()</a></code>. How does the code structure reflect the structure of the AST?</p></li>
+</ol>
+</div>
+</div>
+<div id="grammar" class="section level2" number="18.4">
+<h2>
+<span class="header-section-number">18.4</span> Parsing and grammar<a class="anchor" aria-label="anchor" href="#grammar"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>We’ve talked a lot about expressions and the AST, but not about how expressions are created from code that you type (like <code>"x + y"</code>). The process by which a computer language takes a string and constructs an expression is called <strong>parsing</strong>, and is governed by a set of rules known as a <strong>grammar</strong>. In this section, we’ll use <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">lobstr::ast()</a></code> to explore some of the details of R’s grammar, and then show how you can transform back and forth between expressions and strings.</p>
+<div id="operator-precedence" class="section level3" number="18.4.1">
+<h3>
+<span class="header-section-number">18.4.1</span> Operator precedence<a class="anchor" aria-label="anchor" href="#operator-precedence"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Infix functions introduce two sources of ambiguity<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This ambiguity does not exist in languages with only prefix or postfix calls. It’s interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you’d write &lt;code&gt;(* (+ 1 2) 3))&lt;/code&gt;; this avoids ambiguity by requiring parentheses everywhere. In Forth, you’d write &lt;code&gt;1 2 + 3 *&lt;/code&gt;; this doesn’t require any parentheses, but does require more thought when reading.&lt;/p&gt;"><sup>93</sup></a>. The first source of ambiguity arises from infix functions: what does <code>1 + 2 * 3</code> yield? Do you get 9 (i.e. <code>(1 + 2) * 3</code>), or 7 (i.e. <code>1 + (2 * 3)</code>)? In other words, which of the two possible parse trees below does R use?</p>
+<div class="inline-figure"><img src="diagrams/expressions/ambig-order.png" width="373" style="display: block; margin: auto;"></div>
+<p>Programming languages use conventions called <strong>operator precedence</strong> to resolve this ambiguity. We can use <code><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast()</a></code> to see what R does:</p>
+<div class="sourceCode" id="cb721"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; o-`+` </span>
+<span class="co">#&gt; +-1 </span>
+<span class="co">#&gt; \-o-`*` </span>
+<span class="co">#&gt;   +-2 </span>
+<span class="co">#&gt;   \-3</span></code></pre></div>
+<p>Predicting the precedence of arithmetic operations is usually easy because it’s drilled into you in school and is consistent across the vast majority of programming languages.</p>
+<p>Predicting the precedence of other operators is harder. There’s one particularly surprising case in R: <code>!</code> has a much lower precedence (i.e. it binds less tightly) than you might expect. This allows you to write useful operations like:</p>
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="op">!</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; o-`!` </span>
+<span class="co">#&gt; \-o-`%in%` </span>
+<span class="co">#&gt;   +-x </span>
+<span class="co">#&gt;   \-y</span></code></pre></div>
+<p>R has over 30 infix operators divided into 18 precedence groups. While the details are described in <code><a href="https://rdrr.io/r/base/Syntax.html">?Syntax</a></code>, very few people have memorised the complete ordering. If there’s any confusion, use parentheses!</p>
+<div class="sourceCode" id="cb723"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; o-`*` </span>
+<span class="co">#&gt; +-o-`(` </span>
+<span class="co">#&gt; | \-o-`+` </span>
+<span class="co">#&gt; |   +-1 </span>
+<span class="co">#&gt; |   \-2 </span>
+<span class="co">#&gt; \-3</span></code></pre></div>
+<p>Note the appearance of the parentheses in the AST as a call to the <code>(</code> function.</p>
+</div>
+<div id="associativity" class="section level3" number="18.4.2">
+<h3>
+<span class="header-section-number">18.4.2</span> Associativity<a class="anchor" aria-label="anchor" href="#associativity"><i class="fas fa-link"></i></a>
+</h3>
+<p>The second source of ambiguity is introduced by repeated usage of the same infix function. For example, is <code>1 + 2 + 3</code> equivalent to <code>(1 + 2) + 3</code> or to <code>1 + (2 + 3)</code>? This normally doesn’t matter because <code>x + (y + z) == (x + y) + z</code>, i.e. addition is associative, but is needed because some S3 classes define <code>+</code> in a non-associative way. For example, ggplot2 overloads <code>+</code> to build up a complex plot from simple pieces; this is non-associative because earlier layers are drawn underneath later layers (i.e. <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> + <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> does not yield the same plot as <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> + <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>).</p>
+<p>In R, most operators are <strong>left-associative</strong>, i.e. the operations on the left are evaluated first:</p>
+<div class="sourceCode" id="cb724"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; o-`+` </span>
+<span class="co">#&gt; +-o-`+` </span>
+<span class="co">#&gt; | +-1 </span>
+<span class="co">#&gt; | \-2 </span>
+<span class="co">#&gt; \-3</span></code></pre></div>
+<p>There are two exceptions: exponentiation and assignment.</p>
+<div class="sourceCode" id="cb725"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="fl">2</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; o-`^` </span>
+<span class="co">#&gt; +-2 </span>
+<span class="co">#&gt; \-o-`^` </span>
+<span class="co">#&gt;   +-2 </span>
+<span class="co">#&gt;   \-3</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">z</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;-` </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-o-`&lt;-` </span>
+<span class="co">#&gt;   +-y </span>
+<span class="co">#&gt;   \-z</span></code></pre></div>
+</div>
+<div id="parsing" class="section level3" number="18.4.3">
+<h3>
+<span class="header-section-number">18.4.3</span> Parsing and deparsing<a class="anchor" aria-label="anchor" href="#parsing"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Most of the time you type code into the console, and R takes care of turning the characters you’ve typed into an AST. But occasionally you have code stored in a string, and you want to parse it yourself. You can do so using <code><a href="https://rlang.r-lib.org/reference/parse_expr.html">rlang::parse_expr()</a></code>:</p>
+<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="st">"y &lt;- x + 10"</span>
+<span class="va">x1</span>
+<span class="co">#&gt; [1] "y &lt;- x + 10"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/call.html">is.call</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/parse_expr.html">parse_expr</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="va">x2</span>
+<span class="co">#&gt; y &lt;- x + 10</span>
+<span class="fu"><a href="https://rdrr.io/r/base/call.html">is.call</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p><code><a href="https://rlang.r-lib.org/reference/parse_expr.html">parse_expr()</a></code> always returns a single expression. If you have multiple expression separated by <code>;</code> or <code>\n</code>, you’ll need to use <code><a href="https://rlang.r-lib.org/reference/parse_expr.html">rlang::parse_exprs()</a></code>. It returns a list of expressions:</p>
+<div class="sourceCode" id="cb727"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x3</span> <span class="op">&lt;-</span> <span class="st">"a &lt;- 1; a + 1"</span>
+<span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/parse_expr.html">parse_exprs</a></span><span class="op">(</span><span class="va">x3</span><span class="op">)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; a &lt;- 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; a + 1</span></code></pre></div>
+<p>If you find yourself working with strings containing code very frequently, you should reconsider your process. Read Chapter <a href="quasiquotation.html#quasiquotation">19</a> and consider whether you can generate expressions using quasiquotation more safely.</p>
+<div class="base">
+<p>The base equivalent to <code><a href="https://rlang.r-lib.org/reference/parse_expr.html">parse_exprs()</a></code> is <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code>. It is a little harder to use because it’s specialised for parsing R code stored in files. You need to supply your string to the <code>text</code> argument and it returns an expression vector (Section <a href="expressions.html#expression-vectors">18.6.3</a>). I recommend turning the output into a list:</p>
+<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">x1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; y &lt;- x + 10</span></code></pre></div>
+</div>
+<p>
+</p>
+<p>The inverse of parsing is <strong>deparsing</strong>: given an expression, you want the string that would generate it. This happens automatically when you print an expression, and you can get the string with <code><a href="https://rlang.r-lib.org/reference/expr_label.html">rlang::expr_text()</a></code>:</p>
+<div class="sourceCode" id="cb729"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">10</span><span class="op">)</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/expr_label.html">expr_text</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
+<span class="co">#&gt; [1] "y &lt;- x + 10"</span></code></pre></div>
+<p>Parsing and deparsing are not perfectly symmetric because parsing generates an <em>abstract</em> syntax tree. This means we lose backticks around ordinary names, comments, and whitespace:</p>
+<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr_label.html">expr_text</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="co"># This is a comment</span>
+  <span class="va">x</span> <span class="op">&lt;-</span>             <span class="va">`x`</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     x &lt;- x + 1</span>
+<span class="co">#&gt; }</span></code></pre></div>
+<div class="base">
+<p>Be careful when using the base R equivalent, <code><a href="https://rdrr.io/r/base/deparse.html">deparse()</a></code>: it returns a character vector with one element for each line. Whenever you use it, remember that the length of the output might be greater than one, and plan accordingly.</p>
+</div>
+</div>
+<div id="exercises-54" class="section level3" number="18.4.4">
+<h3>
+<span class="header-section-number">18.4.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-54"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>R uses parentheses in two slightly different ways as illustrated by
+these two calls:</p>
+<div class="sourceCode" id="cb731"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f</span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">`(`</span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p>Compare and contrast the two uses by referencing the AST.</p>
+</li>
+<li><p><code>=</code> can also be used in two ways. Construct a simple example that shows
+both uses.</p></li>
+<li><p>Does <code>-2^2</code> yield 4 or -4? Why?</p></li>
+<li><p>What does <code>!1 + !1</code> return? Why?</p></li>
+<li><p>Why does <code>x1 &lt;- x2 &lt;- x3 &lt;- 0</code> work? Describe the two reasons.</p></li>
+<li><p>Compare the ASTs of <code>x + y %+% z</code> and <code>x ^ y %+% z</code>. What have you learned
+about the precedence of custom infix functions?</p></li>
+<li><p>What happens if you call <code><a href="https://rlang.r-lib.org/reference/parse_expr.html">parse_expr()</a></code> with a string that generates
+multiple expressions? e.g. <code>parse_expr("x + 1; y + 1")</code></p></li>
+<li><p>What happens if you attempt to parse an invalid expression? e.g. <code>"a +"</code>
+or <code>"f())"</code>.</p></li>
+<li>
+<p><code><a href="https://rdrr.io/r/base/deparse.html">deparse()</a></code> produces vectors when the input is long. For example, the
+following call produces a vector of length two:</p>
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">g</span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span> <span class="op">+</span> <span class="va">d</span> <span class="op">+</span> <span class="va">e</span> <span class="op">+</span> <span class="va">f</span> <span class="op">+</span> <span class="va">g</span> <span class="op">+</span> <span class="va">h</span> <span class="op">+</span> <span class="va">i</span> <span class="op">+</span> <span class="va">j</span> <span class="op">+</span> <span class="va">k</span> <span class="op">+</span> <span class="va">l</span> <span class="op">+</span> 
+  <span class="va">m</span> <span class="op">+</span> <span class="va">n</span> <span class="op">+</span> <span class="va">o</span> <span class="op">+</span> <span class="va">p</span> <span class="op">+</span> <span class="va">q</span> <span class="op">+</span> <span class="va">r</span> <span class="op">+</span> <span class="va">s</span> <span class="op">+</span> <span class="va">t</span> <span class="op">+</span> <span class="va">u</span> <span class="op">+</span> <span class="va">v</span> <span class="op">+</span> <span class="va">w</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> <span class="op">+</span> <span class="va">z</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></code></pre></div>
+<p>What does <code><a href="https://rlang.r-lib.org/reference/expr_label.html">expr_text()</a></code> do instead?</p>
+</li>
+<li><p><code><a href="https://rdrr.io/r/stats/pairwise.t.test.html">pairwise.t.test()</a></code> assumes that <code><a href="https://rdrr.io/r/base/deparse.html">deparse()</a></code> always returns a length one
+character vector. Can you construct an input that violates this expectation?
+What happens?</p></li>
+</ol>
+</div>
+</div>
+<div id="ast-funs" class="section level2" number="18.5">
+<h2>
+<span class="header-section-number">18.5</span> Walking AST with recursive functions<a class="anchor" aria-label="anchor" href="#ast-funs"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>To conclude the chapter I’m going to use everything you’ve learned about ASTs to solve more complicated problems. The inspiration comes from the base codetools package, which provides two interesting functions:</p>
+<ul>
+<li><p><code>findGlobals()</code> locates all global variables used by a function. This
+can be useful if you want to check that your function doesn’t inadvertently
+rely on variables defined in their parent environment.</p></li>
+<li><p><code>checkUsage()</code> checks for a range of common problems including
+unused local variables, unused parameters, and the use of partial
+argument matching.</p></li>
+</ul>
+<p>Getting all of the details of these functions correct is fiddly, so we won’t fully develop the ideas. Instead we’ll focus on the big underlying idea: recursion on the AST. Recursive functions are a natural fit to tree-like data structures because a recursive function is made up of two parts that correspond to the two parts of the tree:</p>
+<ul>
+<li><p>The <strong>recursive case</strong> handles the nodes in the tree. Typically, you’ll
+do something to each child of a node, usually calling the recursive function
+again, and then combine the results back together again. For expressions,
+you’ll need to handle calls and pairlists (function arguments).</p></li>
+<li><p>The <strong>base case</strong> handles the leaves of the tree. The base cases ensure
+that the function eventually terminates, by solving the simplest cases
+directly. For expressions, you need to handle symbols and constants in the
+base case.</p></li>
+</ul>
+<p>To make this pattern easier to see, we’ll need two helper functions. First we define <code>expr_type()</code> which will return “constant” for constant, “symbol” for symbols, “call,” for calls, “pairlist” for pairlists, and the “type” of anything else:</p>
+<div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">expr_type</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_expression.html">is_syntactic_literal</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"constant"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/name.html">is.symbol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"symbol"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/call.html">is.call</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"call"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">is.pairlist</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"pairlist"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="fu">expr_type</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "constant"</span>
+<span class="fu">expr_type</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "symbol"</span>
+<span class="fu">expr_type</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "call"</span></code></pre></div>
+<p>We’ll couple this with a wrapper around the switch function:</p>
+<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">switch_expr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="fu">expr_type</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
+    <span class="va">...</span>,
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Don't know how to handle type "</span>, <span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>With these two functions in hand, we can write a basic template for any function that walks the AST using <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> (Section <a href="control-flow.html#switch">5.2.3</a>):</p>
+<div class="sourceCode" id="cb735"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">recurse_call</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    <span class="co"># Base cases</span>
+    symbol <span class="op">=</span> ,
+    constant <span class="op">=</span> ,
+
+    <span class="co"># Recursive cases</span>
+    call <span class="op">=</span> ,
+    pairlist <span class="op">=</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Typically, solving the base case is easy, so we’ll do that first, then check the results. The recursive cases are trickier, and will often require some functional programming.</p>
+<div id="finding-f-and-t" class="section level3" number="18.5.1">
+<h3>
+<span class="header-section-number">18.5.1</span> Finding F and T<a class="anchor" aria-label="anchor" href="#finding-f-and-t"><i class="fas fa-link"></i></a>
+</h3>
+<p>We’ll start with a function that determines whether another function uses the logical abbreviations <code>T</code> and <code>F</code> because using them is often considered to be poor coding practice. Our goal is to return <code>TRUE</code> if the input contains a logical abbreviation, and <code>FALSE</code> otherwise.</p>
+<p>Let’s first find the type of <code>T</code> versus <code>TRUE</code>:</p>
+<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">expr_type</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "constant"</span>
+
+<span class="fu">expr_type</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "symbol"</span></code></pre></div>
+<p><code>TRUE</code> is parsed as a logical vector of length one, while <code>T</code> is parsed as a name. This tells us how to write our base cases for the recursive function: a constant is never a logical abbreviation, and a symbol is an abbreviation if it’s “F” or “T”:</p>
+<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">logical_abbr_rec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    constant <span class="op">=</span> <span class="cn">FALSE</span>,
+    symbol <span class="op">=</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/as_string.html">as_string</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"T"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">logical_abbr_rec</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu">logical_abbr_rec</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>I’ve written <code>logical_abbr_rec()</code> function assuming that the input will be an expression as this will make the recursive operation simpler. However, when writing a recursive function it’s common to write a wrapper that provides defaults or makes the function a little easier to use. Here we’ll typically make a wrapper that quotes its input (we’ll learn more about that in the next chapter), so we don’t need to use <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code> every time.</p>
+<div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">logical_abbr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">logical_abbr_rec</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">logical_abbr</span><span class="op">(</span><span class="cn">T</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu">logical_abbr</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>Next we need to implement the recursive cases. Here we want to do the same thing for calls and for pairlists: recursively apply the function to each subcomponent, and return <code>TRUE</code> if any subcomponent contains a logical abbreviation. This is made easy by <code><a href="https://purrr.tidyverse.org/reference/every.html">purrr::some()</a></code>, which iterates over a list and returns <code>TRUE</code> if the predicate function is true for any element.</p>
+<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">logical_abbr_rec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    <span class="co"># Base cases</span>
+    constant <span class="op">=</span> <span class="cn">FALSE</span>,
+    symbol <span class="op">=</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/as_string.html">as_string</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"T"</span><span class="op">)</span>,
+
+    <span class="co"># Recursive cases</span>
+    call <span class="op">=</span> ,
+    pairlist <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/every.html">some</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">logical_abbr_rec</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">logical_abbr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu">logical_abbr</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
+<div id="finding-all-variables-created-by-assignment" class="section level3" number="18.5.2">
+<h3>
+<span class="header-section-number">18.5.2</span> Finding all variables created by assignment<a class="anchor" aria-label="anchor" href="#finding-all-variables-created-by-assignment"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>logical_abbr()</code> is relatively simple: it only returns a single <code>TRUE</code> or <code>FALSE</code>. The next task, listing all variables created by assignment, is a little more complicated. We’ll start simply, and then make the function progressively more rigorous. </p>
+<p>We start by looking at the AST for assignment:</p>
+<div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/ast.html">ast</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; o-`&lt;-` </span>
+<span class="co">#&gt; +-x </span>
+<span class="co">#&gt; \-10</span></code></pre></div>
+<p>Assignment is a call object where the first element is the symbol <code>&lt;-</code>, the second is the name of variable, and the third is the value to be assigned.</p>
+<p>Next, we need to decide what data structure we’re going to use for the results. Here I think it will be easiest if we return a character vector. If we return symbols, we’ll need to use a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> and that makes things a little more complicated.</p>
+<p>With that in hand we can start by implementing the base cases and providing a helpful wrapper around the recursive function. Here the base cases are straightforward because we know that neither a symbol nor a constant represents assignment.</p>
+<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">find_assign_rec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    constant <span class="op">=</span> ,
+    symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+<span class="va">find_assign</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">find_assign_rec</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">find_assign</span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span>
+<span class="co">#&gt; character(0)</span>
+<span class="fu">find_assign</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; character(0)</span></code></pre></div>
+<p>Next we implement the recursive cases. This is made easier by a function that should exist in purrr, but currently doesn’t. <code>flat_map_chr()</code> expects <code>.f</code> to return a character vector of arbitrary length, and flattens all results into a single character vector.</p>
+<!-- GVW: by this point, will readers have seen the `.x` and `.f` conventions enough that they don't need explanation? -->
+<div class="sourceCode" id="cb742"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flat_map_chr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/flatten.html">flatten_chr</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">.f</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">flat_map_chr</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a" "b" "b" "b" "c" "c" "c"</span></code></pre></div>
+<p>The recursive case for pairlists is straightforward: we iterate over every element of the pairlist (i.e. each function argument) and combine the results. The case for calls is a little bit more complex: if this is a call to <code>&lt;-</code> then we should return the second element of the call:</p>
+<div class="sourceCode" id="cb743"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">find_assign_rec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    <span class="co"># Base cases</span>
+    constant <span class="op">=</span> ,
+    symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>,
+
+    <span class="co"># Recursive cases</span>
+    pairlist <span class="op">=</span> <span class="fu">flat_map_chr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">find_assign_rec</span><span class="op">)</span>,
+    call <span class="op">=</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_call.html">is_call</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"&lt;-"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rlang.r-lib.org/reference/as_string.html">as_string</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+      <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+        <span class="fu">flat_map_chr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">find_assign_rec</span><span class="op">)</span>
+      <span class="op">}</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">find_assign</span><span class="op">(</span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a"</span>
+<span class="fu">find_assign</span><span class="op">(</span><span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="op">{</span>
+    <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a" "b"</span></code></pre></div>
+<p>Now we need to make our function more robust by coming up with examples intended to break it. What happens when we assign to the same variable multiple times?</p>
+<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">find_assign</span><span class="op">(</span><span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a" "a"</span></code></pre></div>
+<p>It’s easiest to fix this at the level of the wrapper function:</p>
+<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">find_assign</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu">find_assign_rec</span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enexpr</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">find_assign</span><span class="op">(</span><span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a"</span></code></pre></div>
+<p>What happens if we have nested calls to <code>&lt;-</code>? Currently we only return the first. That’s because when <code>&lt;-</code> occurs we immediately terminate recursion.</p>
+<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">find_assign</span><span class="op">(</span><span class="op">{</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="va">b</span> <span class="op">&lt;-</span> <span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a"</span></code></pre></div>
+<p>Instead we need to take a more rigorous approach. I think it’s best to keep the recursive function focused on the tree structure, so I’m going to extract out <code>find_assign_call()</code> into a separate function.</p>
+<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">find_assign_call</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_call.html">is_call</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"&lt;-"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/is_symbol.html">is_symbol</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">lhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/as_string.html">as_string</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+    <span class="va">children</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">lhs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="va">children</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lhs</span>, <span class="fu">flat_map_chr</span><span class="op">(</span><span class="va">children</span>, <span class="va">find_assign_rec</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">find_assign_rec</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">switch_expr</span><span class="op">(</span><span class="va">x</span>,
+    <span class="co"># Base cases</span>
+    constant <span class="op">=</span> ,
+    symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>,
+
+    <span class="co"># Recursive cases</span>
+    pairlist <span class="op">=</span> <span class="fu">flat_map_chr</span><span class="op">(</span><span class="va">x</span>, <span class="va">find_assign_rec</span><span class="op">)</span>,
+    call <span class="op">=</span> <span class="fu">find_assign_call</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">find_assign</span><span class="op">(</span><span class="va">a</span> <span class="op">&lt;-</span> <span class="va">b</span> <span class="op">&lt;-</span> <span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a" "b" "c"</span>
+<span class="fu">find_assign</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "x" "y"</span></code></pre></div>
+<p>The complete version of this function is quite complicated, it’s important to remember we wrote it by working our way up by writing simple component parts.</p>
+</div>
+<div id="exercises-55" class="section level3" number="18.5.3">
+<h3>
+<span class="header-section-number">18.5.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-55"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p><code>logical_abbr()</code> returns <code>TRUE</code> for <code>T(1, 2, 3)</code>. How could you modify
+<code>logical_abbr_rec()</code> so that it ignores function calls that use <code>T</code> or <code>F</code>?</p></li>
+<li>
+<p><code>logical_abbr()</code> works with expressions. It currently fails when you give it
+a function. Why? How could you modify <code>logical_abbr()</code> to make it
+work? What components of a function will you need to recurse over?</p>
+<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">logical_abbr</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">g</span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="cn">T</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>Modify <code>find_assign</code> to also detect assignment using replacement
+functions, i.e. <code>names(x) &lt;- y</code>.</p></li>
+<li><p>Write a function that extracts all calls to a specified function.</p></li>
+</ol>
+</div>
+</div>
+<div id="expression-special" class="section level2" number="18.6">
+<h2>
+<span class="header-section-number">18.6</span> Specialised data structures<a class="anchor" aria-label="anchor" href="#expression-special"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are two data structures and one special symbol that we need to cover for the sake of completeness. They are not usually important in practice.</p>
+<div id="pairlists" class="section level3" number="18.6.1">
+<h3>
+<span class="header-section-number">18.6.1</span> Pairlists<a class="anchor" aria-label="anchor" href="#pairlists"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Pairlists are a remnant of R’s past and have been replaced by lists almost everywhere. The only place you are likely to see pairlists in R<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you’re working in C, you’ll encounter pairlists more often. For example, call objects are also implemented using pairlists.&lt;/p&gt;"><sup>94</sup></a> is when working with calls to the <code>function</code> function, as the formal arguments to a function are stored in a pairlist:</p>
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>
+
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="va">f</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="va">args</span>
+<span class="co">#&gt; $x</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $y</span>
+<span class="co">#&gt; [1] 10</span>
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span>
+<span class="co">#&gt; [1] "pairlist"</span></code></pre></div>
+<p>Fortunately, whenever you encounter a pairlist, you can treat it just like a regular list:</p>
+<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">pairlist</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">pl</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="va">pl</span><span class="op">$</span><span class="va">x</span>
+<span class="co">#&gt; [1] 1</span></code></pre></div>
+<p>Behind the scenes pairlists are implemented using a different data structure, a linked list instead of an array. That makes subsetting a pairlist much slower than subsetting a list, but this has little practical impact.</p>
+</div>
+<div id="empty-symbol" class="section level3" number="18.6.2">
+<h3>
+<span class="header-section-number">18.6.2</span> Missing arguments<a class="anchor" aria-label="anchor" href="#empty-symbol"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>The special symbol that needs a little extra discussion is the empty symbol, which is used to represent missing arguments (not missing values!). You only need to care about the missing symbol if you’re programmatically creating functions with missing arguments; we’ll come back to that in Section <a href="quasiquotation.html#unquote-missing">19.4.3</a>.</p>
+<p>You can make an empty symbol with <code><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg()</a></code> (or <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr()</a></code>):</p>
+<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "symbol"</span></code></pre></div>
+<p>An empty symbol doesn’t print anything, so you can check if you have one with <code><a href="https://rlang.r-lib.org/reference/missing_arg.html">rlang::is_missing()</a></code>:</p>
+<div class="sourceCode" id="cb752"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">is_missing</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>You’ll find them in the wild in function formals:</p>
+<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span>
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="va">f</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">is_missing</a></span><span class="op">(</span><span class="va">args</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>This is particularly important for <code>...</code> which is always associated with an empty symbol:</p>
+<div class="sourceCode" id="cb754"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">expr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span>
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="va">f</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">is_missing</a></span><span class="op">(</span><span class="va">args</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>The empty symbol has a peculiar property: if you bind it to a variable, then access that variable, you will get an error:</p>
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">m</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): el argumento "m" está ausente, sin valor por omisión</span></code></pre></div>
+<p>But you won’t if you store it inside another data structure!</p>
+<div class="sourceCode" id="cb756"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rlang.r-lib.org/reference/missing_arg.html">missing_arg</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="va">ms</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<p>If you need to preserve the missingness of a variable, <code><a href="https://rlang.r-lib.org/reference/missing_arg.html">rlang::maybe_missing()</a></code> is often helpful. It allows you to refer to a potentially missing variable without triggering the error. See the documentation for use cases and more details.</p>
+</div>
+<div id="expression-vectors" class="section level3" number="18.6.3">
+<h3>
+<span class="header-section-number">18.6.3</span> Expression vectors<a class="anchor" aria-label="anchor" href="#expression-vectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Finally, we need to briefly discuss the expression vector. Expression vectors are only produced by two base functions: <code><a href="https://rdrr.io/r/base/expression.html">expression()</a></code> and <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code>:</p>
+<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">exp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"
+x &lt;- 4
+x
+"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">exp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span>, <span class="va">x</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">exp1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "expression"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">exp2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "expression"</span>
+
+<span class="va">exp1</span>
+<span class="co">#&gt; expression(x &lt;- 4, x)</span>
+<span class="va">exp2</span>
+<span class="co">#&gt; expression(x &lt;- 4, x)</span></code></pre></div>
+<p>Like calls and pairlists, expression vectors behave like lists:</p>
+<div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">exp1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="va">exp1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; x &lt;- 4</span></code></pre></div>
+<p>Conceptually, an expression vector is just a list of expressions. The only difference is that calling <code><a href="https://rdrr.io/r/base/eval.html">eval()</a></code> on an expression evaluates each individual expression. I don’t believe this advantage merits introducing a new data structure, so instead of expression vectors I just use lists of expressions.</p>
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></div>
+<div class="next"><a href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#expressions"><span class="header-section-number">18</span> Expressions</a></li>
+<li>
+<a class="nav-link" href="#introduction-17"><span class="header-section-number">18.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-16">Outline</a></li>
+<li><a class="nav-link" href="#prerequisites-11">Prerequisites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ast"><span class="header-section-number">18.2</span> Abstract syntax trees</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#drawing"><span class="header-section-number">18.2.1</span> Drawing</a></li>
+<li><a class="nav-link" href="#non-code-components"><span class="header-section-number">18.2.2</span> Non-code components</a></li>
+<li><a class="nav-link" href="#infix-calls"><span class="header-section-number">18.2.3</span> Infix calls</a></li>
+<li><a class="nav-link" href="#exercises-52"><span class="header-section-number">18.2.4</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#expression-details"><span class="header-section-number">18.3</span> Expressions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#constants"><span class="header-section-number">18.3.1</span> Constants</a></li>
+<li><a class="nav-link" href="#symbols"><span class="header-section-number">18.3.2</span> Symbols</a></li>
+<li><a class="nav-link" href="#calls"><span class="header-section-number">18.3.3</span> Calls</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">18.3.4</span> Summary</a></li>
+<li><a class="nav-link" href="#exercises-53"><span class="header-section-number">18.3.5</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#grammar"><span class="header-section-number">18.4</span> Parsing and grammar</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#operator-precedence"><span class="header-section-number">18.4.1</span> Operator precedence</a></li>
+<li><a class="nav-link" href="#associativity"><span class="header-section-number">18.4.2</span> Associativity</a></li>
+<li><a class="nav-link" href="#parsing"><span class="header-section-number">18.4.3</span> Parsing and deparsing</a></li>
+<li><a class="nav-link" href="#exercises-54"><span class="header-section-number">18.4.4</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ast-funs"><span class="header-section-number">18.5</span> Walking AST with recursive functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#finding-f-and-t"><span class="header-section-number">18.5.1</span> Finding F and T</a></li>
+<li><a class="nav-link" href="#finding-all-variables-created-by-assignment"><span class="header-section-number">18.5.2</span> Finding all variables created by assignment</a></li>
+<li><a class="nav-link" href="#exercises-55"><span class="header-section-number">18.5.3</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#expression-special"><span class="header-section-number">18.6</span> Specialised data structures</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pairlists"><span class="header-section-number">18.6.1</span> Pairlists</a></li>
+<li><a class="nav-link" href="#empty-symbol"><span class="header-section-number">18.6.2</span> Missing arguments</a></li>
+<li><a class="nav-link" href="#expression-vectors"><span class="header-section-number">18.6.3</span> Expression vectors</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Expressions.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Expressions.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

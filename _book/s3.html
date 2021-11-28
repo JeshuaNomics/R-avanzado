@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>13 S3 | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="13 S3 | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="13 S3 | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="13.1 Introduction  S3 is R’s first and simplest OO system. S3 is informal and ad hoc, but there is a certain elegance in its minimalism: you can’t take away any part of it and still have a useful...">
+<meta property="og:description" content="13.1 Introduction  S3 is R’s first and simplest OO system. S3 is informal and ad hoc, but there is a certain elegance in its minimalism: you can’t take away any part of it and still have a useful...">
+<meta name="twitter:description" content="13.1 Introduction  S3 is R’s first and simplest OO system. S3 is informal and ad hoc, but there is a certain elegance in its minimalism: you can’t take away any part of it and still have a useful...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="active" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="s3" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> S3<a class="anchor" aria-label="anchor" href="#s3"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-12" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-12"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>S3 is R’s first and simplest OO system. S3 is informal and ad hoc, but there is a certain elegance in its minimalism: you can’t take away any part of it and still have a useful OO system. For these reasons, you should use it, unless you have a compelling reason to do otherwise. S3 is the only OO system used in the base and stats packages, and it’s the most commonly used system in CRAN packages.</p>
+<p>S3 is very flexible, which means it allows you to do things that are quite ill-advised. If you’re coming from a strict environment like Java this will seem pretty frightening, but it gives R programmers a tremendous amount of freedom. It may be very difficult to prevent people from doing something you don’t want them to do, but your users will never be held back because there is something you haven’t implemented yet. Since S3 has few built-in constraints, the key to its successful use is applying the constraints yourself. This chapter will therefore teach you the conventions you should (almost) always follow.</p>
+<p>The goal of this chapter is to show you how the S3 system works, not how to use it effectively to create new classes and generics. I’d recommend coupling the theoretical knowledge from this chapter with the practical knowledge encoded in the <a href="https://vctrs.r-lib.org">vctrs package</a>.</p>
+<div id="outline-11" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-11"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="s3.html#s3-basics">13.2</a> gives a rapid overview of all the main components
+of S3: classes, generics, and methods. You’ll also learn about
+<code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">sloop::s3_dispatch()</a></code>, which we’ll use throughout the chapter to explore
+how S3 works.</p></li>
+<li><p>Section <a href="s3.html#s3-classes">13.3</a> goes into the details of creating a new S3 class,
+including the three functions that should accompany most classes:
+a constructor, a helper, and a validator.</p></li>
+<li><p>Section <a href="s3.html#s3-methods">13.4</a> describes how S3 generics and methods work,
+including the basics of method dispatch.</p></li>
+<li><p>Section <a href="s3.html#object-styles">13.5</a> discusses the four main styles of S3 objects:
+vector, record, data frame, and scalar.</p></li>
+<li><p>Section <a href="s3.html#s3-inheritance">13.6</a> demonstrates how inheritance works in S3,
+and shows you what you need to make a class “subclassable.”</p></li>
+<li><p>Section <a href="s3.html#s3-dispatch">13.7</a> concludes the chapter with a discussion of the
+finer details of method dispatch including base types, internal generics,
+group generics, and double dispatch.</p></li>
+</ul>
+</div>
+<div id="prerequisites-6" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-6"><i class="fas fa-link"></i></a>
+</h3>
+<p>S3 classes are implemented using attributes, so make sure you’re familiar with the details described in Section <a href="vectors-chap.html#attributes">3.3</a>. We’ll use existing base S3 vectors for examples and exploration, so make sure that you’re familiar with the factor, Date, difftime, POSIXct, and POSIXlt classes described in Section <a href="vectors-chap.html#s3-atomic-vectors">3.4</a>.</p>
+<p>We’ll use the <a href="https://sloop.r-lib.org">sloop</a> package for its interactive helpers.</p>
+<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/sloop">sloop</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'sloop' was built under R version 4.1.2</span></code></pre></div>
+</div>
+</div>
+<div id="s3-basics" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> Basics<a class="anchor" aria-label="anchor" href="#s3-basics"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+</p>
+<p>An S3 object is a base type with at least a <code>class</code> attribute (other attributes may be used to store other data). For example, take the factor. Its base type is the integer vector, it has a <code>class</code> attribute of “factor,” and a <code>levels</code> attribute that stores the possible levels:</p>
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>
+<span class="co">#&gt; $levels</span>
+<span class="co">#&gt; [1] "a" "b" "c"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] "factor"</span></code></pre></div>
+<p>You can get the underlying base type by <code><a href="https://rdrr.io/r/base/class.html">unclass()</a></code>ing it, which strips the class attribute, causing it to lose its special behaviour:</p>
+<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 2 3</span>
+<span class="co">#&gt; attr(,"levels")</span>
+<span class="co">#&gt; [1] "a" "b" "c"</span></code></pre></div>
+<p>
+</p>
+<p>An S3 object behaves differently from its underlying base type whenever it’s passed to a <strong>generic</strong> (short for generic function). The easiest way to tell if a function is a generic is to use <code><a href="https://sloop.r-lib.org/reference/ftype.html">sloop::ftype()</a></code> and look for “generic” in the output:</p>
+<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">print</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S3"      "generic"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">str</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S3"      "generic"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">unclass</span><span class="op">)</span>
+<span class="co">#&gt; [1] "primitive"</span></code></pre></div>
+<p>A generic function defines an interface, which uses a different implementation depending on the class of an argument (almost always the first argument). Many base R functions are generic, including the important <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>:</p>
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>
+<span class="co">#&gt; [1] a b c</span>
+<span class="co">#&gt; Levels: a b c</span>
+
+<span class="co"># stripping class reverts to integer behaviour</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 2 3</span>
+<span class="co">#&gt; attr(,"levels")</span>
+<span class="co">#&gt; [1] "a" "b" "c"</span></code></pre></div>
+<p>Beware that <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> is generic, and some S3 classes use that generic to hide the internal details. For example, the <code>POSIXlt</code> class used to represent date-time data is actually built on top of a list, a fact which is hidden by its <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> method:</p>
+<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2017-01-01"</span>, <span class="st">"2020-05-04 03:21"</span><span class="op">)</span>, <span class="st">"%Y-%m-%d"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>
+<span class="co">#&gt;  POSIXlt[1:2], format: "2017-01-01" "2020-05-04"</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; List of 11</span>
+<span class="co">#&gt;  $ sec   : num [1:2] 0 0</span>
+<span class="co">#&gt;  $ min   : int [1:2] 0 0</span>
+<span class="co">#&gt;  $ hour  : int [1:2] 0 0</span>
+<span class="co">#&gt;  $ mday  : int [1:2] 1 4</span>
+<span class="co">#&gt;  $ mon   : int [1:2] 0 4</span>
+<span class="co">#&gt;  $ year  : int [1:2] 117 120</span>
+<span class="co">#&gt;  $ wday  : int [1:2] 0 1</span>
+<span class="co">#&gt;  $ yday  : int [1:2] 0 124</span>
+<span class="co">#&gt;  $ isdst : int [1:2] 0 1</span>
+<span class="co">#&gt;  $ zone  : chr [1:2] "CST" "CDT"</span>
+<span class="co">#&gt;  $ gmtoff: int [1:2] NA NA</span></code></pre></div>
+<p>The generic is a middleman: its job is to define the interface (i.e. the arguments) then find the right implementation for the job. The implementation for a specific class is called a <strong>method</strong>, and the generic finds that method by performing <strong>method dispatch</strong>.</p>
+<p>You can use <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">sloop::s3_dispatch()</a></code> to see the process of method dispatch:</p>
+<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; print.factor</span>
+<span class="co">#&gt;  * print.default</span></code></pre></div>
+<p>
+We’ll come back to the details of dispatch in Section <a href="s3.html#method-dispatch">13.4.1</a>, for now note that S3 methods are functions with a special naming scheme, <code>generic.class()</code>. For example, the <code>factor</code> method for the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> generic is called <code><a href="https://rdrr.io/r/base/print.html">print.factor()</a></code>. You should never call the method directly, but instead rely on the generic to find it for you.</p>
+<p>Generally, you can identify a method by the presence of <code>.</code> in the function name, but there are a number of important functions in base R that were written before S3, and hence use <code>.</code> to join words. If you’re unsure, check with <code><a href="https://sloop.r-lib.org/reference/ftype.html">sloop::ftype()</a></code>:</p>
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">t.test</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S3"      "generic"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">t.data.frame</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S3"     "method"</span></code></pre></div>
+<p>
+Unlike most functions, you can’t see the source code for most S3 methods<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The exceptions are methods found in the base package, like &lt;code&gt;t.data.frame&lt;/code&gt;, and methods that you’ve created.&lt;/p&gt;"><sup>68</sup></a> just by typing their names. That’s because S3 methods are not usually exported: they live only inside the package, and are not available from the global environment. Instead, you can use <code><a href="https://sloop.r-lib.org/reference/s3_get_method.html">sloop::s3_get_method()</a></code>, which will work regardless of where the method lives:</p>
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">weighted.mean.Date</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): objeto 'weighted.mean.Date' no encontrado</span>
+
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_get_method.html">s3_get_method</a></span><span class="op">(</span><span class="va">weighted.mean.Date</span><span class="op">)</span>
+<span class="co">#&gt; function (x, w, ...) </span>
+<span class="co">#&gt; .Date(weighted.mean(unclass(x), w, ...))</span>
+<span class="co">#&gt; &lt;bytecode: 0x0000000026b26358&gt;</span>
+<span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
+<div id="exercises-38" class="section level3" number="13.2.1">
+<h3>
+<span class="header-section-number">13.2.1</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-38"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Describe the difference between <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> and <code><a href="https://rdrr.io/r/base/t.html">t.data.frame()</a></code>.
+When is each function called?</p></li>
+<li><p>Make a list of commonly used base R functions that contain <code>.</code> in their
+name but are not S3 methods.</p></li>
+<li><p>What does the <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame.data.frame()</a></code> method do? Why is
+it confusing? How could you avoid this confusion in your own
+code?</p></li>
+<li>
+<p>Describe the difference in behaviour in these two calls.</p>
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1014</span><span class="op">)</span>
+<span class="va">some_days</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-31"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">some_days</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2017-02-06"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">some_days</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 17203</span></code></pre></div>
+</li>
+<li>
+<p>What class of object does the following code return? What base type is it
+built on? What attributes does it use?</p>
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ecdf.html">ecdf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; Empirical CDF </span>
+<span class="co">#&gt; Call: ecdf(rpois(100, 10))</span>
+<span class="co">#&gt;  x[1:18] =  2,  3,  4,  ..., 2e+01, 2e+01</span></code></pre></div>
+</li>
+<li>
+<p>What class of object does the following code return? What base type is it
+built on? What attributes does it use?</p>
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  1  2  3  4  5  6  7  8  9 10 </span>
+<span class="co">#&gt;  7  5 18 14 15 15 14  4  5  3</span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="s3-classes" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Classes<a class="anchor" aria-label="anchor" href="#s3-classes"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+</p>
+<p>If you have done object-oriented programming in other languages, you may be surprised to learn that S3 has no formal definition of a class: to make an object an instance of a class, you simply set the <strong>class attribute</strong>. You can do that during creation with <code><a href="https://rdrr.io/r/base/structure.html">structure()</a></code>, or after the fact with <code>class&lt;-()</code>:</p>
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create and assign class in one step</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"my_class"</span><span class="op">)</span>
+
+<span class="co"># Create, then set class</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"my_class"</span></code></pre></div>
+<p>You can determine the class of an S3 object with <code>class(x)</code>, and see if an object is an instance of a class using <code>inherits(x, "classname")</code>.</p>
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "my_class"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"my_class"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"your_class"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The class name can be any string, but I recommend using only letters and <code>_</code>. Avoid <code>.</code> because (as mentioned earlier) it can be confused with the <code>.</code> separator between a generic name and a class name. When using a class in a package, I recommend including the package name in the class name. That ensures you won’t accidentally clash with a class defined by another package.</p>
+<p>S3 has no checks for correctness which means you can change the class of existing objects:</p>
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a linear model</span>
+<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">disp</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<span class="co">#&gt; [1] "lm"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = log(mpg) ~ log(disp), data = mtcars)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)    log(disp)  </span>
+<span class="co">#&gt;       5.381       -0.459</span>
+
+<span class="co"># Turn it into a date (?!)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Date"</span>
+
+<span class="co"># Unsurprisingly this doesn't work very well</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<span class="co">#&gt; Error in as.POSIXlt.Date(x): 'list' object cannot be coerced to type 'double'</span></code></pre></div>
+<p>If you’ve used other OO languages, this might make you feel queasy, but in practice this flexibility causes few problems. R doesn’t stop you from shooting yourself in the foot, but as long as you don’t aim the gun at your toes and pull the trigger, you won’t have a problem.</p>
+<p>To avoid foot-bullet intersections when creating your own class, I recommend that you usually provide three functions:</p>
+<ul>
+<li><p>A low-level <strong>constructor</strong>, <code>new_myclass()</code>, that efficiently creates new
+objects with the correct structure.</p></li>
+<li><p>A <strong>validator</strong>, <code>validate_myclass()</code>, that performs more computationally
+expensive checks to ensure that the object has correct values.</p></li>
+<li><p>A user-friendly <strong>helper</strong>, <code>myclass()</code>, that provides a convenient way for
+others to create objects of your class.</p></li>
+</ul>
+<p>You don’t need a validator for very simple classes, and you can skip the helper if the class is for internal use only, but you should always provide a constructor.</p>
+<div id="s3-constructor" class="section level3" number="13.3.1">
+<h3>
+<span class="header-section-number">13.3.1</span> Constructors<a class="anchor" aria-label="anchor" href="#s3-constructor"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>S3 doesn’t provide a formal definition of a class, so it has no built-in way to ensure that all objects of a given class have the same structure (i.e. the same base type and the same attributes with the same types). Instead, you must enforce a consistent structure by using a <strong>constructor</strong>.</p>
+<p>The constructor should follow three principles:</p>
+<ul>
+<li><p>Be called <code>new_myclass()</code>.</p></li>
+<li><p>Have one argument for the base object, and one for each attribute.</p></li>
+<li><p>Check the type of the base object and the types of each attribute.</p></li>
+</ul>
+<p>I’ll illustrate these ideas by creating constructors for base classes<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Recent versions of R have &lt;code&gt;.Date()&lt;/code&gt;, &lt;code&gt;.difftime()&lt;/code&gt;, &lt;code&gt;.POSIXct()&lt;/code&gt;, and &lt;code&gt;.POSIXlt()&lt;/code&gt; constructors but they are internal, not well documented, and do not follow the principles that I recommend.&lt;/p&gt;"><sup>69</sup></a> that you’re already familiar with. To start, lets make a constructor for the simplest S3 class: <code>Date</code>. A <code>Date</code> is just a double with a single attribute: its <code>class</code> is “Date.” This makes for a very simple constructor:</p>
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_Date</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="va">x</span>, class <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">new_Date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "1969-12-31" "1970-01-01" "1970-01-02"</span></code></pre></div>
+<p>The purpose of constructors is to help you, the developer. That means you can keep them simple, and you don’t need to optimise error messages for public consumption. If you expect users to also create objects, you should create a friendly helper function, called <code>class_name()</code>, which I’ll describe shortly.</p>
+<p>A slightly more complicated constructor is that for <code>difftime</code>, which is used to represent time differences. It is again built on a double, but has a <code>units</code> attribute that must take one of a small set of values:</p>
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_difftime</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">double</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">units</span> <span class="op">=</span> <span class="st">"secs"</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span><span class="op">(</span><span class="va">units</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"secs"</span>, <span class="st">"mins"</span>, <span class="st">"hours"</span>, <span class="st">"days"</span>, <span class="st">"weeks"</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="va">x</span>,
+    class <span class="op">=</span> <span class="st">"difftime"</span>,
+    units <span class="op">=</span> <span class="va">units</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">new_difftime</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">3600</span><span class="op">)</span>, <span class="st">"secs"</span><span class="op">)</span>
+<span class="co">#&gt; Time differences in secs</span>
+<span class="co">#&gt; [1]    1   10 3600</span>
+<span class="fu">new_difftime</span><span class="op">(</span><span class="fl">52</span>, <span class="st">"weeks"</span><span class="op">)</span>
+<span class="co">#&gt; Time difference of 52 weeks</span></code></pre></div>
+<p>The constructor is a developer function: it will be called in many places, by an experienced user. That means it’s OK to trade a little safety in return for performance, and you should avoid potentially time-consuming checks in the constructor.</p>
+</div>
+<div id="validators" class="section level3" number="13.3.2">
+<h3>
+<span class="header-section-number">13.3.2</span> Validators<a class="anchor" aria-label="anchor" href="#validators"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>More complicated classes require more complicated checks for validity. Take factors, for example. A constructor only checks that types are correct, making it possible to create malformed factors:</p>
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_factor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">levels</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span>
+    <span class="va">x</span>,
+    levels <span class="op">=</span> <span class="va">levels</span>,
+    class <span class="op">=</span> <span class="st">"factor"</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">new_factor</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="st">"a"</span><span class="op">)</span>
+<span class="co">#&gt; Error in as.character.factor(x): malformed factor</span>
+<span class="fu">new_factor</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, <span class="st">"a"</span><span class="op">)</span>
+<span class="co">#&gt; Error in as.character.factor(x): malformed factor</span></code></pre></div>
+<p>Rather than encumbering the constructor with complicated checks, it’s better to put them in a separate function. Doing so allows you to cheaply create new objects when you know that the values are correct, and easily re-use the checks in other places.</p>
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">validate_factor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"levels"</span><span class="op">)</span>
+
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">values</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span>
+      <span class="st">"All `x` values must be non-missing and greater than zero"</span>,
+      call. <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span>
+  <span class="op">}</span>
+
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">levels</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span>
+      <span class="st">"There must be at least as many `levels` as possible values in `x`"</span>,
+      call. <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span>
+  <span class="op">}</span>
+
+  <span class="va">x</span>
+<span class="op">}</span>
+
+<span class="fu">validate_factor</span><span class="op">(</span><span class="fu">new_factor</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error: There must be at least as many `levels` as possible values in `x`</span>
+<span class="fu">validate_factor</span><span class="op">(</span><span class="fu">new_factor</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error: All `x` values must be non-missing and greater than zero</span></code></pre></div>
+<p>This validator function is called primarily for its side-effects (throwing an error if the object is invalid) so you’d expect it to invisibly return its primary input (as described in Section <a href="functions.html#invisible">6.7.2</a>). However, it’s useful for validation methods to return visibly, as we’ll see next.</p>
+</div>
+<div id="helpers" class="section level3" number="13.3.3">
+<h3>
+<span class="header-section-number">13.3.3</span> Helpers<a class="anchor" aria-label="anchor" href="#helpers"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>If you want users to construct objects from your class, you should also provide a helper method that makes their life as easy as possible. A helper should always:</p>
+<ul>
+<li><p>Have the same name as the class, e.g. <code>myclass()</code>.</p></li>
+<li><p>Finish by calling the constructor, and the validator, if it exists.</p></li>
+<li><p>Create carefully crafted error messages tailored towards an end-user.</p></li>
+<li><p>Have a thoughtfully crafted user interface with carefully chosen default
+values and useful conversions.</p></li>
+</ul>
+<p>The last bullet is the trickiest, and it’s hard to give general advice. However, there are three common patterns:</p>
+<ul>
+<li>
+<p>Sometimes all the helper needs to do is coerce its inputs to the desired
+type. For example, <code>new_difftime()</code> is very strict, and violates the usual
+convention that you can use an integer vector wherever you can use a
+double vector:</p>
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">new_difftime</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; Error in new_difftime(1:10): is.double(x) is not TRUE</span></code></pre></div>
+<p>It’s not the job of the constructor to be flexible, so here we create
+a helper that just coerces the input to a double.</p>
+<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">difftime</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">double</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">units</span> <span class="op">=</span> <span class="st">"secs"</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">as.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="fu">new_difftime</span><span class="op">(</span><span class="va">x</span>, units <span class="op">=</span> <span class="va">units</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; Time differences in secs</span>
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+</li>
+<li>
+<p>Often, the most natural representation of a complex object is a string.
+For example, it’s very convenient to specify factors with a character
+vector. The code below shows a simple version of <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>: it takes a
+character vector, and guesses that the levels should be the unique values.
+This is not always correct (since some levels might not be seen in the
+data), but it’s a useful default.</p>
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">factor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">levels</span><span class="op">)</span>
+  <span class="fu">validate_factor</span><span class="op">(</span><span class="fu">new_factor</span><span class="op">(</span><span class="va">ind</span>, <span class="va">levels</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] a a b</span>
+<span class="co">#&gt; Levels: a b</span></code></pre></div>
+</li>
+<li>
+<p>Some complex objects are most naturally specified by multiple simple<br>
+components. For example, I think it’s natural to construct a date-time
+by supplying the individual components (year, month, day etc). That leads
+me to this <code><a href="https://rdrr.io/r/base/DateTimeClasses.html">POSIXct()</a></code> helper that resembles the existing <code>ISODatetime()</code>
+function<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This helper is not efficient: behind the scenes &lt;code&gt;ISODatetime()&lt;/code&gt; works by pasting the components into a string and then using &lt;code&gt;strptime()&lt;/code&gt;. A more efficient equivalent is available in &lt;code&gt;lubridate::make_datetime()&lt;/code&gt;.&lt;/p&gt;"><sup>70</sup></a>:</p>
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">POSIXct</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">year</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="op">)</span>, 
+                    <span class="va">month</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="op">)</span>, 
+                    <span class="va">day</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="op">)</span>, 
+                    <span class="va">hour</span> <span class="op">=</span> <span class="fl">0L</span>, 
+                    <span class="va">minute</span> <span class="op">=</span> <span class="fl">0L</span>, 
+                    <span class="va">sec</span> <span class="op">=</span> <span class="fl">0</span>, 
+                    <span class="va">tzone</span> <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/ISOdatetime.html">ISOdatetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span>, <span class="va">sec</span>, tz <span class="op">=</span> <span class="va">tzone</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/DateTimeClasses.html">POSIXct</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">1</span>, <span class="fl">1</span>, tzone <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2020-01-01 EST"</span></code></pre></div>
+</li>
+</ul>
+<p>For more complicated classes, you should feel free to go beyond these patterns to make life as easy as possible for your users.</p>
+</div>
+<div id="exercises-39" class="section level3" number="13.3.4">
+<h3>
+<span class="header-section-number">13.3.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-39"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Write a constructor for <code>data.frame</code> objects. What base type is a data
+frame built on? What attributes does it use? What are the restrictions
+placed on the individual elements? What about the names?</p></li>
+<li><p>Enhance my <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> helper to have better behaviour when one or
+more <code>values</code> is not found in <code>levels</code>. What does <code><a href="https://rdrr.io/r/base/factor.html">base::factor()</a></code> do
+in this situation?</p></li>
+<li><p>Carefully read the source code of <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>. What does it do that
+my constructor does not?</p></li>
+<li><p>Factors have an optional “contrasts” attribute. Read the help for <code><a href="https://rdrr.io/r/stats/zC.html">C()</a></code>,
+and briefly describe the purpose of the attribute. What type should it
+have? Rewrite the <code>new_factor()</code> constructor to include this attribute.</p></li>
+<li><p>Read the documentation for <code><a href="https://rdrr.io/r/utils/roman.html">utils::as.roman()</a></code>. How would you write a
+constructor for this class? Does it need a validator? What might a helper
+do?</p></li>
+</ol>
+</div>
+</div>
+<div id="s3-methods" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Generics and methods<a class="anchor" aria-label="anchor" href="#s3-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>The job of an S3 generic is to perform method dispatch, i.e. find the specific implementation for a class. Method dispatch is performed by <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code>, which every generic calls<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;The exception is internal generics, which are implemented in C, and are the topic of Section &lt;a href="s3.html#internal-generics"&gt;13.7.2&lt;/a&gt;.&lt;/p&gt;'><sup>71</sup></a>. <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code> takes two arguments: the name of the generic function (required), and the argument to use for method dispatch (optional). If you omit the second argument, it will dispatch based on the first argument, which is almost always what is desired.</p>
+<p>Most generics are very simple, and consist of only a call to <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code>. Take <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> for example:</p>
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mean</span>
+<span class="co">#&gt; function (x, ...) </span>
+<span class="co">#&gt; UseMethod("mean")</span>
+<span class="co">#&gt; &lt;bytecode: 0x0000000015dbbf60&gt;</span>
+<span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre></div>
+<p>Creating your own generic is similarly simple:</p>
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_new_generic</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span><span class="op">(</span><span class="st">"my_new_generic"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>(If you wonder why we have to repeat <code>my_new_generic</code> twice, think back to Section <a href="functions.html#first-class-functions">6.2.3</a>.)</p>
+<p>You don’t pass any of the arguments of the generic to <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code>; it uses deep magic to pass to the method automatically. The precise process is complicated and frequently surprising, so you should avoid doing any computation in a generic. To learn the full details, carefully read the Technical Details section in <code><a href="https://rdrr.io/r/base/UseMethod.html">?UseMethod</a></code>.</p>
+<div id="method-dispatch" class="section level3" number="13.4.1">
+<h3>
+<span class="header-section-number">13.4.1</span> Method dispatch<a class="anchor" aria-label="anchor" href="#method-dispatch"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>How does <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code> work? It basically creates a vector of method names, <code>paste0("generic", ".", c(class(x), "default"))</code>, and then looks for each potential method in turn. We can see this in action with <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">sloop::s3_dispatch()</a></code>. You give it a call to an S3 generic, and it lists all the possible methods. For example, what method is called when you print a <code>Date</code> object?</p>
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; print.Date</span>
+<span class="co">#&gt;  * print.default</span></code></pre></div>
+<p>The output here is simple:</p>
+<ul>
+<li>
+<code>=&gt;</code> indicates the method that is called, here <code><a href="https://rdrr.io/r/base/Dates.html">print.Date()</a></code>
+</li>
+<li>
+<code>*</code> indicates a method that is defined, but not called, here <code><a href="https://rdrr.io/r/base/print.default.html">print.default()</a></code>.</li>
+</ul>
+<p>The “default” class is a special <strong>pseudo-class</strong>. This is not a real class, but is included to make it possible to define a standard fallback that is found whenever a class-specific method is not available.</p>
+<p>The essence of method dispatch is quite simple, but as the chapter proceeds you’ll see it get progressively more complicated to encompass inheritance, base types, internal generics, and group generics. The code below shows a couple of more complicated cases which we’ll come back to in Sections <a href="r6.html#inheritance">14.2.4</a> and <a href="s3.html#s3-dispatch">13.7</a>.</p>
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    mean.matrix</span>
+<span class="co">#&gt;    mean.integer</span>
+<span class="co">#&gt;    mean.numeric</span>
+<span class="co">#&gt; =&gt; mean.default</span>
+
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    sum.POSIXct</span>
+<span class="co">#&gt;    sum.POSIXt</span>
+<span class="co">#&gt;    sum.default</span>
+<span class="co">#&gt; =&gt; Summary.POSIXct</span>
+<span class="co">#&gt;    Summary.POSIXt</span>
+<span class="co">#&gt;    Summary.default</span>
+<span class="co">#&gt; -&gt; sum (internal)</span></code></pre></div>
+</div>
+<div id="finding-methods" class="section level3" number="13.4.2">
+<h3>
+<span class="header-section-number">13.4.2</span> Finding methods<a class="anchor" aria-label="anchor" href="#finding-methods"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p><code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">sloop::s3_dispatch()</a></code> lets you find the specific method used for a single call. What if you want to find all methods defined for a generic or associated with a class? That’s the job of <code><a href="https://sloop.r-lib.org/reference/s3_methods_class.html">sloop::s3_methods_generic()</a></code> and <code><a href="https://sloop.r-lib.org/reference/s3_methods_class.html">sloop::s3_methods_class()</a></code>:</p>
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_methods_class.html">s3_methods_generic</a></span><span class="op">(</span><span class="st">"mean"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt;   generic class      visible source             </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;lgl&gt;   &lt;chr&gt;              </span>
+<span class="co">#&gt; 1 mean    Date       TRUE    base               </span>
+<span class="co">#&gt; 2 mean    default    TRUE    base               </span>
+<span class="co">#&gt; 3 mean    difftime   TRUE    base               </span>
+<span class="co">#&gt; 4 mean    POSIXct    TRUE    base               </span>
+<span class="co">#&gt; 5 mean    POSIXlt    TRUE    base               </span>
+<span class="co">#&gt; 6 mean    quosure    FALSE   registered S3method</span>
+<span class="co">#&gt; 7 mean    vctrs_vctr FALSE   registered S3method</span>
+
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_methods_class.html">s3_methods_class</a></span><span class="op">(</span><span class="st">"ordered"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 x 4</span>
+<span class="co">#&gt;   generic       class   visible source             </span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;lgl&gt;   &lt;chr&gt;              </span>
+<span class="co">#&gt; 1 as.data.frame ordered TRUE    base               </span>
+<span class="co">#&gt; 2 Ops           ordered TRUE    base               </span>
+<span class="co">#&gt; 3 relevel       ordered FALSE   registered S3method</span>
+<span class="co">#&gt; 4 Summary       ordered TRUE    base</span></code></pre></div>
+</div>
+<div id="s3-arguments" class="section level3" number="13.4.3">
+<h3>
+<span class="header-section-number">13.4.3</span> Creating methods<a class="anchor" aria-label="anchor" href="#s3-arguments"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>There are two wrinkles to be aware of when you create a new method:</p>
+<ul>
+<li><p>First, you should only ever write a method if you own the generic or the
+class. R will allow you to define a method even if you don’t, but it is
+exceedingly bad manners. Instead, work with the author of either the
+generic or the class to add the method in their code.</p></li>
+<li>
+<p>A method must have the same arguments as its generic. This is enforced in
+packages by <code>R CMD check</code>, but it’s good practice even if you’re not
+creating a package.</p>
+<p>There is one exception to this rule: if the generic has <code>...</code>, the method
+can contain a superset of the arguments. This allows methods to take
+arbitrary additional arguments. The downside of using <code>...</code>, however, is
+that any misspelled arguments will be silently swallowed<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://github.com/hadley/ellipsis" class="uri"&gt;https://github.com/hadley/ellipsis&lt;/a&gt; for an experimental way of warning when methods fail to use all the arguments in &lt;code&gt;...&lt;/code&gt;, providing a potential resolution of this issue.&lt;/p&gt;'><sup>72</sup></a>,
+as mentioned in Section <a href="functions.html#fun-dot-dot-dot">6.6</a>.</p>
+</li>
+</ul>
+</div>
+<div id="exercises-40" class="section level3" number="13.4.4">
+<h3>
+<span class="header-section-number">13.4.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-40"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Read the source code for <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> and <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> and confirm that
+<code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> is an S3 generic and not an S3 method. What happens if
+you create an object with class <code>test</code> and call <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> with it? Why?</p>
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, class <span class="op">=</span> <span class="st">"test"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>What generics does the <code>table</code> class have methods for?</p></li>
+<li><p>What generics does the <code>ecdf</code> class have methods for?</p></li>
+<li><p>Which base generic has the greatest number of defined methods?</p></li>
+<li>
+<p>Carefully read the documentation for <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code> and explain why the
+following code returns the results that it does. What two usual rules
+of function evaluation does <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code> violate?</p>
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span><span class="op">(</span><span class="st">"g"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">g.default</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt;  x  y </span>
+<span class="co">#&gt;  1 10</span></code></pre></div>
+</li>
+<li><p>What are the arguments to <code>[</code>? Why is this a hard question to answer?</p></li>
+</ol>
+</div>
+</div>
+<div id="object-styles" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> Object styles<a class="anchor" aria-label="anchor" href="#object-styles"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>So far I’ve focussed on vector style classes like <code>Date</code> and <code>factor</code>. These have the key property that <code>length(x)</code> represents the number of observations in the vector. There are three variants that do not have this property:</p>
+<ul>
+<li>
+<p>Record style objects use a list of equal-length vectors to represent
+individual components of the object. The best example of this is <code>POSIXlt</code>,
+which underneath the hood is a list of 11 date-time components like year,
+month, and day. Record style classes override <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and subsetting
+methods to conceal this implementation detail.</p>
+<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ISOdatetime.html">ISOdatetime</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] "2020-01-01 00:00:01 CST" "2020-01-01 00:00:02 CST"</span>
+<span class="co">#&gt; [3] "2020-01-01 00:00:03 CST"</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 11</span>
+
+<span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># the first date time</span>
+<span class="co">#&gt; [1] "2020-01-01 00:00:01 CST"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># the first component, the number of seconds</span>
+<span class="co">#&gt; [1] 1 2 3</span></code></pre></div>
+</li>
+<li>
+<p>Data frames are similar to record style objects in that both use lists of
+equal length vectors. However, data frames are conceptually two dimensional,
+and the individual components are readily exposed to the user. The number of
+observations is the number of rows, not the length:</p>
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 100</span></code></pre></div>
+</li>
+<li>
+<p>Scalar objects typically use a list to represent a single thing.
+For example, an <code>lm</code> object is a list of length 12 but it represents one
+model.</p>
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<span class="co">#&gt; [1] 12</span></code></pre></div>
+<p>Scalar objects can also be built on top of functions, calls, and
+environments<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can also build an object on top of a pairlist, but I have yet to find a good reason to do so.&lt;/p&gt;"><sup>73</sup></a>. This is less generally useful, but you can see
+applications in <code><a href="https://rdrr.io/r/stats/ecdf.html">stats::ecdf()</a></code>, R6 (Chapter <a href="r6.html#r6">14</a>), and
+<code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::quo()</a></code> (Chapter <a href="quasiquotation.html#quasiquotation">19</a>).
+</p>
+</li>
+</ul>
+<p>Unfortunately, describing the appropriate use of each of these object styles is beyond the scope of this book. However, you can learn more from the documentation of the vctrs package (<a href="https://vctrs.r-lib.org" class="uri">https://vctrs.r-lib.org</a>); the package also provides constructors and helpers that make implementation of the different styles easier.</p>
+<div id="exercises-41" class="section level3" number="13.5.1">
+<h3>
+<span class="header-section-number">13.5.1</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-41"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Categorise the objects returned by <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>, <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>,
+<code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code>, <code><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct()</a></code> <code><a href="https://rdrr.io/r/stats/ecdf.html">ecdf()</a></code>, <code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code>, <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> into the
+styles described above.</p></li>
+<li><p>What would a constructor function for <code>lm</code> objects, <code>new_lm()</code>, look like?
+Use <code><a href="https://rdrr.io/r/stats/lm.html">?lm</a></code> and experimentation to figure out the required fields and their
+types.</p></li>
+</ol>
+</div>
+</div>
+<div id="s3-inheritance" class="section level2" number="13.6">
+<h2>
+<span class="header-section-number">13.6</span> Inheritance<a class="anchor" aria-label="anchor" href="#s3-inheritance"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+</p>
+<p>S3 classes can share behaviour through a mechanism called <strong>inheritance</strong>. Inheritance is powered by three ideas:</p>
+<ul>
+<li>
+<p>The class can be a character <em>vector</em>. For example, the <code>ordered</code> and
+<code>POSIXct</code> classes have two components in their class:</p>
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "ordered" "factor"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "POSIXct" "POSIXt"</span></code></pre></div>
+</li>
+<li>
+<p>If a method is not found for the class in the first element of the
+vector, R looks for a method for the second class (and so on):</p>
+<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    print.ordered</span>
+<span class="co">#&gt; =&gt; print.factor</span>
+<span class="co">#&gt;  * print.default</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; print.POSIXct</span>
+<span class="co">#&gt;    print.POSIXt</span>
+<span class="co">#&gt;  * print.default</span></code></pre></div>
+</li>
+<li>
+<p>A method can delegate work by calling <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code>. We’ll come back to
+that very shortly; for now, note that <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch()</a></code> reports delegation
+with <code>-&gt;</code>.</p>
+<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;    [.ordered</span>
+<span class="co">#&gt; =&gt; [.factor</span>
+<span class="co">#&gt;    [.default</span>
+<span class="co">#&gt; -&gt; [ (internal)</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; [.POSIXct</span>
+<span class="co">#&gt;    [.POSIXt</span>
+<span class="co">#&gt;    [.default</span>
+<span class="co">#&gt; -&gt; [ (internal)</span></code></pre></div>
+</li>
+</ul>
+<p>Before we continue we need a bit of vocabulary to describe the relationship between the classes that appear together in a class vector. We’ll say that <code>ordered</code> is a <strong>subclass</strong> of <code>factor</code> because it always appears before it in the class vector, and, conversely, we’ll say <code>factor</code> is a <strong>superclass</strong> of <code>ordered</code>.</p>
+<p>S3 imposes no restrictions on the relationship between sub- and superclasses but your life will be easier if you impose some. I recommend that you adhere to two simple principles when creating a subclass:</p>
+<ul>
+<li><p>The base type of the subclass should be that same as the superclass.</p></li>
+<li><p>The attributes of the subclass should be a superset of the attributes
+of the superclass.</p></li>
+</ul>
+<p><code>POSIXt</code> does not adhere to these principles because <code>POSIXct</code> has type double, and <code>POSIXlt</code> has type list. This means that <code>POSIXt</code> is not a superclass, and illustrates that it’s quite possible to use the S3 inheritance system to implement other styles of code sharing (here <code>POSIXt</code> plays a role more like an interface), but you’ll need to figure out safe conventions yourself.
+</p>
+<div id="nextmethod" class="section level3" number="13.6.1">
+<h3>
+<span class="header-section-number">13.6.1</span> <code>NextMethod()</code><a class="anchor" aria-label="anchor" href="#nextmethod"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code> is the hardest part of inheritance to understand, so we’ll start with a concrete example for the most common use case: <code>[</code>. We’ll start by creating a simple toy class: a <code>secret</code> class that hides its output when printed:</p>
+<div class="sourceCode" id="cb574"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_secret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="va">x</span>, class <span class="op">=</span> <span class="st">"secret"</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">print.secret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strrep.html">strrep</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">new_secret</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">1</span>, <span class="fl">456</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] "xx"  "x"   "xxx"</span></code></pre></div>
+<p>This works, but the default <code>[</code> method doesn’t preserve the class:</p>
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;    [.secret</span>
+<span class="co">#&gt;    [.default</span>
+<span class="co">#&gt; =&gt; [ (internal)</span>
+<span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="co">#&gt; [1] 15</span></code></pre></div>
+<p>To fix this, we need to provide a <code>[.secret</code> method. How could we implement this method? The naive approach won’t work because we’ll get stuck in an infinite loop:</p>
+<div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`[.secret`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">new_secret</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Instead, we need some way to call the underlying <code>[</code> code, i.e. the implementation that would get called if we didn’t have a <code>[.secret</code> method. One approach would be to <code><a href="https://rdrr.io/r/base/class.html">unclass()</a></code> the object:</p>
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`[.secret`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="fu">new_secret</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="co">#&gt; [1] "xx"</span></code></pre></div>
+<p>This works, but is inefficient because it creates a copy of <code>x</code>. A better approach is to use <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code>, which concisely solves the problem of delegating to the method that would have been called if <code>[.secret</code> didn’t exist:</p>
+<div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`[.secret`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">new_secret</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="co">#&gt; [1] "xx"</span></code></pre></div>
+<p>We can see what’s going on with <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">sloop::s3_dispatch()</a></code>:</p>
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; [.secret</span>
+<span class="co">#&gt;    [.default</span>
+<span class="co">#&gt; -&gt; [ (internal)</span></code></pre></div>
+<p>The <code>=&gt;</code> indicates that <code>[.secret</code> is called, but that <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code> delegates work to the underlying internal <code>[</code> method, as shown by the <code>-&gt;</code>.</p>
+<p>As with <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code>, the precise semantics of <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code> are complex. In particular, it tracks the list of potential next methods with a special variable, which means that modifying the object that’s being dispatched upon will have no impact on which method gets called next.</p>
+</div>
+<div id="s3-subclassing" class="section level3" number="13.6.2">
+<h3>
+<span class="header-section-number">13.6.2</span> Allowing subclassing<a class="anchor" aria-label="anchor" href="#s3-subclassing"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>When you create a class, you need to decide if you want to allow subclasses, because it requires some changes to the constructor and careful thought in your methods.</p>
+<p>To allow subclasses, the parent constructor needs to have <code>...</code> and <code>class</code> arguments:</p>
+<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_secret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">class</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span>
+    <span class="va">x</span>,
+    <span class="va">...</span>,
+    class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">class</span>, <span class="st">"secret"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Then the subclass constructor can just call to the parent class constructor with additional arguments as needed. For example, imagine we want to create a supersecret class which also hides the number of characters:</p>
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new_supersecret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">new_secret</span><span class="op">(</span><span class="va">x</span>, class <span class="op">=</span> <span class="st">"supersecret"</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">print.supersecret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"xxxxx"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">new_supersecret</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">1</span>, <span class="fl">456</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x2</span>
+<span class="co">#&gt; [1] "xxxxx" "xxxxx" "xxxxx"</span></code></pre></div>
+<p>To allow inheritance, you also need to think carefully about your methods, as you can no longer use the constructor. If you do, the method will always return the same class, regardless of the input. This forces whoever makes a subclass to do a lot of extra work.</p>
+<p>Concretely, this means we need to revise the <code>[.secret</code> method. Currently it always returns a <code>secret()</code>, even when given a supersecret:</p>
+<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`[.secret`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">new_secret</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">x2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
+<span class="co">#&gt; [1] "xx"  "x"   "xxx"</span></code></pre></div>
+<p>We want to make sure that <code>[.secret</code> returns the same class as <code>x</code> even if it’s a subclass. As far as I can tell, there is no way to solve this problem using base R alone. Instead, you’ll need to use the vctrs package, which provides a solution in the form of the <code><a href="https://vctrs.r-lib.org/reference/vec_proxy.html">vctrs::vec_restore()</a></code> generic. This generic takes two inputs: an object which has lost subclass information, and a template object to use for restoration.</p>
+<p>Typically <code>vec_restore()</code> methods are quite simple: you just call the constructor with appropriate arguments:</p>
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vec_restore.secret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">new_secret</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">vec_restore.supersecret</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">new_supersecret</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<p>(If your class has attributes, you’ll need to pass them from <code>to</code> into the constructor.)</p>
+<p>Now we can use <code>vec_restore()</code> in the <code>[.secret</code> method:</p>
+<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`[.secret`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">vctrs</span><span class="fu">::</span><span class="fu"><a href="https://vctrs.r-lib.org/reference/vec_proxy.html">vec_restore</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">x</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">x2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
+<span class="co">#&gt; [1] "xxxxx" "xxxxx" "xxxxx"</span></code></pre></div>
+<p>(I only fully understood this issue quite recently, so at time of writing it is not used in the tidyverse. Hopefully by the time you’re reading this, it will have rolled out, making it much easier to (e.g.) subclass tibbles.)</p>
+<p>If you build your class using the tools provided by the vctrs package, <code>[</code> will gain this behaviour automatically. You will only need to provide your own <code>[</code> method if you use attributes that depend on the data or want non-standard subsetting behaviour. See <code><a href="https://vctrs.r-lib.org/reference/new_vctr.html">?vctrs::new_vctr</a></code> for details.</p>
+</div>
+<div id="exercises-42" class="section level3" number="13.6.3">
+<h3>
+<span class="header-section-number">13.6.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-42"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>How does <code>[.Date</code> support subclasses? How does it fail to support
+subclasses?</p></li>
+<li><p>R has two classes for representing date time data, <code>POSIXct</code> and
+<code>POSIXlt</code>, which both inherit from <code>POSIXt</code>. Which generics have
+different behaviours for the two classes? Which generics share the same
+behaviour?</p></li>
+<li>
+<p>What do you expect this code to return? What does it actually return?
+Why?</p>
+<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">generic2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span><span class="op">(</span><span class="st">"generic2"</span><span class="op">)</span>
+<span class="va">generic2.a1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"a1"</span>
+<span class="va">generic2.a2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"a2"</span>
+<span class="va">generic2.b</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"a1"</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">generic2</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="s3-dispatch" class="section level2" number="13.7">
+<h2>
+<span class="header-section-number">13.7</span> Dispatch details<a class="anchor" aria-label="anchor" href="#s3-dispatch"><i class="fas fa-link"></i></a>
+</h2>
+<p></p>
+<p>This chapter concludes with a few additional details about method dispatch. It is safe to skip these details if you’re new to S3.</p>
+<div id="implicit-class" class="section level3" number="13.7.1">
+<h3>
+<span class="header-section-number">13.7.1</span> S3 and base types<a class="anchor" aria-label="anchor" href="#implicit-class"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>What happens when you call an S3 generic with a base object, i.e. an object with no class? You might think it would dispatch on what <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> returns:</p>
+<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "matrix" "array"</span></code></pre></div>
+<p>But unfortunately dispatch actually occurs on the <strong>implicit class</strong>, which has three components:</p>
+<ul>
+<li>The string “array” or “matrix” if the object has dimensions</li>
+<li>The result of <code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code> with a few minor tweaks</li>
+<li>The string “numeric” if object is “integer” or “double”</li>
+</ul>
+<p>There is no base function that will compute the implicit class, but you can use <code><a href="https://sloop.r-lib.org/reference/s3_class.html">sloop::s3_class()</a></code></p>
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_class.html">s3_class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "matrix"  "integer" "numeric"</span></code></pre></div>
+<p>This is used by <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch()</a></code>:</p>
+<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    print.matrix</span>
+<span class="co">#&gt;    print.integer</span>
+<span class="co">#&gt;    print.numeric</span>
+<span class="co">#&gt; =&gt; print.default</span></code></pre></div>
+<p>This means that the <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> of an object does not uniquely determine its dispatch:</p>
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    mean.integer</span>
+<span class="co">#&gt;    mean.numeric</span>
+<span class="co">#&gt; =&gt; mean.default</span>
+
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="va">x1</span>, class <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    mean.integer</span>
+<span class="co">#&gt; =&gt; mean.default</span></code></pre></div>
+</div>
+<div id="internal-generics" class="section level3" number="13.7.2">
+<h3>
+<span class="header-section-number">13.7.2</span> Internal generics<a class="anchor" aria-label="anchor" href="#internal-generics"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Some base functions, like <code>[</code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, and <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code>, are called <strong>internal generics</strong> because they don’t call <code><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod()</a></code> but instead call the C functions <code>DispatchGroup()</code> or <code>DispatchOrEval()</code>. <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch()</a></code> shows internal generics by including the name of the generic followed by <code>(internal)</code>:</p>
+<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; [.POSIXct</span>
+<span class="co">#&gt;    [.POSIXt</span>
+<span class="co">#&gt;    [.default</span>
+<span class="co">#&gt; -&gt; [ (internal)</span></code></pre></div>
+<p>For performance reasons, internal generics do not dispatch to methods unless the class attribute has been set, which means that internal generics do not use the implicit class. Again, if you’re ever confused about method dispatch, you can rely on <code><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch()</a></code>.</p>
+</div>
+<div id="group-generics" class="section level3" number="13.7.3">
+<h3>
+<span class="header-section-number">13.7.3</span> Group generics<a class="anchor" aria-label="anchor" href="#group-generics"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Group generics are the most complicated part of S3 method dispatch because they involve both <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code> and internal generics. Like internal generics, they only exist in base R, and you cannot define your own group generic.</p>
+<p>There are four group generics:</p>
+<ul>
+<li><p><strong>Math</strong>: <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code>, <code><a href="https://rdrr.io/r/base/sign.html">sign()</a></code>, <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>, <code><a href="https://rdrr.io/r/base/Round.html">floor()</a></code>, <code><a href="https://rdrr.io/r/base/Trig.html">cos()</a></code>, <code><a href="https://rdrr.io/r/base/Trig.html">sin()</a></code>, <code><a href="https://rdrr.io/r/base/Log.html">log()</a></code>,
+and more (see <code><a href="https://rdrr.io/r/base/groupGeneric.html">?Math</a></code> for the complete list).</p></li>
+<li><p><strong>Ops</strong>: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>%%</code>, <code>%/%</code>, <code>&amp;</code>, <code>|</code>, <code>!</code>, <code>==</code>, <code>!=</code>, <code>&lt;</code>,
+<code>&lt;=</code>, <code>&gt;=</code>, and <code>&gt;</code>.</p></li>
+<li><p><strong>Summary</strong>: <code><a href="https://rdrr.io/r/base/all.html">all()</a></code>, <code><a href="https://rdrr.io/r/base/any.html">any()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, <code><a href="https://rdrr.io/r/base/prod.html">prod()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, and
+<code><a href="https://rdrr.io/r/base/range.html">range()</a></code>.</p></li>
+<li><p><strong>Complex</strong>: <code><a href="https://rdrr.io/r/base/complex.html">Arg()</a></code>, <code><a href="https://rdrr.io/r/base/complex.html">Conj()</a></code>, <code><a href="https://rdrr.io/r/base/complex.html">Im()</a></code>, <code><a href="https://rdrr.io/r/base/complex.html">Mod()</a></code>, <code><a href="https://rdrr.io/r/base/complex.html">Re()</a></code>.</p></li>
+</ul>
+<p>Defining a single group generic for your class overrides the default behaviour for all of the members of the group. Methods for group generics are looked for only if the methods for the specific generic do not exist:</p>
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    sum.POSIXct</span>
+<span class="co">#&gt;    sum.POSIXt</span>
+<span class="co">#&gt;    sum.default</span>
+<span class="co">#&gt; =&gt; Summary.POSIXct</span>
+<span class="co">#&gt;    Summary.POSIXt</span>
+<span class="co">#&gt;    Summary.default</span>
+<span class="co">#&gt; -&gt; sum (internal)</span></code></pre></div>
+<p>Most group generics involve a call to <code><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod()</a></code>. For example, take <code><a href="https://rdrr.io/r/base/difftime.html">difftime()</a></code> objects. If you look at the method dispatch for <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code>, you’ll see there’s a <code>Math</code> group generic defined.</p>
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/difftime.html">as.difftime</a></span><span class="op">(</span><span class="fl">10</span>, units <span class="op">=</span> <span class="st">"mins"</span><span class="op">)</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    abs.difftime</span>
+<span class="co">#&gt;    abs.default</span>
+<span class="co">#&gt; =&gt; Math.difftime</span>
+<span class="co">#&gt;    Math.default</span>
+<span class="co">#&gt; -&gt; abs (internal)</span></code></pre></div>
+<p><code>Math.difftime</code> basically looks like this:</p>
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Math.difftime</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">new_difftime</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">NextMethod</a></span><span class="op">(</span><span class="op">)</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"units"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>It dispatches to the next method, here the internal default, to perform the actual computation, then restore the class and attributes. (To better support subclasses of <code>difftime</code> this would need to call <code>vec_restore()</code>, as described in Section <a href="s3.html#s3-subclassing">13.6.2</a>.)</p>
+<p>Inside a group generic function a special variable <code>.Generic</code> provides the actual generic function called. This can be useful when producing error messages, and can sometimes be useful if you need to manually re-call the generic with different arguments.</p>
+</div>
+<div id="double-dispatch" class="section level3" number="13.7.4">
+<h3>
+<span class="header-section-number">13.7.4</span> Double dispatch<a class="anchor" aria-label="anchor" href="#double-dispatch"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Generics in the Ops group, which includes the two-argument arithmetic and Boolean operators like <code>-</code> and <code>&amp;</code>, implement a special type of method dispatch. They dispatch on the type of <em>both</em> of the arguments, which is called <strong>double dispatch</strong>. This is necessary to preserve the commutative property of many operators, i.e. <code>a + b</code> should equal <code>b + a</code>. Take the following simple example:</p>
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2017-01-01"</span><span class="op">)</span>
+<span class="va">integer</span> <span class="op">&lt;-</span> <span class="fl">1L</span>
+
+<span class="va">date</span> <span class="op">+</span> <span class="va">integer</span>
+<span class="co">#&gt; [1] "2017-01-02"</span>
+<span class="va">integer</span> <span class="op">+</span> <span class="va">date</span>
+<span class="co">#&gt; [1] "2017-01-02"</span></code></pre></div>
+<p>If <code>+</code> dispatched only on the first argument, it would return different values for the two cases. To overcome this problem, generics in the Ops group use a slightly different strategy from usual. Rather than doing a single method dispatch, they do two, one for each input. There are three possible outcomes of this lookup:</p>
+<ul>
+<li><p>The methods are the same, so it doesn’t matter which method is used.</p></li>
+<li><p>The methods are different, and R falls back to the internal method with
+a warning.</p></li>
+<li><p>One method is internal, in which case R calls the other method.</p></li>
+</ul>
+<p>This approach is error prone so if you want to implement robust double dispatch for algebraic operators, I recommend using the vctrs package. See <code><a href="https://vctrs.r-lib.org/reference/vec_arith.html">?vctrs::vec_arith</a></code> for details.</p>
+</div>
+<div id="exercises-43" class="section level3" number="13.7.5">
+<h3>
+<span class="header-section-number">13.7.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-43"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Explain the differences in dispatch below:</p>
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">length.integer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">10</span>
+
+<span class="va">x1</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  * length.integer</span>
+<span class="co">#&gt;    length.numeric</span>
+<span class="co">#&gt;    length.default</span>
+<span class="co">#&gt; =&gt; length (internal)</span>
+
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="va">x1</span>, class <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span>
+<span class="fu"><a href="https://sloop.r-lib.org/reference/s3_dispatch.html">s3_dispatch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; =&gt; length.integer</span>
+<span class="co">#&gt;    length.default</span>
+<span class="co">#&gt;  * length (internal)</span></code></pre></div>
+</li>
+<li><p>What classes have a method for the <code>Math</code> group generic in base R? Read
+the source code. How do the methods work?</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/difftime.html">Math.difftime()</a></code> is more complicated than I described. Why?</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="base-types.html"><span class="header-section-number">12</span> Base types</a></div>
+<div class="next"><a href="r6.html"><span class="header-section-number">14</span> R6</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#s3"><span class="header-section-number">13</span> S3</a></li>
+<li>
+<a class="nav-link" href="#introduction-12"><span class="header-section-number">13.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-11">Outline</a></li>
+<li><a class="nav-link" href="#prerequisites-6">Prerequisites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s3-basics"><span class="header-section-number">13.2</span> Basics</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercises-38"><span class="header-section-number">13.2.1</span> Exercises</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#s3-classes"><span class="header-section-number">13.3</span> Classes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#s3-constructor"><span class="header-section-number">13.3.1</span> Constructors</a></li>
+<li><a class="nav-link" href="#validators"><span class="header-section-number">13.3.2</span> Validators</a></li>
+<li><a class="nav-link" href="#helpers"><span class="header-section-number">13.3.3</span> Helpers</a></li>
+<li><a class="nav-link" href="#exercises-39"><span class="header-section-number">13.3.4</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s3-methods"><span class="header-section-number">13.4</span> Generics and methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#method-dispatch"><span class="header-section-number">13.4.1</span> Method dispatch</a></li>
+<li><a class="nav-link" href="#finding-methods"><span class="header-section-number">13.4.2</span> Finding methods</a></li>
+<li><a class="nav-link" href="#s3-arguments"><span class="header-section-number">13.4.3</span> Creating methods</a></li>
+<li><a class="nav-link" href="#exercises-40"><span class="header-section-number">13.4.4</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#object-styles"><span class="header-section-number">13.5</span> Object styles</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercises-41"><span class="header-section-number">13.5.1</span> Exercises</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#s3-inheritance"><span class="header-section-number">13.6</span> Inheritance</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#nextmethod"><span class="header-section-number">13.6.1</span> NextMethod()</a></li>
+<li><a class="nav-link" href="#s3-subclassing"><span class="header-section-number">13.6.2</span> Allowing subclassing</a></li>
+<li><a class="nav-link" href="#exercises-42"><span class="header-section-number">13.6.3</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s3-dispatch"><span class="header-section-number">13.7</span> Dispatch details</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#implicit-class"><span class="header-section-number">13.7.1</span> S3 and base types</a></li>
+<li><a class="nav-link" href="#internal-generics"><span class="header-section-number">13.7.2</span> Internal generics</a></li>
+<li><a class="nav-link" href="#group-generics"><span class="header-section-number">13.7.3</span> Group generics</a></li>
+<li><a class="nav-link" href="#double-dispatch"><span class="header-section-number">13.7.4</span> Double dispatch</a></li>
+<li><a class="nav-link" href="#exercises-43"><span class="header-section-number">13.7.5</span> Exercises</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/S3.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/S3.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

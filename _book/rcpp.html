@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>25 Rewriting R code in C++ | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="25 Rewriting R code in C++ | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25 Rewriting R code in C++ | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="25.1 Introduction Sometimes R code just isn’t fast enough. You’ve used profiling to figure out where your bottlenecks are, and you’ve done everything you can in R, but your code still isn’t fast...">
+<meta property="og:description" content="25.1 Introduction Sometimes R code just isn’t fast enough. You’ve used profiling to figure out where your bottlenecks are, and you’ve done everything you can in R, but your code still isn’t fast...">
+<meta name="twitter:description" content="25.1 Introduction Sometimes R code just isn’t fast enough. You’ve used profiling to figure out where your bottlenecks are, and you’ve done everything you can in R, but your code still isn’t fast...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="active" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="rcpp" class="section level1" number="25">
+<h1>
+<span class="header-section-number">25</span> Rewriting R code in C++<a class="anchor" aria-label="anchor" href="#rcpp"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-24" class="section level2" number="25.1">
+<h2>
+<span class="header-section-number">25.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-24"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes R code just isn’t fast enough. You’ve used profiling to figure out where your bottlenecks are, and you’ve done everything you can in R, but your code still isn’t fast enough. In this chapter you’ll learn how to improve performance by rewriting key functions in C++. This magic comes by way of the <a href="http://www.rcpp.org/">Rcpp</a> package<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Dirk Eddelbuettel and Romain François, &lt;span&gt;“&lt;span&gt;Rcpp&lt;/span&gt;: Seamless &lt;span&gt;R&lt;/span&gt; and &lt;span&gt;C++&lt;/span&gt; Integration,”&lt;/span&gt; &lt;em&gt;Journal of Statistical Software&lt;/em&gt; 40, no. 8 (2011): 1–18, &lt;a href="https://doi.org/10.18637/jss.v040.i08" role="doc-biblioref"&gt;https://doi.org/10.18637/jss.v040.i08&lt;/a&gt;.&lt;/p&gt;'><sup>117</sup></a></span> (with key contributions by Doug Bates, John Chambers, and JJ Allaire).</p>
+<p>Rcpp makes it very simple to connect C++ to R. While it is <em>possible</em> to write C or Fortran code for use in R, it will be painful by comparison. Rcpp provides a clean, approachable API that lets you write high-performance code, insulated from R’s complex C API.  </p>
+<p>Typical bottlenecks that C++ can address include:</p>
+<ul>
+<li><p>Loops that can’t be easily vectorised because subsequent iterations depend
+on previous ones.</p></li>
+<li><p>Recursive functions, or problems which involve calling functions millions of
+times. The overhead of calling a function in C++ is much lower than in R.</p></li>
+<li><p>Problems that require advanced data structures and algorithms that R doesn’t
+provide. Through the standard template library (STL), C++ has efficient
+implementations of many important data structures, from ordered maps to
+double-ended queues.</p></li>
+</ul>
+<p>The aim of this chapter is to discuss only those aspects of C++ and Rcpp that are absolutely necessary to help you eliminate bottlenecks in your code. We won’t spend much time on advanced features like object-oriented programming or templates because the focus is on writing small, self-contained functions, not big programs. A working knowledge of C++ is helpful, but not essential. Many good tutorials and references are freely available, including <a href="http://www.learncpp.com/" class="uri">http://www.learncpp.com/</a> and <a href="https://en.cppreference.com/w/cpp" class="uri">https://en.cppreference.com/w/cpp</a>. For more advanced topics, the <em>Effective C++</em> series by Scott Meyers is a popular choice.</p>
+<div id="outline-23" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-23"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="rcpp.html#rcpp-intro">25.2</a> teaches you how to write C++ by
+converting simple R functions to their C++ equivalents. You’ll learn how
+C++ differs from R, and what the key scalar, vector, and matrix classes
+are called.</p></li>
+<li><p>Section <a href="rcpp.html#sourceCpp">25.2.5</a> shows you how to use <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp()</a></code> to load
+a C++ file from disk in the same way you use <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> to load a file of
+R code.</p></li>
+<li><p>Section <a href="rcpp.html#rcpp-classes">25.3</a> discusses how to modify
+attributes from Rcpp, and mentions some of the other important classes.</p></li>
+<li><p>Section <a href="rcpp.html#rcpp-na">25.4</a> teaches you how to work with R’s missing values
+in C++.</p></li>
+<li><p>Section <a href="rcpp.html#stl">25.5</a> shows you how to use some of the most important data
+structures and algorithms from the standard template library, or STL,
+built-in to C++.</p></li>
+<li><p>Section <a href="rcpp.html#rcpp-case-studies">25.6</a> shows two real case studies where
+Rcpp was used to get considerable performance improvements.</p></li>
+<li><p>Section <a href="rcpp.html#rcpp-package">25.7</a> teaches you how to add C++ code
+to a package.</p></li>
+<li><p>Section <a href="rcpp.html#rcpp-more">25.8</a> concludes the chapter with pointers to
+more resources to help you learn Rcpp and C++.</p></li>
+</ul>
+</div>
+<div id="prerequisites-17" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-17"><i class="fas fa-link"></i></a>
+</h3>
+<p>We’ll use <a href="http://www.rcpp.org/">Rcpp</a> to call C++ from R:</p>
+<div class="sourceCode" id="cb1000"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rcpp.org">Rcpp</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'Rcpp' was built under R version 4.1.1</span></code></pre></div>
+<p>You’ll also need a working C++ compiler. To get it:</p>
+<ul>
+<li>On Windows, install <a href="http://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</li>
+<li>On Mac, install Xcode from the app store.</li>
+<li>On Linux, <code>sudo apt-get install r-base-dev</code> or similar.</li>
+</ul>
+</div>
+</div>
+<div id="rcpp-intro" class="section level2" number="25.2">
+<h2>
+<span class="header-section-number">25.2</span> Getting started with C++<a class="anchor" aria-label="anchor" href="#rcpp-intro"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction()</a></code> allows you to write C++ functions in R: </p>
+<div class="sourceCode" id="cb1001"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction</a></span><span class="op">(</span><span class="st">'int add(int x, int y, int z) {
+  int sum = x + y + z;
+  return sum;
+}'</span><span class="op">)</span>
+<span class="co"># add works like a regular R function</span>
+<span class="va">add</span>
+<span class="co">#&gt; function (x, y, z) </span>
+<span class="co">#&gt; .Call(&lt;pointer: 0x0000000071281580&gt;, x, y, z)</span>
+<span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">add</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 6</span></code></pre></div>
+<p>When you run this code, Rcpp will compile the C++ code and construct an R function that connects to the compiled C++ function. There’s a lot going on underneath the hood but Rcpp takes care of all the details so you don’t need to worry about them.</p>
+<p>The following sections will teach you the basics by translating simple R functions to their C++ equivalents. We’ll start simple with a function that has no inputs and a scalar output, and then make it progressively more complicated:</p>
+<ul>
+<li>Scalar input and scalar output</li>
+<li>Vector input and scalar output</li>
+<li>Vector input and vector output</li>
+<li>Matrix input and vector output</li>
+</ul>
+<div id="no-inputs-scalar-output" class="section level3" number="25.2.1">
+<h3>
+<span class="header-section-number">25.2.1</span> No inputs, scalar output<a class="anchor" aria-label="anchor" href="#no-inputs-scalar-output"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s start with a very simple function. It has no arguments and always returns the integer 1:</p>
+<div class="sourceCode" id="cb1002"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1L</span></code></pre></div>
+<p>The equivalent C++ function is:</p>
+<div class="sourceCode" id="cb1003"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1003-1"><a href="rcpp.html#cb1003-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> one<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1003-2"><a href="rcpp.html#cb1003-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1003-3"><a href="rcpp.html#cb1003-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We can compile and use this from R with <code><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction()</a></code></p>
+<div class="sourceCode" id="cb1004"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction</a></span><span class="op">(</span><span class="st">'int one() {
+  return 1;
+}'</span><span class="op">)</span></code></pre></div>
+<p>This small function illustrates a number of important differences between R and C++:</p>
+<ul>
+<li><p>The syntax to create a function looks like the syntax to call a function;
+you don’t use assignment to create functions as you do in R.</p></li>
+<li><p>You must declare the type of output the function returns. This function
+returns an <code>int</code> (a scalar integer). The classes for the most common types
+of R vectors are: <code>NumericVector</code>, <code>IntegerVector</code>, <code>CharacterVector</code>, and
+<code>LogicalVector</code>.</p></li>
+<li><p>Scalars and vectors are different. The scalar equivalents of numeric,
+integer, character, and logical vectors are: <code>double</code>, <code>int</code>, <code>String</code>, and
+<code>bool</code>.</p></li>
+<li><p>You must use an explicit <code>return</code> statement to return a value from a
+function.</p></li>
+<li><p>Every statement is terminated by a <code>;</code>.</p></li>
+</ul>
+</div>
+<div id="scalar-input-scalar-output" class="section level3" number="25.2.2">
+<h3>
+<span class="header-section-number">25.2.2</span> Scalar input, scalar output<a class="anchor" aria-label="anchor" href="#scalar-input-scalar-output"><i class="fas fa-link"></i></a>
+</h3>
+<p>The next example function implements a scalar version of the <code><a href="https://rdrr.io/r/base/sign.html">sign()</a></code> function which returns 1 if the input is positive, and -1 if it’s negative:</p>
+<div class="sourceCode" id="cb1005"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">signR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fl">1</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fl">0</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="op">-</span><span class="fl">1</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction</a></span><span class="op">(</span><span class="st">'int signC(int x) {
+  if (x &gt; 0) {
+    return 1;
+  } else if (x == 0) {
+    return 0;
+  } else {
+    return -1;
+  }
+}'</span><span class="op">)</span></code></pre></div>
+<p>In the C++ version:</p>
+<ul>
+<li><p>We declare the type of each input in the same way we declare the type of the
+output. While this makes the code a little more verbose, it also makes clear
+the type of input the function needs.</p></li>
+<li><p>The <code>if</code> syntax is identical — while there are some big differences between
+R and C++, there are also lots of similarities! C++ also has a <code>while</code>
+statement that works the same way as R’s. As in R you can use <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> to
+exit the loop, but to skip one iteration you need to use <code>continue</code> instead
+of <code><a href="https://rdrr.io/r/base/Control.html">next</a></code>.</p></li>
+</ul>
+</div>
+<div id="vector-input-scalar-output" class="section level3" number="25.2.3">
+<h3>
+<span class="header-section-number">25.2.3</span> Vector input, scalar output<a class="anchor" aria-label="anchor" href="#vector-input-scalar-output"><i class="fas fa-link"></i></a>
+</h3>
+<p>One big difference between R and C++ is that the cost of loops is much lower in C++. For example, we could implement the <code>sum</code> function in R using a loop. If you’ve been programming in R a while, you’ll probably have a visceral reaction to this function!</p>
+<div class="sourceCode" id="cb1006"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sumR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">total</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">total</span> <span class="op">+</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
+  <span class="op">}</span>
+  <span class="va">total</span>
+<span class="op">}</span></code></pre></div>
+<p>In C++, loops have very little overhead, so it’s fine to use them. In Section <a href="rcpp.html#stl">25.5</a>, you’ll see alternatives to <code>for</code> loops that more clearly express your intent; they’re not faster, but they can make your code easier to understand.</p>
+<div class="sourceCode" id="cb1007"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction</a></span><span class="op">(</span><span class="st">'double sumC(NumericVector x) {
+  int n = x.size();
+  double total = 0;
+  for(int i = 0; i &lt; n; ++i) {
+    total += x[i];
+  }
+  return total;
+}'</span><span class="op">)</span></code></pre></div>
+<p>The C++ version is similar, but:</p>
+<ul>
+<li><p>To find the length of the vector, we use the <code>.size()</code> method, which returns
+an integer. C++ methods are called with <code>.</code> (i.e., a full stop).</p></li>
+<li><p>The <code>for</code> statement has a different syntax: <code>for(init; check; increment)</code>.
+This loop is initialised by creating a new variable called <code>i</code> with value 0.
+Before each iteration we check that <code>i &lt; n</code>, and terminate the loop if it’s
+not. After each iteration, we increment the value of <code>i</code> by one, using the
+special prefix operator <code>++</code> which increases the value of <code>i</code> by 1.</p></li>
+<li><p>In C++, vector indices start at 0, which means that the last element is
+at position <code>n - 1</code>. I’ll say this again because it’s so important:
+<strong>IN C++, VECTOR INDICES START AT 0</strong>! This is a very common
+source of bugs when converting R functions to C++.</p></li>
+<li><p>Use <code>=</code> for assignment, not <code>&lt;-</code>.</p></li>
+<li><p>C++ provides operators that modify in-place: <code>total += x[i]</code> is equivalent to
+<code>total = total + x[i]</code>. Similar in-place operators are <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p></li>
+</ul>
+<p>This is a good example of where C++ is much more efficient than R. As shown by the following microbenchmark, <code>sumC()</code> is competitive with the built-in (and highly optimised) <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, while <code>sumR()</code> is several orders of magnitude slower.</p>
+<div class="sourceCode" id="cb1008"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span>
+<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
+  <span class="fu">sumC</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
+  <span class="fu">sumR</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
+<span class="co">#&gt; # A tibble: 3 x 6</span>
+<span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 sum(x)        2.4us    2.8us   173684.        0B        0</span>
+<span class="co">#&gt; 2 sumC(x)       4.8us      8us    87580.    2.49KB        0</span>
+<span class="co">#&gt; 3 sumR(x)      44.1us   60.6us    13276.   33.52KB        0</span></code></pre></div>
+</div>
+<div id="vector-input-vector-output" class="section level3" number="25.2.4">
+<h3>
+<span class="header-section-number">25.2.4</span> Vector input, vector output<a class="anchor" aria-label="anchor" href="#vector-input-vector-output"><i class="fas fa-link"></i></a>
+</h3>
+<!-- FIXME: come up with better example. Also fix in two other places it occurs -->
+<p>Next we’ll create a function that computes the Euclidean distance between a value and a vector of values:</p>
+<div class="sourceCode" id="cb1009"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pdistR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">ys</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">ys</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>In R, it’s not obvious that we want <code>x</code> to be a scalar from the function definition, and we’d need to make that clear in the documentation. That’s not a problem in the C++ version because we have to be explicit about types:</p>
+<div class="sourceCode" id="cb1010"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction</a></span><span class="op">(</span><span class="st">'NumericVector pdistC(double x, NumericVector ys) {
+  int n = ys.size();
+  NumericVector out(n);
+
+  for(int i = 0; i &lt; n; ++i) {
+    out[i] = sqrt(pow(ys[i] - x, 2.0));
+  }
+  return out;
+}'</span><span class="op">)</span></code></pre></div>
+<p>This function introduces only a few new concepts:</p>
+<ul>
+<li><p>We create a new numeric vector of length <code>n</code> with a constructor:
+<code>NumericVector out(n)</code>. Another useful way of making a vector is to copy an
+existing one: <code>NumericVector zs = clone(ys)</code>.</p></li>
+<li><p>C++ uses <code>pow()</code>, not <code>^</code>, for exponentiation.</p></li>
+</ul>
+<p>Note that because the R version is fully vectorised, it’s already going to be fast.</p>
+<div class="sourceCode" id="cb1011"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span>
+<span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+  <span class="fu">pdistR</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">y</span><span class="op">)</span>,
+  <span class="fu">pdistC</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">y</span><span class="op">)</span>
+<span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
+<span class="co">#&gt; # A tibble: 2 x 6</span>
+<span class="co">#&gt;   expression          min   median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   &lt;bch:expr&gt;     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 pdistR(0.5, y)   19.7ms   21.3ms      46.0    7.63MB     26.9</span>
+<span class="co">#&gt; 2 pdistC(0.5, y)   13.2ms   15.1ms      64.1    7.63MB     54.9</span></code></pre></div>
+<p>On my computer, it takes around 5 ms with a 1 million element <code>y</code> vector. The C++ function is about 2.5 times faster, ~2 ms, but assuming it took you 10 minutes to write the C++ function, you’d need to run it ~200,000 times to make rewriting worthwhile. The reason why the C++ function is faster is subtle, and relates to memory management. The R version needs to create an intermediate vector the same length as y (<code>x - ys</code>), and allocating memory is an expensive operation. The C++ function avoids this overhead because it uses an intermediate scalar.</p>
+</div>
+<div id="sourceCpp" class="section level3" number="25.2.5">
+<h3>
+<span class="header-section-number">25.2.5</span> Using sourceCpp<a class="anchor" aria-label="anchor" href="#sourceCpp"><i class="fas fa-link"></i></a>
+</h3>
+<p>So far, we’ve used inline C++ with <code><a href="https://rdrr.io/pkg/Rcpp/man/cppFunction.html">cppFunction()</a></code>. This makes presentation simpler, but for real problems, it’s usually easier to use stand-alone C++ files and then source them into R using <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp()</a></code>. This lets you take advantage of text editor support for C++ files (e.g., syntax highlighting) as well as making it easier to identify the line numbers in compilation errors. </p>
+<p>Your stand-alone C++ file should have extension <code>.cpp</code>, and needs to start with:</p>
+<div class="sourceCode" id="cb1012"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1012-1"><a href="rcpp.html#cb1012-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1012-2"><a href="rcpp.html#cb1012-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span></code></pre></div>
+<p>And for each function that you want available within R, you need to prefix it with:</p>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1013-1"><a href="rcpp.html#cb1013-1" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span></code></pre></div>
+<div class="sidebar">
+<p>If you’re familiar with roxygen2, you might wonder how this relates to <code>@export</code>. <code>Rcpp::export</code> controls whether a function is exported from C++ to R; <code>@export</code> controls whether a function is exported from a package and made available to the user.</p>
+</div>
+<p>You can embed R code in special C++ comment blocks. This is really convenient if you want to run some test code:</p>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1014-1"><a href="rcpp.html#cb1014-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*** R</span></span>
+<span id="cb1014-2"><a href="rcpp.html#cb1014-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is R code</span></span>
+<span id="cb1014-3"><a href="rcpp.html#cb1014-3" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div>
+<p>The R code is run with <code>source(echo = TRUE)</code> so you don’t need to explicitly print output.</p>
+<p>To compile the C++ code, use <code>sourceCpp("path/to/file.cpp")</code>. This will create the matching R functions and add them to your current session. Note that these functions can not be saved in a <code>.Rdata</code> file and reloaded in a later session; they must be recreated each time you restart R.</p>
+<p>For example, running <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp()</a></code> on the following file implements mean in C++ and then compares it to the built-in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>:</p>
+<div class="sourceCode" id="cb1015"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1015-1"><a href="rcpp.html#cb1015-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1015-2"><a href="rcpp.html#cb1015-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1015-3"><a href="rcpp.html#cb1015-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1015-4"><a href="rcpp.html#cb1015-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1015-5"><a href="rcpp.html#cb1015-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> meanC<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1015-6"><a href="rcpp.html#cb1015-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1015-7"><a href="rcpp.html#cb1015-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1015-8"><a href="rcpp.html#cb1015-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1015-9"><a href="rcpp.html#cb1015-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1015-10"><a href="rcpp.html#cb1015-10" aria-hidden="true" tabindex="-1"></a>    total <span class="op">+=</span> x<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb1015-11"><a href="rcpp.html#cb1015-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1015-12"><a href="rcpp.html#cb1015-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> total <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb1015-13"><a href="rcpp.html#cb1015-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1015-14"><a href="rcpp.html#cb1015-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1015-15"><a href="rcpp.html#cb1015-15" aria-hidden="true" tabindex="-1"></a><span class="co">/*** R</span></span>
+<span id="cb1015-16"><a href="rcpp.html#cb1015-16" aria-hidden="true" tabindex="-1"></a><span class="co">x &lt;- runif(1e5)</span></span>
+<span id="cb1015-17"><a href="rcpp.html#cb1015-17" aria-hidden="true" tabindex="-1"></a><span class="co">bench::mark(</span></span>
+<span id="cb1015-18"><a href="rcpp.html#cb1015-18" aria-hidden="true" tabindex="-1"></a><span class="co">  mean(x),</span></span>
+<span id="cb1015-19"><a href="rcpp.html#cb1015-19" aria-hidden="true" tabindex="-1"></a><span class="co">  meanC(x)</span></span>
+<span id="cb1015-20"><a href="rcpp.html#cb1015-20" aria-hidden="true" tabindex="-1"></a><span class="co">)</span></span>
+<span id="cb1015-21"><a href="rcpp.html#cb1015-21" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div>
+<p>NB: If you run this code, you’ll notice that <code>meanC()</code> is much faster than the built-in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. This is because it trades numerical accuracy for speed.</p>
+<p>For the remainder of this chapter C++ code will be presented stand-alone rather than wrapped in a call to <code>cppFunction</code>. If you want to try compiling and/or modifying the examples you should paste them into a C++ source file that includes the elements described above. This is easy to do in RMarkdown: all you need to do is specify <code>engine = "Rcpp"</code>.</p>
+</div>
+<div id="exercise-started" class="section level3" number="25.2.6">
+<h3>
+<span class="header-section-number">25.2.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercise-started"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>With the basics of C++ in hand, it’s now a great time to practice by reading
+and writing some simple C++ functions. For each of the following functions,
+read the code and figure out what the corresponding base R function is. You
+might not understand every part of the code yet, but you should be able to
+figure out the basics of what the function does.</p>
+<div class="sourceCode" id="cb1016"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1016-1"><a href="rcpp.html#cb1016-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> f1<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-2"><a href="rcpp.html#cb1016-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1016-3"><a href="rcpp.html#cb1016-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> y <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1016-4"><a href="rcpp.html#cb1016-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-5"><a href="rcpp.html#cb1016-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-6"><a href="rcpp.html#cb1016-6" aria-hidden="true" tabindex="-1"></a>    y <span class="op">+=</span> x<span class="op">[</span>i<span class="op">]</span> <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb1016-7"><a href="rcpp.html#cb1016-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1016-8"><a href="rcpp.html#cb1016-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> y<span class="op">;</span></span>
+<span id="cb1016-9"><a href="rcpp.html#cb1016-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1016-10"><a href="rcpp.html#cb1016-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-11"><a href="rcpp.html#cb1016-11" aria-hidden="true" tabindex="-1"></a>NumericVector f2<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-12"><a href="rcpp.html#cb1016-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1016-13"><a href="rcpp.html#cb1016-13" aria-hidden="true" tabindex="-1"></a>  NumericVector out<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb1016-14"><a href="rcpp.html#cb1016-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-15"><a href="rcpp.html#cb1016-15" aria-hidden="true" tabindex="-1"></a>  out<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> x<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1016-16"><a href="rcpp.html#cb1016-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-17"><a href="rcpp.html#cb1016-17" aria-hidden="true" tabindex="-1"></a>    out<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> out<span class="op">[</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> x<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb1016-18"><a href="rcpp.html#cb1016-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1016-19"><a href="rcpp.html#cb1016-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1016-20"><a href="rcpp.html#cb1016-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1016-21"><a href="rcpp.html#cb1016-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-22"><a href="rcpp.html#cb1016-22" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> f3<span class="op">(</span>LogicalVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-23"><a href="rcpp.html#cb1016-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1016-24"><a href="rcpp.html#cb1016-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-25"><a href="rcpp.html#cb1016-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-26"><a href="rcpp.html#cb1016-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>x<span class="op">[</span>i<span class="op">])</span> <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1016-27"><a href="rcpp.html#cb1016-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1016-28"><a href="rcpp.html#cb1016-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb1016-29"><a href="rcpp.html#cb1016-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1016-30"><a href="rcpp.html#cb1016-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-31"><a href="rcpp.html#cb1016-31" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> f4<span class="op">(</span>Function pred<span class="op">,</span> List x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-32"><a href="rcpp.html#cb1016-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1016-33"><a href="rcpp.html#cb1016-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-34"><a href="rcpp.html#cb1016-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-35"><a href="rcpp.html#cb1016-35" aria-hidden="true" tabindex="-1"></a>    LogicalVector res <span class="op">=</span> pred<span class="op">(</span>x<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb1016-36"><a href="rcpp.html#cb1016-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>res<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="cf">return</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1016-37"><a href="rcpp.html#cb1016-37" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1016-38"><a href="rcpp.html#cb1016-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1016-39"><a href="rcpp.html#cb1016-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1016-40"><a href="rcpp.html#cb1016-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-41"><a href="rcpp.html#cb1016-41" aria-hidden="true" tabindex="-1"></a>NumericVector f5<span class="op">(</span>NumericVector x<span class="op">,</span> NumericVector y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-42"><a href="rcpp.html#cb1016-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> <span class="bu">std::</span>max<span class="op">(</span>x<span class="op">.</span>size<span class="op">(),</span> y<span class="op">.</span>size<span class="op">());</span></span>
+<span id="cb1016-43"><a href="rcpp.html#cb1016-43" aria-hidden="true" tabindex="-1"></a>  NumericVector x1 <span class="op">=</span> rep_len<span class="op">(</span>x<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb1016-44"><a href="rcpp.html#cb1016-44" aria-hidden="true" tabindex="-1"></a>  NumericVector y1 <span class="op">=</span> rep_len<span class="op">(</span>y<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb1016-45"><a href="rcpp.html#cb1016-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-46"><a href="rcpp.html#cb1016-46" aria-hidden="true" tabindex="-1"></a>  NumericVector out<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb1016-47"><a href="rcpp.html#cb1016-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-48"><a href="rcpp.html#cb1016-48" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1016-49"><a href="rcpp.html#cb1016-49" aria-hidden="true" tabindex="-1"></a>    out<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="bu">std::</span>min<span class="op">(</span>x1<span class="op">[</span>i<span class="op">],</span> y1<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb1016-50"><a href="rcpp.html#cb1016-50" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1016-51"><a href="rcpp.html#cb1016-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1016-52"><a href="rcpp.html#cb1016-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1016-53"><a href="rcpp.html#cb1016-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</li>
+<li>
+<p>To practice your function writing skills, convert the following functions
+into C++. For now, assume the inputs have no missing values.</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="https://rdrr.io/r/base/all.html">all()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/cumsum.html">cumprod()</a></code>, <code><a href="https://rdrr.io/r/base/cumsum.html">cummin()</a></code>, <code><a href="https://rdrr.io/r/base/cumsum.html">cummax()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code>. Start by assuming lag 1, and then generalise for lag <code>n</code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/range.html">range()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code>. Read about the approaches you can take on
+<a href="http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance">Wikipedia</a>.
+Whenever implementing a numerical algorithm, it’s always good to check
+what is already known about the problem.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="rcpp-classes" class="section level2" number="25.3">
+<h2>
+<span class="header-section-number">25.3</span> Other classes<a class="anchor" aria-label="anchor" href="#rcpp-classes"><i class="fas fa-link"></i></a>
+</h2>
+<p>You’ve already seen the basic vector classes (<code>IntegerVector</code>, <code>NumericVector</code>, <code>LogicalVector</code>, <code>CharacterVector</code>) and their scalar (<code>int</code>, <code>double</code>, <code>bool</code>, <code>String</code>) equivalents. Rcpp also provides wrappers for all other base data types. The most important are for lists and data frames, functions, and attributes, as described below. Rcpp also provides classes for more types like <code>Environment</code>, <code>DottedPair</code>, <code>Language</code>, <code>Symbol</code>, etc, but these are beyond the scope of this chapter.</p>
+<div id="lists-and-data-frames" class="section level3" number="25.3.1">
+<h3>
+<span class="header-section-number">25.3.1</span> Lists and data frames<a class="anchor" aria-label="anchor" href="#lists-and-data-frames"><i class="fas fa-link"></i></a>
+</h3>
+<p>Rcpp also provides <code>List</code> and <code>DataFrame</code> classes, but they are more useful for output than input. This is because lists and data frames can contain arbitrary classes but C++ needs to know their classes in advance. If the list has known structure (e.g., it’s an S3 object), you can extract the components and manually convert them to their C++ equivalents with <code><a href="https://rdrr.io/r/methods/as.html">as()</a></code>. For example, the object created by <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, the function that fits a linear model, is a list whose components are always of the same type. The following code illustrates how you might extract the mean percentage error (<code>mpe()</code>) of a linear model. This isn’t a good example of when to use C++, because it’s so easily implemented in R, but it shows how to work with an important S3 class. Note the use of <code>.inherits()</code> and the <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> to check that the object really is a linear model.  </p>
+<!-- FIXME: needs better motivation -->
+<div class="sourceCode" id="cb1017"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1017-1"><a href="rcpp.html#cb1017-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1017-2"><a href="rcpp.html#cb1017-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1017-3"><a href="rcpp.html#cb1017-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1017-4"><a href="rcpp.html#cb1017-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1017-5"><a href="rcpp.html#cb1017-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> mpe<span class="op">(</span>List mod<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1017-6"><a href="rcpp.html#cb1017-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>mod<span class="op">.</span>inherits<span class="op">(</span><span class="st">"lm"</span><span class="op">))</span> stop<span class="op">(</span><span class="st">"Input must be a linear model"</span><span class="op">);</span></span>
+<span id="cb1017-7"><a href="rcpp.html#cb1017-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1017-8"><a href="rcpp.html#cb1017-8" aria-hidden="true" tabindex="-1"></a>  NumericVector resid <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"residuals"</span><span class="op">]);</span></span>
+<span id="cb1017-9"><a href="rcpp.html#cb1017-9" aria-hidden="true" tabindex="-1"></a>  NumericVector fitted <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"fitted.values"</span><span class="op">]);</span></span>
+<span id="cb1017-10"><a href="rcpp.html#cb1017-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1017-11"><a href="rcpp.html#cb1017-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> resid<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1017-12"><a href="rcpp.html#cb1017-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> err <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1017-13"><a href="rcpp.html#cb1017-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1017-14"><a href="rcpp.html#cb1017-14" aria-hidden="true" tabindex="-1"></a>    err <span class="op">+=</span> resid<span class="op">[</span>i<span class="op">]</span> <span class="op">/</span> <span class="op">(</span>fitted<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> resid<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb1017-15"><a href="rcpp.html#cb1017-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1017-16"><a href="rcpp.html#cb1017-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> err <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb1017-17"><a href="rcpp.html#cb1017-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="fu">mpe</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<span class="co">#&gt; [1] -0.0154</span></code></pre></div>
+</div>
+<div id="functions-rcpp" class="section level3" number="25.3.2">
+<h3>
+<span class="header-section-number">25.3.2</span> Functions<a class="anchor" aria-label="anchor" href="#functions-rcpp"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>You can put R functions in an object of type <code>Function</code>. This makes calling an R function from C++ straightforward. The only challenge is that we don’t know what type of output the function will return, so we use the catchall type <code>RObject</code>.</p>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1019-1"><a href="rcpp.html#cb1019-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1019-2"><a href="rcpp.html#cb1019-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1019-3"><a href="rcpp.html#cb1019-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1019-4"><a href="rcpp.html#cb1019-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1019-5"><a href="rcpp.html#cb1019-5" aria-hidden="true" tabindex="-1"></a>RObject callWithOne<span class="op">(</span>Function f<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1019-6"><a href="rcpp.html#cb1019-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1019-7"><a href="rcpp.html#cb1019-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1020"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">callWithOne</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="fu">callWithOne</span><span class="op">(</span><span class="va">paste</span><span class="op">)</span>
+<span class="co">#&gt; [1] "1"</span></code></pre></div>
+<p>Calling R functions with positional arguments is obvious:</p>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1021-1"><a href="rcpp.html#cb1021-1" aria-hidden="true" tabindex="-1"></a>f<span class="op">(</span><span class="st">"y"</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span></code></pre></div>
+<p>But you need a special syntax for named arguments:</p>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1022-1"><a href="rcpp.html#cb1022-1" aria-hidden="true" tabindex="-1"></a>f<span class="op">(</span>_<span class="op">[</span><span class="st">"x"</span><span class="op">]</span> <span class="op">=</span> <span class="st">"y"</span><span class="op">,</span> _<span class="op">[</span><span class="st">"value"</span><span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">);</span></span></code></pre></div>
+</div>
+<div id="attributes-1" class="section level3" number="25.3.3">
+<h3>
+<span class="header-section-number">25.3.3</span> Attributes<a class="anchor" aria-label="anchor" href="#attributes-1"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>All R objects have attributes, which can be queried and modified with <code>.attr()</code>. Rcpp also provides <code>.names()</code> as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of <code>::create()</code>, a <em>class</em> method. This allows you to create an R vector from C++ scalar values:</p>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1023-1"><a href="rcpp.html#cb1023-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1023-2"><a href="rcpp.html#cb1023-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1023-3"><a href="rcpp.html#cb1023-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1023-4"><a href="rcpp.html#cb1023-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1023-5"><a href="rcpp.html#cb1023-5" aria-hidden="true" tabindex="-1"></a>NumericVector attribs<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1023-6"><a href="rcpp.html#cb1023-6" aria-hidden="true" tabindex="-1"></a>  NumericVector out <span class="op">=</span> NumericVector<span class="op">::</span>create<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">);</span></span>
+<span id="cb1023-7"><a href="rcpp.html#cb1023-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1023-8"><a href="rcpp.html#cb1023-8" aria-hidden="true" tabindex="-1"></a>  out<span class="op">.</span>names<span class="op">()</span> <span class="op">=</span> CharacterVector<span class="op">::</span>create<span class="op">(</span><span class="st">"a"</span><span class="op">,</span> <span class="st">"b"</span><span class="op">,</span> <span class="st">"c"</span><span class="op">);</span></span>
+<span id="cb1023-9"><a href="rcpp.html#cb1023-9" aria-hidden="true" tabindex="-1"></a>  out<span class="op">.</span>attr<span class="op">(</span><span class="st">"my-attr"</span><span class="op">)</span> <span class="op">=</span> <span class="st">"my-value"</span><span class="op">;</span></span>
+<span id="cb1023-10"><a href="rcpp.html#cb1023-10" aria-hidden="true" tabindex="-1"></a>  out<span class="op">.</span>attr<span class="op">(</span><span class="st">"class"</span><span class="op">)</span> <span class="op">=</span> <span class="st">"my-class"</span><span class="op">;</span></span>
+<span id="cb1023-11"><a href="rcpp.html#cb1023-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1023-12"><a href="rcpp.html#cb1023-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1023-13"><a href="rcpp.html#cb1023-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>For S4 objects, <code>.slot()</code> plays a similar role to <code>.attr()</code>.</p>
+</div>
+</div>
+<div id="rcpp-na" class="section level2" number="25.4">
+<h2>
+<span class="header-section-number">25.4</span> Missing values<a class="anchor" aria-label="anchor" href="#rcpp-na"><i class="fas fa-link"></i></a>
+</h2>
+<p>If you’re working with missing values, you need to know two things:</p>
+<ul>
+<li>How R’s missing values behave in C++’s scalars (e.g., <code>double</code>).</li>
+<li>How to get and set missing values in vectors (e.g., <code>NumericVector</code>).</li>
+</ul>
+<div id="scalars-1" class="section level3" number="25.4.1">
+<h3>
+<span class="header-section-number">25.4.1</span> Scalars<a class="anchor" aria-label="anchor" href="#scalars-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>The following code explores what happens when you take one of R’s missing values, coerce it into a scalar, and then coerce back to an R vector. Note that this kind of experimentation is a useful way to figure out what any operation does.</p>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1024-1"><a href="rcpp.html#cb1024-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1024-2"><a href="rcpp.html#cb1024-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1024-3"><a href="rcpp.html#cb1024-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1024-4"><a href="rcpp.html#cb1024-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1024-5"><a href="rcpp.html#cb1024-5" aria-hidden="true" tabindex="-1"></a>List scalar_missings<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1024-6"><a href="rcpp.html#cb1024-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> int_s <span class="op">=</span> NA_INTEGER<span class="op">;</span></span>
+<span id="cb1024-7"><a href="rcpp.html#cb1024-7" aria-hidden="true" tabindex="-1"></a>  String chr_s <span class="op">=</span> NA_STRING<span class="op">;</span></span>
+<span id="cb1024-8"><a href="rcpp.html#cb1024-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> lgl_s <span class="op">=</span> NA_LOGICAL<span class="op">;</span></span>
+<span id="cb1024-9"><a href="rcpp.html#cb1024-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> num_s <span class="op">=</span> NA_REAL<span class="op">;</span></span>
+<span id="cb1024-10"><a href="rcpp.html#cb1024-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1024-11"><a href="rcpp.html#cb1024-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> List<span class="op">::</span>create<span class="op">(</span>int_s<span class="op">,</span> chr_s<span class="op">,</span> lgl_s<span class="op">,</span> num_s<span class="op">);</span></span>
+<span id="cb1024-12"><a href="rcpp.html#cb1024-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1025"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu">scalar_missings</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; List of 4</span>
+<span class="co">#&gt;  $ : int NA</span>
+<span class="co">#&gt;  $ : chr NA</span>
+<span class="co">#&gt;  $ : logi TRUE</span>
+<span class="co">#&gt;  $ : num NA</span></code></pre></div>
+<p>With the exception of <code>bool</code>, things look pretty good here: all of the missing values have been preserved. However, as we’ll see in the following sections, things are not quite as straightforward as they seem.</p>
+<div id="integers" class="section level4" number="25.4.1.1">
+<h4>
+<span class="header-section-number">25.4.1.1</span> Integers<a class="anchor" aria-label="anchor" href="#integers"><i class="fas fa-link"></i></a>
+</h4>
+<p>With integers, missing values are stored as the smallest integer. If you don’t do anything to them, they’ll be preserved. But, since C++ doesn’t know that the smallest integer has this special behaviour, if you do anything to it you’re likely to get an incorrect value: for example, <code>evalCpp('NA_INTEGER + 1')</code> gives -2147483647.</p>
+<p>So if you want to work with missing values in integers, either use a length 1 <code>IntegerVector</code> or be very careful with your code.</p>
+</div>
+<div id="doubles" class="section level4" number="25.4.1.2">
+<h4>
+<span class="header-section-number">25.4.1.2</span> Doubles<a class="anchor" aria-label="anchor" href="#doubles"><i class="fas fa-link"></i></a>
+</h4>
+<p>With doubles, you may be able to get away with ignoring missing values and working with NaNs (not a number). This is because R’s NA is a special type of IEEE 754 floating point number NaN. So any logical expression that involves a NaN (or in C++, NAN) always evaluates as FALSE:</p>
+<div class="sourceCode" id="cb1026"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN == 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN &lt; 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN &gt; 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN == NAN"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>(Here I’m using <code><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp()</a></code> which allows you to see the result of running a single C++ expression, making it excellent for this sort of interactive experimentation.)</p>
+<p>But be careful when combining them with Boolean values:</p>
+<div class="sourceCode" id="cb1027"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN &amp;&amp; TRUE"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN || FALSE"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>However, in numeric contexts NaNs will propagate NAs:</p>
+<div class="sourceCode" id="cb1028"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN + 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] NaN</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN - 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] NaN</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN / 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] NaN</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/evalCpp.html">evalCpp</a></span><span class="op">(</span><span class="st">"NAN * 1"</span><span class="op">)</span>
+<span class="co">#&gt; [1] NaN</span></code></pre></div>
+</div>
+</div>
+<div id="strings" class="section level3" number="25.4.2">
+<h3>
+<span class="header-section-number">25.4.2</span> Strings<a class="anchor" aria-label="anchor" href="#strings"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>String</code> is a scalar string class introduced by Rcpp, so it knows how to deal with missing values.</p>
+</div>
+<div id="boolean" class="section level3" number="25.4.3">
+<h3>
+<span class="header-section-number">25.4.3</span> Boolean<a class="anchor" aria-label="anchor" href="#boolean"><i class="fas fa-link"></i></a>
+</h3>
+<p>While C++’s <code>bool</code> has two possible values (<code>true</code> or <code>false</code>), a logical vector in R has three (<code>TRUE</code>, <code>FALSE</code>, and <code>NA</code>). If you coerce a length 1 logical vector, make sure it doesn’t contain any missing values; otherwise they will be converted to TRUE. An easy fix is to use <code>int</code> instead, as this can represent <code>TRUE</code>, <code>FALSE</code>, and <code>NA</code>.</p>
+</div>
+<div id="vectors-rcpp" class="section level3" number="25.4.4">
+<h3>
+<span class="header-section-number">25.4.4</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors-rcpp"><i class="fas fa-link"></i></a>
+</h3>
+<p>With vectors, you need to use a missing value specific to the type of vector, <code>NA_REAL</code>, <code>NA_INTEGER</code>, <code>NA_LOGICAL</code>, <code>NA_STRING</code>:</p>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1029-1"><a href="rcpp.html#cb1029-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1029-2"><a href="rcpp.html#cb1029-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1029-3"><a href="rcpp.html#cb1029-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1029-4"><a href="rcpp.html#cb1029-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1029-5"><a href="rcpp.html#cb1029-5" aria-hidden="true" tabindex="-1"></a>List missing_sampler<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1029-6"><a href="rcpp.html#cb1029-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> List<span class="op">::</span>create<span class="op">(</span></span>
+<span id="cb1029-7"><a href="rcpp.html#cb1029-7" aria-hidden="true" tabindex="-1"></a>    NumericVector<span class="op">::</span>create<span class="op">(</span>NA_REAL<span class="op">),</span></span>
+<span id="cb1029-8"><a href="rcpp.html#cb1029-8" aria-hidden="true" tabindex="-1"></a>    IntegerVector<span class="op">::</span>create<span class="op">(</span>NA_INTEGER<span class="op">),</span></span>
+<span id="cb1029-9"><a href="rcpp.html#cb1029-9" aria-hidden="true" tabindex="-1"></a>    LogicalVector<span class="op">::</span>create<span class="op">(</span>NA_LOGICAL<span class="op">),</span></span>
+<span id="cb1029-10"><a href="rcpp.html#cb1029-10" aria-hidden="true" tabindex="-1"></a>    CharacterVector<span class="op">::</span>create<span class="op">(</span>NA_STRING<span class="op">)</span></span>
+<span id="cb1029-11"><a href="rcpp.html#cb1029-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">);</span></span>
+<span id="cb1029-12"><a href="rcpp.html#cb1029-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1030"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu">missing_sampler</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; List of 4</span>
+<span class="co">#&gt;  $ : num NA</span>
+<span class="co">#&gt;  $ : int NA</span>
+<span class="co">#&gt;  $ : logi NA</span>
+<span class="co">#&gt;  $ : chr NA</span></code></pre></div>
+</div>
+<div id="exercises-73" class="section level3" number="25.4.5">
+<h3>
+<span class="header-section-number">25.4.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-73"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Rewrite any of the functions from the first exercise of
+Section <a href="rcpp.html#exercise-started">25.2.6</a> to deal with missing
+values. If <code>na.rm</code> is true, ignore the missing values. If <code>na.rm</code> is false,
+return a missing value if the input contains any missing values. Some
+good functions to practice with are <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, <code><a href="https://rdrr.io/r/base/range.html">range()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>,
+and <code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code>.</p></li>
+<li><p>Rewrite <code><a href="https://rdrr.io/r/base/cumsum.html">cumsum()</a></code> and <code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> so they can handle missing values. Note that
+these functions have slightly more complicated behaviour.</p></li>
+</ol>
+</div>
+</div>
+<div id="stl" class="section level2" number="25.5">
+<h2>
+<span class="header-section-number">25.5</span> Standard Template Library<a class="anchor" aria-label="anchor" href="#stl"><i class="fas fa-link"></i></a>
+</h2>
+<p>The real strength of C++ is revealed when you need to implement more complex algorithms. The standard template library (STL) provides a set of extremely useful data structures and algorithms. This section will explain some of the most important algorithms and data structures and point you in the right direction to learn more. I can’t teach you everything you need to know about the STL, but hopefully the examples will show you the power of the STL, and persuade you that it’s useful to learn more. </p>
+<p>If you need an algorithm or data structure that isn’t implemented in STL, a good place to look is <a href="http://www.boost.org/doc/">boost</a>. Installing boost on your computer is beyond the scope of this chapter, but once you have it installed, you can use boost data structures and algorithms by including the appropriate header file with (e.g.) <code>#include &lt;boost/array.hpp&gt;</code>.</p>
+<div id="using-iterators" class="section level3" number="25.5.1">
+<h3>
+<span class="header-section-number">25.5.1</span> Using iterators<a class="anchor" aria-label="anchor" href="#using-iterators"><i class="fas fa-link"></i></a>
+</h3>
+<p>Iterators are used extensively in the STL: many functions either accept or return iterators. They are the next step up from basic loops, abstracting away the details of the underlying data structure. Iterators have three main operators: </p>
+<ol style="list-style-type: decimal">
+<li>Advance with <code>++</code>.</li>
+<li>Get the value they refer to, or <strong>dereference</strong>, with <code>*</code>.</li>
+<li>Compare with <code>==</code>.</li>
+</ol>
+<p>For example we could re-write our sum function using iterators:</p>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1031-1"><a href="rcpp.html#cb1031-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1031-2"><a href="rcpp.html#cb1031-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1031-3"><a href="rcpp.html#cb1031-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1031-4"><a href="rcpp.html#cb1031-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1031-5"><a href="rcpp.html#cb1031-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> sum3<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1031-6"><a href="rcpp.html#cb1031-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1031-7"><a href="rcpp.html#cb1031-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1031-8"><a href="rcpp.html#cb1031-8" aria-hidden="true" tabindex="-1"></a>  NumericVector<span class="op">::</span>iterator it<span class="op">;</span></span>
+<span id="cb1031-9"><a href="rcpp.html#cb1031-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span>it <span class="op">=</span> x<span class="op">.</span>begin<span class="op">();</span> it <span class="op">!=</span> x<span class="op">.</span>end<span class="op">();</span> <span class="op">++</span>it<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1031-10"><a href="rcpp.html#cb1031-10" aria-hidden="true" tabindex="-1"></a>    total <span class="op">+=</span> <span class="op">*</span>it<span class="op">;</span></span>
+<span id="cb1031-11"><a href="rcpp.html#cb1031-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1031-12"><a href="rcpp.html#cb1031-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> total<span class="op">;</span></span>
+<span id="cb1031-13"><a href="rcpp.html#cb1031-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The main changes are in the for loop:</p>
+<ul>
+<li><p>We start at <code>x.begin()</code> and loop until we get to <code>x.end()</code>. A small
+optimization is to store the value of the end iterator so we don’t need to
+look it up each time. This only saves about 2 ns per iteration, so it’s only
+important when the calculations in the loop are very simple.</p></li>
+<li><p>Instead of indexing into x, we use the dereference operator to get its
+current value: <code>*it</code>.</p></li>
+<li><p>Notice the type of the iterator: <code>NumericVector::iterator</code>. Each vector
+type has its own iterator type: <code>LogicalVector::iterator</code>,
+<code>CharacterVector::iterator</code>, etc.</p></li>
+</ul>
+<p>This code can be simplified still further through the use of a C++11 feature: range-based for loops. C++11 is widely available, and can easily be activated for use with Rcpp by adding <code>[[Rcpp::plugins(cpp11)]]</code>.</p>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1032-1"><a href="rcpp.html#cb1032-1" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::plugins(cpp11)]]</span></span>
+<span id="cb1032-2"><a href="rcpp.html#cb1032-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1032-3"><a href="rcpp.html#cb1032-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1032-4"><a href="rcpp.html#cb1032-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1032-5"><a href="rcpp.html#cb1032-5" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1032-6"><a href="rcpp.html#cb1032-6" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> sum4<span class="op">(</span>NumericVector xs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1032-7"><a href="rcpp.html#cb1032-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1032-8"><a href="rcpp.html#cb1032-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1032-9"><a href="rcpp.html#cb1032-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="at">const</span> <span class="kw">auto</span> <span class="op">&amp;</span>x <span class="op">:</span> xs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1032-10"><a href="rcpp.html#cb1032-10" aria-hidden="true" tabindex="-1"></a>    total <span class="op">+=</span> x<span class="op">;</span></span>
+<span id="cb1032-11"><a href="rcpp.html#cb1032-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1032-12"><a href="rcpp.html#cb1032-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> total<span class="op">;</span></span>
+<span id="cb1032-13"><a href="rcpp.html#cb1032-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Iterators also allow us to use the C++ equivalents of the apply family of functions. For example, we could again rewrite <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> to use the <code><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate()</a></code> function, which takes a starting and an ending iterator, and adds up all the values in the vector. The third argument to <code>accumulate</code> gives the initial value: it’s particularly important because this also determines the data type that <code>accumulate</code> uses (so we use <code>0.0</code> and not <code>0</code> so that <code>accumulate</code> uses a <code>double</code>, not an <code>int</code>.). To use <code><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate()</a></code> we need to include the <code>&lt;numeric&gt;</code> header.</p>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1033-1"><a href="rcpp.html#cb1033-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;numeric&gt;</span></span>
+<span id="cb1033-2"><a href="rcpp.html#cb1033-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1033-3"><a href="rcpp.html#cb1033-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1033-4"><a href="rcpp.html#cb1033-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1033-5"><a href="rcpp.html#cb1033-5" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1033-6"><a href="rcpp.html#cb1033-6" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> sum5<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1033-7"><a href="rcpp.html#cb1033-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">std::</span>accumulate<span class="op">(</span>x<span class="op">.</span>begin<span class="op">(),</span> x<span class="op">.</span>end<span class="op">(),</span> <span class="fl">0.0</span><span class="op">);</span></span>
+<span id="cb1033-8"><a href="rcpp.html#cb1033-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="algorithms" class="section level3" number="25.5.2">
+<h3>
+<span class="header-section-number">25.5.2</span> Algorithms<a class="anchor" aria-label="anchor" href="#algorithms"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>&lt;algorithm&gt;</code> header provides a large number of algorithms that work with iterators. A good reference is available at <a href="https://en.cppreference.com/w/cpp/algorithm" class="uri">https://en.cppreference.com/w/cpp/algorithm</a>. For example, we could write a basic Rcpp version of <code><a href="https://rdrr.io/r/base/findInterval.html">findInterval()</a></code> that takes two arguments a vector of values and a vector of breaks, and locates the bin that each x falls into. This shows off a few more advanced iterator features. Read the code below and see if you can figure out how it works. </p>
+<div class="sourceCode" id="cb1034"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1034-1"><a href="rcpp.html#cb1034-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb1034-2"><a href="rcpp.html#cb1034-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1034-3"><a href="rcpp.html#cb1034-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1034-4"><a href="rcpp.html#cb1034-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1034-5"><a href="rcpp.html#cb1034-5" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1034-6"><a href="rcpp.html#cb1034-6" aria-hidden="true" tabindex="-1"></a>IntegerVector findInterval2<span class="op">(</span>NumericVector x<span class="op">,</span> NumericVector breaks<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1034-7"><a href="rcpp.html#cb1034-7" aria-hidden="true" tabindex="-1"></a>  IntegerVector out<span class="op">(</span>x<span class="op">.</span>size<span class="op">());</span></span>
+<span id="cb1034-8"><a href="rcpp.html#cb1034-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1034-9"><a href="rcpp.html#cb1034-9" aria-hidden="true" tabindex="-1"></a>  NumericVector<span class="op">::</span>iterator it<span class="op">,</span> pos<span class="op">;</span></span>
+<span id="cb1034-10"><a href="rcpp.html#cb1034-10" aria-hidden="true" tabindex="-1"></a>  IntegerVector<span class="op">::</span>iterator out_it<span class="op">;</span></span>
+<span id="cb1034-11"><a href="rcpp.html#cb1034-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1034-12"><a href="rcpp.html#cb1034-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span>it <span class="op">=</span> x<span class="op">.</span>begin<span class="op">(),</span> out_it <span class="op">=</span> out<span class="op">.</span>begin<span class="op">();</span> it <span class="op">!=</span> x<span class="op">.</span>end<span class="op">();</span> </span>
+<span id="cb1034-13"><a href="rcpp.html#cb1034-13" aria-hidden="true" tabindex="-1"></a>      <span class="op">++</span>it<span class="op">,</span> <span class="op">++</span>out_it<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1034-14"><a href="rcpp.html#cb1034-14" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> <span class="bu">std::</span>upper_bound<span class="op">(</span>breaks<span class="op">.</span>begin<span class="op">(),</span> breaks<span class="op">.</span>end<span class="op">(),</span> <span class="op">*</span>it<span class="op">);</span></span>
+<span id="cb1034-15"><a href="rcpp.html#cb1034-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>out_it <span class="op">=</span> <span class="bu">std::</span>distance<span class="op">(</span>breaks<span class="op">.</span>begin<span class="op">(),</span> pos<span class="op">);</span></span>
+<span id="cb1034-16"><a href="rcpp.html#cb1034-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1034-17"><a href="rcpp.html#cb1034-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1034-18"><a href="rcpp.html#cb1034-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1034-19"><a href="rcpp.html#cb1034-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The key points are:</p>
+<ul>
+<li><p>We step through two iterators (input and output) simultaneously.</p></li>
+<li><p>We can assign into an dereferenced iterator (<code>out_it</code>) to change the values
+in <code>out</code>.</p></li>
+<li><p><code>upper_bound()</code> returns an iterator. If we wanted the value of the
+<code>upper_bound()</code> we could dereference it; to figure out its location, we
+use the <code>distance()</code> function.</p></li>
+<li><p>Small note: if we want this function to be as fast as <code><a href="https://rdrr.io/r/base/findInterval.html">findInterval()</a></code> in R
+(which uses handwritten C code), we need to compute the calls to <code>.begin()</code>
+and <code>.end()</code> once and save the results. This is easy, but it distracts from
+this example so it has been omitted. Making this change yields a function
+that’s slightly faster than R’s <code><a href="https://rdrr.io/r/base/findInterval.html">findInterval()</a></code> function, but is about 1/10
+of the code.</p></li>
+</ul>
+<p>It’s generally better to use algorithms from the STL than hand rolled loops. In <em>Effective STL</em>, Scott Meyers gives three reasons: efficiency, correctness, and maintainability. Algorithms from the STL are written by C++ experts to be extremely efficient, and they have been around for a long time so they are well tested. Using standard algorithms also makes the intent of your code more clear, helping to make it more readable and more maintainable.</p>
+</div>
+<div id="data-structures-rcpp" class="section level3" number="25.5.3">
+<h3>
+<span class="header-section-number">25.5.3</span> Data structures<a class="anchor" aria-label="anchor" href="#data-structures-rcpp"><i class="fas fa-link"></i></a>
+</h3>
+<p>The STL provides a large set of data structures: <code>array</code>, <code>bitset</code>, <code>list</code>, <code>forward_list</code>, <code>map</code>, <code>multimap</code>, <code>multiset</code>, <code>priority_queue</code>, <code>queue</code>, <code>deque</code>, <code>set</code>, <code>stack</code>, <code>unordered_map</code>, <code>unordered_set</code>, <code>unordered_multimap</code>, <code>unordered_multiset</code>, and <code>vector</code>. The most important of these data structures are the <code>vector</code>, the <code>unordered_set</code>, and the <code>unordered_map</code>. We’ll focus on these three in this section, but using the others is similar: they just have different performance trade-offs. For example, the <code>deque</code> (pronounced “deck”) has a very similar interface to vectors but a different underlying implementation that has different performance trade-offs. You may want to try it for your problem. A good reference for STL data structures is <a href="https://en.cppreference.com/w/cpp/container" class="uri">https://en.cppreference.com/w/cpp/container</a> — I recommend you keep it open while working with the STL.</p>
+<p>Rcpp knows how to convert from many STL data structures to their R equivalents, so you can return them from your functions without explicitly converting to R data structures.</p>
+</div>
+<div id="vectors-stl" class="section level3" number="25.5.4">
+<h3>
+<span class="header-section-number">25.5.4</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors-stl"><i class="fas fa-link"></i></a>
+</h3>
+<p>An STL vector is very similar to an R vector, except that it grows efficiently. This makes vectors appropriate to use when you don’t know in advance how big the output will be. Vectors are templated, which means that you need to specify the type of object the vector will contain when you create it: <code>vector&lt;int&gt;</code>, <code>vector&lt;bool&gt;</code>, <code>vector&lt;double&gt;</code>, <code>vector&lt;String&gt;</code>. You can access individual elements of a vector using the standard <code>[]</code> notation, and you can add a new element to the end of the vector using <code>.push_back()</code>. If you have some idea in advance how big the vector will be, you can use <code>.reserve()</code> to allocate sufficient storage. </p>
+<p>The following code implements run length encoding (<code><a href="https://rdrr.io/r/base/rle.html">rle()</a></code>). It produces two vectors of output: a vector of values, and a vector <code>lengths</code> giving how many times each element is repeated. It works by looping through the input vector <code>x</code> comparing each value to the previous: if it’s the same, then it increments the last value in <code>lengths</code>; if it’s different, it adds the value to the end of <code>values</code>, and sets the corresponding length to 1.</p>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1035-1"><a href="rcpp.html#cb1035-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1035-2"><a href="rcpp.html#cb1035-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1035-3"><a href="rcpp.html#cb1035-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1035-4"><a href="rcpp.html#cb1035-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1035-5"><a href="rcpp.html#cb1035-5" aria-hidden="true" tabindex="-1"></a>List rleC<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1035-6"><a href="rcpp.html#cb1035-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> lengths<span class="op">;</span></span>
+<span id="cb1035-7"><a href="rcpp.html#cb1035-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">double</span><span class="op">&gt;</span> values<span class="op">;</span></span>
+<span id="cb1035-8"><a href="rcpp.html#cb1035-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1035-9"><a href="rcpp.html#cb1035-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialise first value</span></span>
+<span id="cb1035-10"><a href="rcpp.html#cb1035-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1035-11"><a href="rcpp.html#cb1035-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> prev <span class="op">=</span> x<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1035-12"><a href="rcpp.html#cb1035-12" aria-hidden="true" tabindex="-1"></a>  values<span class="op">.</span>push_back<span class="op">(</span>prev<span class="op">);</span></span>
+<span id="cb1035-13"><a href="rcpp.html#cb1035-13" aria-hidden="true" tabindex="-1"></a>  lengths<span class="op">.</span>push_back<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1035-14"><a href="rcpp.html#cb1035-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1035-15"><a href="rcpp.html#cb1035-15" aria-hidden="true" tabindex="-1"></a>  NumericVector<span class="op">::</span>iterator it<span class="op">;</span></span>
+<span id="cb1035-16"><a href="rcpp.html#cb1035-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span>it <span class="op">=</span> x<span class="op">.</span>begin<span class="op">()</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> it <span class="op">!=</span> x<span class="op">.</span>end<span class="op">();</span> <span class="op">++</span>it<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1035-17"><a href="rcpp.html#cb1035-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>prev <span class="op">==</span> <span class="op">*</span>it<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1035-18"><a href="rcpp.html#cb1035-18" aria-hidden="true" tabindex="-1"></a>      lengths<span class="op">[</span>i<span class="op">]++;</span></span>
+<span id="cb1035-19"><a href="rcpp.html#cb1035-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1035-20"><a href="rcpp.html#cb1035-20" aria-hidden="true" tabindex="-1"></a>      values<span class="op">.</span>push_back<span class="op">(*</span>it<span class="op">);</span></span>
+<span id="cb1035-21"><a href="rcpp.html#cb1035-21" aria-hidden="true" tabindex="-1"></a>      lengths<span class="op">.</span>push_back<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1035-22"><a href="rcpp.html#cb1035-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1035-23"><a href="rcpp.html#cb1035-23" aria-hidden="true" tabindex="-1"></a>      i<span class="op">++;</span></span>
+<span id="cb1035-24"><a href="rcpp.html#cb1035-24" aria-hidden="true" tabindex="-1"></a>      prev <span class="op">=</span> <span class="op">*</span>it<span class="op">;</span></span>
+<span id="cb1035-25"><a href="rcpp.html#cb1035-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1035-26"><a href="rcpp.html#cb1035-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1035-27"><a href="rcpp.html#cb1035-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1035-28"><a href="rcpp.html#cb1035-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> List<span class="op">::</span>create<span class="op">(</span></span>
+<span id="cb1035-29"><a href="rcpp.html#cb1035-29" aria-hidden="true" tabindex="-1"></a>    _<span class="op">[</span><span class="st">"lengths"</span><span class="op">]</span> <span class="op">=</span> lengths<span class="op">,</span> </span>
+<span id="cb1035-30"><a href="rcpp.html#cb1035-30" aria-hidden="true" tabindex="-1"></a>    _<span class="op">[</span><span class="st">"values"</span><span class="op">]</span> <span class="op">=</span> values</span>
+<span id="cb1035-31"><a href="rcpp.html#cb1035-31" aria-hidden="true" tabindex="-1"></a>  <span class="op">);</span></span>
+<span id="cb1035-32"><a href="rcpp.html#cb1035-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>(An alternative implementation would be to replace <code>i</code> with the iterator <code>lengths.rbegin()</code> which always points to the last element of the vector. You might want to try implementing that.)</p>
+<p>Other methods of a vector are described at <a href="https://en.cppreference.com/w/cpp/container/vector" class="uri">https://en.cppreference.com/w/cpp/container/vector</a>.</p>
+</div>
+<div id="sets" class="section level3" number="25.5.5">
+<h3>
+<span class="header-section-number">25.5.5</span> Sets<a class="anchor" aria-label="anchor" href="#sets"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sets maintain a unique set of values, and can efficiently tell if you’ve seen a value before. They are useful for problems that involve duplicates or unique values (like <code>unique</code>, <code>duplicated</code>, or <code>in</code>). C++ provides both ordered (<code>std::set</code>) and unordered sets (<code>std::unordered_set</code>), depending on whether or not order matters for you. Unordered sets tend to be much faster (because they use a hash table internally rather than a tree), so even if you need an ordered set, you should consider using an unordered set and then sorting the output. Like vectors, sets are templated, so you need to request the appropriate type of set for your purpose: <code>unordered_set&lt;int&gt;</code>, <code>unordered_set&lt;bool&gt;</code>, etc. More details are available at <a href="https://en.cppreference.com/w/cpp/container/set" class="uri">https://en.cppreference.com/w/cpp/container/set</a> and <a href="https://en.cppreference.com/w/cpp/container/unordered_set" class="uri">https://en.cppreference.com/w/cpp/container/unordered_set</a>. </p>
+<p>The following function uses an unordered set to implement an equivalent to <code><a href="https://rdrr.io/r/base/duplicated.html">duplicated()</a></code> for integer vectors. Note the use of <code>seen.insert(x[i]).second</code>. <code>insert()</code> returns a pair, the <code>.first</code> value is an iterator that points to element and the <code>.second</code> value is a Boolean that’s true if the value was a new addition to the set.</p>
+<div class="sourceCode" id="cb1036"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1036-1"><a href="rcpp.html#cb1036-1" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::plugins(cpp11)]]</span></span>
+<span id="cb1036-2"><a href="rcpp.html#cb1036-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1036-3"><a href="rcpp.html#cb1036-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unordered_set&gt;</span></span>
+<span id="cb1036-4"><a href="rcpp.html#cb1036-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1036-5"><a href="rcpp.html#cb1036-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1036-6"><a href="rcpp.html#cb1036-6" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1036-7"><a href="rcpp.html#cb1036-7" aria-hidden="true" tabindex="-1"></a>LogicalVector duplicatedC<span class="op">(</span>IntegerVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1036-8"><a href="rcpp.html#cb1036-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>unordered_set<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> seen<span class="op">;</span></span>
+<span id="cb1036-9"><a href="rcpp.html#cb1036-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1036-10"><a href="rcpp.html#cb1036-10" aria-hidden="true" tabindex="-1"></a>  LogicalVector out<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb1036-11"><a href="rcpp.html#cb1036-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1036-12"><a href="rcpp.html#cb1036-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1036-13"><a href="rcpp.html#cb1036-13" aria-hidden="true" tabindex="-1"></a>    out<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="op">!</span>seen<span class="op">.</span>insert<span class="op">(</span>x<span class="op">[</span>i<span class="op">]).</span>second<span class="op">;</span></span>
+<span id="cb1036-14"><a href="rcpp.html#cb1036-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1036-15"><a href="rcpp.html#cb1036-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1036-16"><a href="rcpp.html#cb1036-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1036-17"><a href="rcpp.html#cb1036-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="map-1" class="section level3" number="25.5.6">
+<h3>
+<span class="header-section-number">25.5.6</span> Map<a class="anchor" aria-label="anchor" href="#map-1"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>A map is similar to a set, but instead of storing presence or absence, it can store additional data. It’s useful for functions like <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> or <code><a href="https://rdrr.io/r/base/match.html">match()</a></code> that need to look up a value. As with sets, there are ordered (<code>std::map</code>) and unordered (<code>std::unordered_map</code>) versions. Since maps have a value and a key, you need to specify both types when initialising a map: <code>map&lt;double, int&gt;</code>, <code>unordered_map&lt;int, double&gt;</code>, and so on. The following example shows how you could use a <code>map</code> to implement <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> for numeric vectors:</p>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1037-1"><a href="rcpp.html#cb1037-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1037-2"><a href="rcpp.html#cb1037-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1037-3"><a href="rcpp.html#cb1037-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-4"><a href="rcpp.html#cb1037-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1037-5"><a href="rcpp.html#cb1037-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>map<span class="op">&lt;</span><span class="dt">double</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span> tableC<span class="op">(</span>NumericVector x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1037-6"><a href="rcpp.html#cb1037-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>map<span class="op">&lt;</span><span class="dt">double</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span> counts<span class="op">;</span></span>
+<span id="cb1037-7"><a href="rcpp.html#cb1037-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-8"><a href="rcpp.html#cb1037-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> x<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1037-9"><a href="rcpp.html#cb1037-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1037-10"><a href="rcpp.html#cb1037-10" aria-hidden="true" tabindex="-1"></a>    counts<span class="op">[</span>x<span class="op">[</span>i<span class="op">]]++;</span></span>
+<span id="cb1037-11"><a href="rcpp.html#cb1037-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1037-12"><a href="rcpp.html#cb1037-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1037-13"><a href="rcpp.html#cb1037-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> counts<span class="op">;</span></span>
+<span id="cb1037-14"><a href="rcpp.html#cb1037-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="exercises-74" class="section level3" number="25.5.7">
+<h3>
+<span class="header-section-number">25.5.7</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-74"><i class="fas fa-link"></i></a>
+</h3>
+<p>To practice using the STL algorithms and data structures, implement the following using R functions in C++, using the hints provided:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="https://rdrr.io/r/stats/median.html">median.default()</a></code> using <code>partial_sort</code>.</p></li>
+<li><p><code>%in%</code> using <code>unordered_set</code> and the <code><a href="https://rdrr.io/r/utils/apropos.html">find()</a></code> or <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> methods.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> using an <code>unordered_set</code> (challenge: do it in one line!).</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> using <code>std::min()</code>, or <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> using <code>std::max()</code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/which.min.html">which.min()</a></code> using <code>min_element</code>, or <code><a href="https://rdrr.io/r/base/which.min.html">which.max()</a></code> using <code>max_element</code>.</p></li>
+<li><p><code><a href="https://generics.r-lib.org/reference/setops.html">setdiff()</a></code>, <code><a href="https://generics.r-lib.org/reference/setops.html">union()</a></code>, and <code><a href="https://generics.r-lib.org/reference/setops.html">intersect()</a></code> for integers using sorted ranges
+and <code>set_union</code>, <code>set_intersection</code> and <code>set_difference</code>.</p></li>
+</ol>
+</div>
+</div>
+<div id="rcpp-case-studies" class="section level2" number="25.6">
+<h2>
+<span class="header-section-number">25.6</span> Case studies<a class="anchor" aria-label="anchor" href="#rcpp-case-studies"><i class="fas fa-link"></i></a>
+</h2>
+<p>The following case studies illustrate some real life uses of C++ to replace slow R code.</p>
+<div id="gibbs-sampler" class="section level3" number="25.6.1">
+<h3>
+<span class="header-section-number">25.6.1</span> Gibbs sampler<a class="anchor" aria-label="anchor" href="#gibbs-sampler"><i class="fas fa-link"></i></a>
+</h3>
+<!-- FIXME: needs more context? -->
+<p>The following case study updates an example <a href="http://dirk.eddelbuettel.com/blog/2011/07/14/">blogged about</a> by Dirk Eddelbuettel, illustrating the conversion of a Gibbs sampler in R to C++. The R and C++ code shown below is very similar (it only took a few minutes to convert the R version to the C++ version), but runs about 20 times faster on my computer. Dirk’s blog post also shows another way to make it even faster: using the faster random number generator functions in GSL (easily accessible from R through the RcppGSL package) can make it another two to three times faster. </p>
+<p>The R code is as follows:</p>
+<div class="sourceCode" id="cb1038"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gibbs_r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span>, <span class="va">thin</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">N</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">thin</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/GammaDist.html">rgamma</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="va">y</span> <span class="op">*</span> <span class="va">y</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span>
+      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="va">mat</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="va">mat</span>
+<span class="op">}</span></code></pre></div>
+<p>This is straightforward to convert to C++. We:</p>
+<ul>
+<li><p>Add type declarations to all variables.</p></li>
+<li><p>Use <code>(</code> instead of <code>[</code> to index into the matrix.</p></li>
+<li><p>Subscript the results of <code>rgamma</code> and <code>rnorm</code> to convert from a vector
+into a scalar.</p></li>
+</ul>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1039-1"><a href="rcpp.html#cb1039-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1039-2"><a href="rcpp.html#cb1039-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1039-3"><a href="rcpp.html#cb1039-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1039-4"><a href="rcpp.html#cb1039-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1039-5"><a href="rcpp.html#cb1039-5" aria-hidden="true" tabindex="-1"></a>NumericMatrix gibbs_cpp<span class="op">(</span><span class="dt">int</span> N<span class="op">,</span> <span class="dt">int</span> thin<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1039-6"><a href="rcpp.html#cb1039-6" aria-hidden="true" tabindex="-1"></a>  NumericMatrix mat<span class="op">(</span>N<span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb1039-7"><a href="rcpp.html#cb1039-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> y <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1039-8"><a href="rcpp.html#cb1039-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1039-9"><a href="rcpp.html#cb1039-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1039-10"><a href="rcpp.html#cb1039-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> thin<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1039-11"><a href="rcpp.html#cb1039-11" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> rgamma<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">1</span> <span class="op">/</span> <span class="op">(</span>y <span class="op">*</span> y <span class="op">+</span> <span class="dv">4</span><span class="op">))[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1039-12"><a href="rcpp.html#cb1039-12" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> rnorm<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">/</span> <span class="op">(</span>x <span class="op">+</span> <span class="dv">1</span><span class="op">),</span> <span class="dv">1</span> <span class="op">/</span> sqrt<span class="op">(</span><span class="dv">2</span> <span class="op">*</span> <span class="op">(</span>x <span class="op">+</span> <span class="dv">1</span><span class="op">)))[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1039-13"><a href="rcpp.html#cb1039-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1039-14"><a href="rcpp.html#cb1039-14" aria-hidden="true" tabindex="-1"></a>    mat<span class="op">(</span>i<span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb1039-15"><a href="rcpp.html#cb1039-15" aria-hidden="true" tabindex="-1"></a>    mat<span class="op">(</span>i<span class="op">,</span> <span class="dv">1</span><span class="op">)</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb1039-16"><a href="rcpp.html#cb1039-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1039-17"><a href="rcpp.html#cb1039-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1039-18"><a href="rcpp.html#cb1039-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span>mat<span class="op">);</span></span>
+<span id="cb1039-19"><a href="rcpp.html#cb1039-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Benchmarking the two implementations yields:</p>
+<div class="sourceCode" id="cb1040"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+  <span class="fu">gibbs_r</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,
+  <span class="fu">gibbs_cpp</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,
+  check <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 6</span>
+<span class="co">#&gt;   expression              min   median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   &lt;bch:expr&gt;         &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 gibbs_r(100, 10)     15.7ms   24.3ms      28.6    4.97MB     2.20</span>
+<span class="co">#&gt; 2 gibbs_cpp(100, 10)  483.6us  703.9us    1153.      4.1KB     6.36</span></code></pre></div>
+</div>
+<div id="r-vectorisation-versus-c-vectorisation" class="section level3" number="25.6.2">
+<h3>
+<span class="header-section-number">25.6.2</span> R vectorisation versus C++ vectorisation<a class="anchor" aria-label="anchor" href="#r-vectorisation-versus-c-vectorisation"><i class="fas fa-link"></i></a>
+</h3>
+<!-- FIXME: needs more context? -->
+<p>This example is adapted from <a href="https://gweissman.github.io/post/rcpp-is-smoking-fast-for-agent-based-models-in-data-frames/">“Rcpp is smoking fast for agent-based models in data frames”</a>. The challenge is to predict a model response from three inputs. The basic R version of the predictor looks like:</p>
+<div class="sourceCode" id="cb1041"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vacc1a</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">*</span> <span class="kw">if</span> <span class="op">(</span><span class="va">female</span><span class="op">)</span> <span class="fl">1.25</span> <span class="kw">else</span> <span class="fl">0.75</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span>
+  <span class="va">p</span>
+<span class="op">}</span></code></pre></div>
+<p>We want to be able to apply this function to many inputs, so we might write a vector-input version using a for loop.</p>
+<div class="sourceCode" id="cb1042"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vacc1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">out</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">vacc1a</span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">female</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">ily</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="va">out</span>
+<span class="op">}</span></code></pre></div>
+<p>If you’re familiar with R, you’ll have a gut feeling that this will be slow, and indeed it is. There are two ways we could attack this problem. If you have a good R vocabulary, you might immediately see how to vectorise the function (using <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">pmin()</a></code>, and <code><a href="https://rdrr.io/r/base/Extremes.html">pmax()</a></code>). Alternatively, we could rewrite <code>vacc1a()</code> and <code>vacc1()</code> in C++, using our knowledge that loops and function calls have much lower overhead in C++.</p>
+<p>Either approach is fairly straightforward. In R:</p>
+<div class="sourceCode" id="cb1043"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vacc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">female</span>, <span class="fl">1.25</span>, <span class="fl">0.75</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span>
+  <span class="va">p</span>
+<span class="op">}</span></code></pre></div>
+<p>(If you’ve worked R a lot you might recognise some potential bottlenecks in this code: <code>ifelse</code>, <code>pmin</code>, and <code>pmax</code> are known to be slow, and could be replaced with <code>p * 0.75 + p * 0.5 * female</code>, <code>p[p &lt; 0] &lt;- 0</code>, <code>p[p &gt; 1] &lt;- 1</code>. You might want to try timing those variations.)</p>
+<p>Or in C++:</p>
+<div class="sourceCode" id="cb1044"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1044-1"><a href="rcpp.html#cb1044-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb1044-2"><a href="rcpp.html#cb1044-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb1044-3"><a href="rcpp.html#cb1044-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1044-4"><a href="rcpp.html#cb1044-4" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> vacc3a<span class="op">(</span><span class="dt">double</span> age<span class="op">,</span> <span class="dt">bool</span> female<span class="op">,</span> <span class="dt">bool</span> ily<span class="op">){</span></span>
+<span id="cb1044-5"><a href="rcpp.html#cb1044-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> p <span class="op">=</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="dv">1</span> <span class="op">/</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> exp<span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> age<span class="op">))</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> ily<span class="op">;</span></span>
+<span id="cb1044-6"><a href="rcpp.html#cb1044-6" aria-hidden="true" tabindex="-1"></a>  p <span class="op">=</span> p <span class="op">*</span> <span class="op">(</span>female <span class="op">?</span> <span class="fl">1.25</span> <span class="op">:</span> <span class="fl">0.75</span><span class="op">);</span></span>
+<span id="cb1044-7"><a href="rcpp.html#cb1044-7" aria-hidden="true" tabindex="-1"></a>  p <span class="op">=</span> <span class="bu">std::</span>max<span class="op">(</span>p<span class="op">,</span> <span class="fl">0.0</span><span class="op">);</span></span>
+<span id="cb1044-8"><a href="rcpp.html#cb1044-8" aria-hidden="true" tabindex="-1"></a>  p <span class="op">=</span> <span class="bu">std::</span>min<span class="op">(</span>p<span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
+<span id="cb1044-9"><a href="rcpp.html#cb1044-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> p<span class="op">;</span></span>
+<span id="cb1044-10"><a href="rcpp.html#cb1044-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1044-11"><a href="rcpp.html#cb1044-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1044-12"><a href="rcpp.html#cb1044-12" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb1044-13"><a href="rcpp.html#cb1044-13" aria-hidden="true" tabindex="-1"></a>NumericVector vacc3<span class="op">(</span>NumericVector age<span class="op">,</span> LogicalVector female<span class="op">,</span> </span>
+<span id="cb1044-14"><a href="rcpp.html#cb1044-14" aria-hidden="true" tabindex="-1"></a>                    LogicalVector ily<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1044-15"><a href="rcpp.html#cb1044-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> age<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1044-16"><a href="rcpp.html#cb1044-16" aria-hidden="true" tabindex="-1"></a>  NumericVector out<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb1044-17"><a href="rcpp.html#cb1044-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1044-18"><a href="rcpp.html#cb1044-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1044-19"><a href="rcpp.html#cb1044-19" aria-hidden="true" tabindex="-1"></a>    out<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> vacc3a<span class="op">(</span>age<span class="op">[</span>i<span class="op">],</span> female<span class="op">[</span>i<span class="op">],</span> ily<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb1044-20"><a href="rcpp.html#cb1044-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1044-21"><a href="rcpp.html#cb1044-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1044-22"><a href="rcpp.html#cb1044-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb1044-23"><a href="rcpp.html#cb1044-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We next generate some sample data, and check that all three versions return the same values:</p>
+<div class="sourceCode" id="cb1045"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+<span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">50</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+<span class="va">female</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">ily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc2</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc3</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>The original blog post forgot to do this, and introduced a bug in the C++ version: it used <code>0.004</code> instead of <code>0.04</code>. Finally, we can benchmark our three approaches:</p>
+<div class="sourceCode" id="cb1046"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span>
+  vacc1 <span class="op">=</span> <span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>,
+  vacc2 <span class="op">=</span> <span class="fu">vacc2</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>,
+  vacc3 <span class="op">=</span> <span class="fu">vacc3</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 x 6</span>
+<span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 vacc1        2.84ms    4.1ms      223.    7.86KB     9.21</span>
+<span class="co">#&gt; 2 vacc2       144.3us  199.3us     4182.  148.84KB     8.61</span>
+<span class="co">#&gt; 3 vacc3        84.1us  109.7us     7730.   14.48KB     0</span></code></pre></div>
+<p>Not surprisingly, our original approach with loops is very slow. Vectorising in R gives a huge speedup, and we can eke out even more performance (about ten times) with the C++ loop. I was a little surprised that the C++ was so much faster, but it is because the R version has to create 11 vectors to store intermediate results, where the C++ code only needs to create 1.</p>
+</div>
+</div>
+<div id="rcpp-package" class="section level2" number="25.7">
+<h2>
+<span class="header-section-number">25.7</span> Using Rcpp in a package<a class="anchor" aria-label="anchor" href="#rcpp-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>The same C++ code that is used with <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp()</a></code> can also be bundled into a package. There are several benefits of moving code from a stand-alone C++ source file to a package: </p>
+<ol style="list-style-type: decimal">
+<li><p>Your code can be made available to users without C++ development tools.</p></li>
+<li><p>Multiple source files and their dependencies are handled automatically by
+the R package build system.</p></li>
+<li><p>Packages provide additional infrastructure for testing, documentation, and
+consistency.</p></li>
+</ol>
+<p>To add <code>Rcpp</code> to an existing package, you put your C++ files in the <code>src/</code> directory and create or modify the following configuration files:</p>
+<ul>
+<li>
+<p>In <code>DESCRIPTION</code> add</p>
+<pre><code>LinkingTo: Rcpp
+Imports: Rcpp</code></pre>
+</li>
+<li>
+<p>Make sure your <code>NAMESPACE</code> includes:</p>
+<pre><code>useDynLib(mypackage)
+importFrom(Rcpp, sourceCpp)</code></pre>
+<p>We need to import something (anything) from Rcpp so that internal Rcpp code
+is properly loaded. This is a bug in R and hopefully will be fixed in the
+future.</p>
+</li>
+</ul>
+<p>The easiest way to set this up automatically is to call <code><a href="https://usethis.r-lib.org/reference/use_rcpp.html">usethis::use_rcpp()</a></code>.</p>
+<p>Before building the package, you’ll need to run <code><a href="https://rdrr.io/pkg/Rcpp/man/compileAttributes.html">Rcpp::compileAttributes()</a></code>. This function scans the C++ files for <code>Rcpp::export</code> attributes and generates the code required to make the functions available in R. Re-run <code><a href="https://rdrr.io/pkg/Rcpp/man/compileAttributes.html">compileAttributes()</a></code> whenever functions are added, removed, or have their signatures changed. This is done automatically by the devtools package and by Rstudio.</p>
+<p>For more details see the Rcpp package vignette, <code><a href="https://cran.rstudio.com/web/packages/Rcpp/vignettes/Rcpp-package.pdf">vignette("Rcpp-package")</a></code>.</p>
+</div>
+<div id="rcpp-more" class="section level2" number="25.8">
+<h2>
+<span class="header-section-number">25.8</span> Learning more<a class="anchor" aria-label="anchor" href="#rcpp-more"><i class="fas fa-link"></i></a>
+</h2>
+<p>This chapter has only touched on a small part of Rcpp, giving you the basic tools to rewrite poorly performing R code in C++. As noted, Rcpp has many other capabilities that make it easy to interface R to existing C++ code, including:</p>
+<ul>
+<li><p>Additional features of attributes including specifying default arguments,
+linking in external C++ dependencies, and exporting C++ interfaces from
+packages. These features and more are covered in the Rcpp attributes vignette,
+<code><a href="https://cran.rstudio.com/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf">vignette("Rcpp-attributes")</a></code>.</p></li>
+<li><p>Automatically creating wrappers between C++ data structures and R data
+structures, including mapping C++ classes to reference classes. A good
+introduction to this topic is the Rcpp modules vignette,
+<code><a href="https://cran.rstudio.com/web/packages/Rcpp/vignettes/Rcpp-modules.pdf">vignette("Rcpp-modules")</a></code>.</p></li>
+<li><p>The Rcpp quick reference guide, <code><a href="https://cran.rstudio.com/web/packages/Rcpp/vignettes/Rcpp-quickref.pdf">vignette("Rcpp-quickref")</a></code>, contains a useful
+summary of Rcpp classes and common programming idioms.</p></li>
+</ul>
+<p>I strongly recommend keeping an eye on the <a href="http://www.rcpp.org">Rcpp homepage</a> and signing up for the <a href="http://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel">Rcpp mailing list</a>.</p>
+<p>Other resources I’ve found helpful in learning C++ are:</p>
+<ul>
+<li><p><em>Effective C++</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Scott Meyers, &lt;em&gt;Effective &lt;span&gt;C++&lt;/span&gt;: 55 Specific Ways to Improve Your Programs and Designs&lt;/em&gt; (Pearson Education, 2005), &lt;a href="http://amzn.com/0321334876" role="doc-biblioref"&gt;http://amzn.com/0321334876&lt;/a&gt;.&lt;/p&gt;'><sup>118</sup></a></span> and <em>Effective STL</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Scott Meyers, &lt;em&gt;Effective &lt;span&gt;STL&lt;/span&gt;: 50 Specific Ways to Improve Your Use of the Standard Template Library&lt;/em&gt; (Pearson Education, 2001), &lt;a href="http://amzn.com/0201749629" role="doc-biblioref"&gt;http://amzn.com/0201749629&lt;/a&gt;.&lt;/p&gt;'><sup>119</sup></a></span></p></li>
+<li><p><a href="http://www.icce.rug.nl/documents/cplusplus/cplusplus.html"><em>C++ Annotations</em></a>,
+aimed at knowledgeable users of C (or any other language using a C-like
+grammar, like Perl or Java) who would like to know more about, or make the
+transition to, C++.</p></li>
+<li><p><a href="http://www.cs.helsinki.fi/u/tpkarkka/alglib/k06/"><em>Algorithm Libraries</em></a>,
+which provides a more technical, but still concise, description of
+important STL concepts. (Follow the links under notes.)</p></li>
+</ul>
+<p>Writing performance code may also require you to rethink your basic approach: a solid understanding of basic data structures and algorithms is very helpful here. That’s beyond the scope of this book, but I’d suggest the <em>Algorithm Design Manual</em>,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Steven S Skiena, &lt;em&gt;The Algorithm Design Manual&lt;/em&gt; (Springer, 1998), &lt;a href="http://amzn.com/0387948600" role="doc-biblioref"&gt;http://amzn.com/0387948600&lt;/a&gt;.&lt;/p&gt;'><sup>120</sup></a></span> MIT’s <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/"><em>Introduction to Algorithms</em></a>, <em>Algorithms</em> by Robert Sedgewick and Kevin Wayne which has a free <a href="http://algs4.cs.princeton.edu/home/">online textbook</a> and a matching <a href="https://www.coursera.org/learn/algorithms-part1">Coursera course</a>.</p>
+</div>
+<div id="acknowledgments" class="section level2" number="25.9">
+<h2>
+<span class="header-section-number">25.9</span> Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"><i class="fas fa-link"></i></a>
+</h2>
+<p>I’d like to thank the Rcpp-mailing list for many helpful conversations, particularly Romain Francois and Dirk Eddelbuettel who have not only provided detailed answers to many of my questions, but have been incredibly responsive at improving Rcpp. This chapter would not have been possible without JJ Allaire; he encouraged me to learn C++ and then answered many of my dumb questions along the way.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rcpp"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li>
+<a class="nav-link" href="#introduction-24"><span class="header-section-number">25.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-23">Outline</a></li>
+<li><a class="nav-link" href="#prerequisites-17">Prerequisites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#rcpp-intro"><span class="header-section-number">25.2</span> Getting started with C++</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#no-inputs-scalar-output"><span class="header-section-number">25.2.1</span> No inputs, scalar output</a></li>
+<li><a class="nav-link" href="#scalar-input-scalar-output"><span class="header-section-number">25.2.2</span> Scalar input, scalar output</a></li>
+<li><a class="nav-link" href="#vector-input-scalar-output"><span class="header-section-number">25.2.3</span> Vector input, scalar output</a></li>
+<li><a class="nav-link" href="#vector-input-vector-output"><span class="header-section-number">25.2.4</span> Vector input, vector output</a></li>
+<li><a class="nav-link" href="#sourceCpp"><span class="header-section-number">25.2.5</span> Using sourceCpp</a></li>
+<li><a class="nav-link" href="#exercise-started"><span class="header-section-number">25.2.6</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#rcpp-classes"><span class="header-section-number">25.3</span> Other classes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lists-and-data-frames"><span class="header-section-number">25.3.1</span> Lists and data frames</a></li>
+<li><a class="nav-link" href="#functions-rcpp"><span class="header-section-number">25.3.2</span> Functions</a></li>
+<li><a class="nav-link" href="#attributes-1"><span class="header-section-number">25.3.3</span> Attributes</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#rcpp-na"><span class="header-section-number">25.4</span> Missing values</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#scalars-1"><span class="header-section-number">25.4.1</span> Scalars</a></li>
+<li><a class="nav-link" href="#strings"><span class="header-section-number">25.4.2</span> Strings</a></li>
+<li><a class="nav-link" href="#boolean"><span class="header-section-number">25.4.3</span> Boolean</a></li>
+<li><a class="nav-link" href="#vectors-rcpp"><span class="header-section-number">25.4.4</span> Vectors</a></li>
+<li><a class="nav-link" href="#exercises-73"><span class="header-section-number">25.4.5</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#stl"><span class="header-section-number">25.5</span> Standard Template Library</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#using-iterators"><span class="header-section-number">25.5.1</span> Using iterators</a></li>
+<li><a class="nav-link" href="#algorithms"><span class="header-section-number">25.5.2</span> Algorithms</a></li>
+<li><a class="nav-link" href="#data-structures-rcpp"><span class="header-section-number">25.5.3</span> Data structures</a></li>
+<li><a class="nav-link" href="#vectors-stl"><span class="header-section-number">25.5.4</span> Vectors</a></li>
+<li><a class="nav-link" href="#sets"><span class="header-section-number">25.5.5</span> Sets</a></li>
+<li><a class="nav-link" href="#map-1"><span class="header-section-number">25.5.6</span> Map</a></li>
+<li><a class="nav-link" href="#exercises-74"><span class="header-section-number">25.5.7</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#rcpp-case-studies"><span class="header-section-number">25.6</span> Case studies</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#gibbs-sampler"><span class="header-section-number">25.6.1</span> Gibbs sampler</a></li>
+<li><a class="nav-link" href="#r-vectorisation-versus-c-vectorisation"><span class="header-section-number">25.6.2</span> R vectorisation versus C++ vectorisation</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#rcpp-package"><span class="header-section-number">25.7</span> Using Rcpp in a package</a></li>
+<li><a class="nav-link" href="#rcpp-more"><span class="header-section-number">25.8</span> Learning more</a></li>
+<li><a class="nav-link" href="#acknowledgments"><span class="header-section-number">25.9</span> Acknowledgments</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/Rcpp.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/Rcpp.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

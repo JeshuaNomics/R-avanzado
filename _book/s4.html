@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>15 S4 | R avanzado</title>
+<meta name="author" content="Jeshua Romero Guadarrama">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
+<meta property="og:title" content="15 S4 | R avanzado">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15 S4 | R avanzado">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212623-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141212623-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="15.1 Introduction S4 provides a formal approach to functional OOP. The underlying ideas are similar to S3 (the topic of Chapter 13), but implementation is much stricter and makes use of...">
+<meta property="og:description" content="15.1 Introduction S4 provides a formal approach to functional OOP. The underlying ideas are similar to S3 (the topic of Chapter 13), but implementation is much stricter and makes use of...">
+<meta name="twitter:description" content="15.1 Introduction S4 provides a formal approach to functional OOP. The underlying ideas are similar to S3 (the topic of Chapter 13), but implementation is much stricter and makes use of...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R avanzado</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="foundations-intro.html">Introduction</a></li>
+<li><a class="" href="names-values.html"><span class="header-section-number">2</span> Names and values</a></li>
+<li><a class="" href="vectors-chap.html"><span class="header-section-number">3</span> Vectors</a></li>
+<li><a class="" href="subsetting.html"><span class="header-section-number">4</span> Subsetting</a></li>
+<li><a class="" href="control-flow.html"><span class="header-section-number">5</span> Control flow</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">6</span> Functions</a></li>
+<li><a class="" href="environments.html"><span class="header-section-number">7</span> Environments</a></li>
+<li><a class="" href="conditions.html"><span class="header-section-number">8</span> Conditions</a></li>
+<li class="book-part">Functional programming</li>
+<li><a class="" href="fp.html">Introduction</a></li>
+<li><a class="" href="functionals.html"><span class="header-section-number">9</span> Functionals</a></li>
+<li><a class="" href="function-factories.html"><span class="header-section-number">10</span> Function factories</a></li>
+<li><a class="" href="function-operators.html"><span class="header-section-number">11</span> Function operators</a></li>
+<li class="book-part">Object-oriented programming</li>
+<li><a class="" href="oo.html">Introduction</a></li>
+<li><a class="" href="base-types.html"><span class="header-section-number">12</span> Base types</a></li>
+<li><a class="" href="s3.html"><span class="header-section-number">13</span> S3</a></li>
+<li><a class="" href="r6.html"><span class="header-section-number">14</span> R6</a></li>
+<li><a class="active" href="s4.html"><span class="header-section-number">15</span> S4</a></li>
+<li><a class="" href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></li>
+<li class="book-part">Metaprogramming</li>
+<li><a class="" href="metaprogramming.html">Introduction</a></li>
+<li><a class="" href="meta-big-picture.html"><span class="header-section-number">17</span> Big picture</a></li>
+<li><a class="" href="expressions.html"><span class="header-section-number">18</span> Expressions</a></li>
+<li><a class="" href="quasiquotation.html"><span class="header-section-number">19</span> Quasiquotation</a></li>
+<li><a class="" href="evaluation.html"><span class="header-section-number">20</span> Evaluation</a></li>
+<li><a class="" href="translation.html"><span class="header-section-number">21</span> Translating R code</a></li>
+<li class="book-part">Techniques</li>
+<li><a class="" href="techniques.html">Introduction</a></li>
+<li><a class="" href="debugging.html"><span class="header-section-number">22</span> Debugging</a></li>
+<li><a class="" href="perf-measure.html"><span class="header-section-number">23</span> Measuring performance</a></li>
+<li><a class="" href="perf-improve.html"><span class="header-section-number">24</span> Improving performance</a></li>
+<li><a class="" href="rcpp.html"><span class="header-section-number">25</span> Rewriting R code in C++</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/adv-r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="s4" class="section level1" number="15">
+<h1>
+<span class="header-section-number">15</span> S4<a class="anchor" aria-label="anchor" href="#s4"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-14" class="section level2" number="15.1">
+<h2>
+<span class="header-section-number">15.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-14"><i class="fas fa-link"></i></a>
+</h2>
+<p>S4 provides a formal approach to functional OOP. The underlying ideas are similar to S3 (the topic of Chapter <a href="s3.html#s3">13</a>), but implementation is much stricter and makes use of specialised functions for creating classes (<code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code>), generics (<code><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric()</a></code>), and methods (<code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code>). Additionally, S4 provides both multiple inheritance (i.e. a class can have multiple parents) and multiple dispatch (i.e. method dispatch can use the class of multiple arguments).</p>
+<p>An important new component of S4 is the <strong>slot</strong>, a named component of the object that is accessed using the specialised subsetting operator <code>@</code> (pronounced at). The set of slots, and their classes, forms an important part of the definition of an S4 class.</p>
+<div id="outline-13" class="section level3 unnumbered">
+<h3>Outline<a class="anchor" aria-label="anchor" href="#outline-13"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Section <a href="s4.html#s4-basics">15.2</a> gives a quick overview of the main components of S4:
+classes, generics, and methods.</p></li>
+<li><p>Section <a href="s4.html#s4-classes">15.3</a> dives into the details of S4 classes, including
+prototypes, constructors, helpers, and validators.</p></li>
+<li><p>Section <a href="s4.html#s4-generics">15.4</a> shows you how to create new S4 generics, and
+how to supply those generics with methods. You’ll also learn about
+accessor functions which are designed to allow users to safely inspect and
+modify object slots.</p></li>
+<li><p>Section <a href="s4.html#s4-dispatch">15.5</a> dives into the full details of method dispatch
+in S4. The basic idea is simple, then it rapidly gets more complex once
+multiple inheritance and multiple dispatch are combined.</p></li>
+<li><p>Section <a href="s4.html#s4-s3">15.6</a> discusses the interaction between S4 and S3, showing
+you how to use them together.</p></li>
+</ul>
+</div>
+<div id="learning-more" class="section level3 unnumbered">
+<h3>Learning more<a class="anchor" aria-label="anchor" href="#learning-more"><i class="fas fa-link"></i></a>
+</h3>
+<p>Like the other OO chapters, the focus here will be on how S4 works, not how to deploy it most effectively. If you do want to use it in practice, there are two main challenges:</p>
+<ul>
+<li><p>There is no one reference that will answer all your questions about S4.</p></li>
+<li><p>R’s built-in documentation sometimes clashes with community best practices.</p></li>
+</ul>
+<p>As you move towards more advanced usage, you will need to piece together needed information by carefully reading the documentation, asking questions on StackOverflow, and performing experiments. Some recommendations:</p>
+<ul>
+<li>
+<p>The Bioconductor community is a long-term user of S4 and has produced much of
+the best material about its effective use. Start with <a href="https://bioconductor.org/help/course-materials/2017/Zurich/S4-classes-and-methods.html">S4 classes and
+methods</a> taught by Martin Morgan and Hervé Pagès, or
+check for a newer version at <a href="https://bioconductor.org/help/course-materials/">Bioconductor course materials</a>.</p>
+<p>Martin Morgan is a member of R-core and the project lead of Bioconductor.
+He’s a world expert on the practical use of S4, and I recommend reading
+anything he has written about it, starting with the questions he has
+answered on <a href="http://stackoverflow.com/search?tab=votes&amp;q=user%3a547331%20%5bs4%5d%20is%3aanswe">stackoverflow</a>.</p>
+</li>
+<li><p>John Chambers is the author of the S4 system, and provides an overview<br>
+of its motivation and historical context in <em>Object-oriented programming,
+functional programming and R</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;John M Chambers, &lt;span&gt;“Object-Oriented Programming, Functional Programming and &lt;span&gt;R&lt;/span&gt;,”&lt;/span&gt; &lt;em&gt;Statistical Science&lt;/em&gt; 29, no. 2 (2014): 167–80, &lt;a href="https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569" role="doc-biblioref"&gt;https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569&lt;/a&gt;.&lt;/p&gt;'><sup>77</sup></a></span> For a fuller exploration
+of S4, see his book <em>Software for Data Analysis</em>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;John M Chambers, &lt;em&gt;Software for Data Analysis: Programming with &lt;span&gt;R&lt;/span&gt;&lt;/em&gt; (Springer, 2008).&lt;/p&gt;"><sup>78</sup></a></span></p></li>
+</ul>
+</div>
+<div id="prerequisites-8" class="section level3 unnumbered">
+<h3>Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites-8"><i class="fas fa-link"></i></a>
+</h3>
+<p>All functions related to S4 live in the methods package. This package is always available when you’re running R interactively, but may not be available when running R in batch mode, i.e. from <code>Rscript</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This is a historical quirk introduced because the methods package used to take a long time to load and &lt;code&gt;Rscript&lt;/code&gt; is optimised for fast command line invocation.&lt;/p&gt;"><sup>79</sup></a>. For this reason, it’s a good idea to call <code><a href="https://rdrr.io/r/base/library.html">library(methods)</a></code> whenever you use S4. This also signals to the reader that you’ll be using the S4 object system.</p>
+<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">methods</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="s4-basics" class="section level2" number="15.2">
+<h2>
+<span class="header-section-number">15.2</span> Basics<a class="anchor" aria-label="anchor" href="#s4-basics"><i class="fas fa-link"></i></a>
+</h2>
+<p>We’ll start with a quick overview of the main components of S4. You define an S4 class by calling <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code> with the class name and a definition of its slots, and the names and classes of the class data:</p>
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"Person"</span>, 
+  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    name <span class="op">=</span> <span class="st">"character"</span>, 
+    age <span class="op">=</span> <span class="st">"numeric"</span>
+  <span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>Once the class is defined, you can construct new objects from it by calling <code><a href="https://rdrr.io/r/methods/new.html">new()</a></code> with the name of the class and a value for each slot:</p>
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">john</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Person"</span>, name <span class="op">=</span> <span class="st">"John Smith"</span>, age <span class="op">=</span> <span class="cn">NA_real_</span><span class="op">)</span></code></pre></div>
+<p>
+</p>
+<p>Given an S4 object you can see its class with <code><a href="https://rdrr.io/r/methods/is.html">is()</a></code> and access slots with <code>@</code> (equivalent to <code>$</code>) and <code><a href="https://rdrr.io/r/methods/slot.html">slot()</a></code> (equivalent to <code>[[</code>):</p>
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Person"</span>
+<span class="va">john</span><span class="op">@</span><span class="va">name</span>
+<span class="co">#&gt; [1] "John Smith"</span>
+<span class="fu"><a href="https://rdrr.io/r/methods/slot.html">slot</a></span><span class="op">(</span><span class="va">john</span>, <span class="st">"age"</span><span class="op">)</span>
+<span class="co">#&gt; [1] NA</span></code></pre></div>
+<p>Generally, you should only use <code>@</code> in your methods. If you’re working with someone else’s class, look for <strong>accessor</strong> functions that allow you to safely set and get slot values. As the developer of a class, you should also provide your own accessor functions. Accessors are typically S4 generics allowing multiple classes to share the same external interface.</p>
+<p>Here we’ll create a setter and getter for the <code>age</code> slot by first creating generics with <code><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric()</a></code>:</p>
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"age&lt;-"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"age&lt;-"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>And then defining methods with <code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code>:</p>
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">@</span><span class="va">age</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"age&lt;-"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span><span class="op">@</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="va">value</span>
+  <span class="va">x</span>
+<span class="op">}</span><span class="op">)</span>
+
+<span class="fu">age</span><span class="op">(</span><span class="va">john</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">50</span>
+<span class="fu">age</span><span class="op">(</span><span class="va">john</span><span class="op">)</span>
+<span class="co">#&gt; [1] 50</span></code></pre></div>
+<p>If you’re using an S4 class defined in a package, you can get help on it with <code>class?Person</code>. To get help for a method, put <code>?</code> in front of a call (e.g. <code>?age(john)</code>) and <code>?</code> will use the class of the arguments to figure out which help file you need.</p>
+<p>Finally, you can use sloop functions to identify S4 objects and generics found in the wild:</p>
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sloop</span><span class="fu">::</span><span class="fu"><a href="https://sloop.r-lib.org/reference/otype.html">otype</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S4"</span>
+<span class="fu">sloop</span><span class="fu">::</span><span class="fu"><a href="https://sloop.r-lib.org/reference/ftype.html">ftype</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] "S4"      "generic"</span></code></pre></div>
+<div id="exercises-47" class="section level3" number="15.2.1">
+<h3>
+<span class="header-section-number">15.2.1</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-47"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="https://lubridate.tidyverse.org/reference/period.html">lubridate::period()</a></code> returns an S4 class. What slots does it have?
+What class is each slot? What accessors does it provide?</p></li>
+<li><p>What other ways can you find help for a method? Read <code><a href="https://rdrr.io/r/utils/Question.html">?"?"</a></code> and
+summarise the details.</p></li>
+</ol>
+</div>
+</div>
+<div id="s4-classes" class="section level2" number="15.3">
+<h2>
+<span class="header-section-number">15.3</span> Classes<a class="anchor" aria-label="anchor" href="#s4-classes"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+</p>
+<p>To define an S4 class, call <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code> with three arguments:</p>
+<ul>
+<li><p>The class <strong>name</strong>. By convention, S4 class names use <code>UpperCamelCase</code>.</p></li>
+<li><p>A named character vector that describes the names and classes of the
+<strong>slots</strong> (fields). For example, a person might be represented by a character
+name and a numeric age: <code>c(name = "character", age = "numeric")</code>. The
+pseudo-class <code>ANY</code> allows a slot to accept objects of any type.</p></li>
+<li><p>A <strong>prototype</strong>, a list of default values for each slot. Technically,
+the prototype is optional<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;code&gt;?setClass&lt;/code&gt; recommends that you avoid the &lt;code&gt;prototype&lt;/code&gt; argument, but this is generally considered to be bad advice.&lt;/p&gt;"><sup>80</sup></a>, but you should always provide it.</p></li>
+</ul>
+<p>The code below illustrates the three arguments by creating a <code>Person</code> class with character <code>name</code> and numeric <code>age</code> slots.</p>
+<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"Person"</span>, 
+  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    name <span class="op">=</span> <span class="st">"character"</span>, 
+    age <span class="op">=</span> <span class="st">"numeric"</span>
+  <span class="op">)</span>, 
+  prototype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    name <span class="op">=</span> <span class="cn">NA_character_</span>,
+    age <span class="op">=</span> <span class="cn">NA_real_</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">me</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Person"</span>, name <span class="op">=</span> <span class="st">"Hadley"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">me</span><span class="op">)</span>
+<span class="co">#&gt; Formal class 'Person' [package ".GlobalEnv"] with 2 slots</span>
+<span class="co">#&gt;   ..@ name: chr "Hadley"</span>
+<span class="co">#&gt;   ..@ age : num NA</span></code></pre></div>
+<div id="inheritance-1" class="section level3" number="15.3.1">
+<h3>
+<span class="header-section-number">15.3.1</span> Inheritance<a class="anchor" aria-label="anchor" href="#inheritance-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>There is one other important argument to <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code>: <code>contains</code>. This specifies a class (or classes) to inherit slots and behaviour from. For example, we can create an <code>Employee</code> class that inherits from the <code>Person</code> class, adding an extra slot that describes their <code>boss</code>.</p>
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"Employee"</span>, 
+  contains <span class="op">=</span> <span class="st">"Person"</span>, 
+  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    boss <span class="op">=</span> <span class="st">"Person"</span>
+  <span class="op">)</span>,
+  prototype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    boss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Person"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Employee"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Formal class 'Employee' [package ".GlobalEnv"] with 3 slots</span>
+<span class="co">#&gt;   ..@ boss:Formal class 'Person' [package ".GlobalEnv"] with 2 slots</span>
+<span class="co">#&gt;   .. .. ..@ name: chr NA</span>
+<span class="co">#&gt;   .. .. ..@ age : num NA</span>
+<span class="co">#&gt;   ..@ name: chr NA</span>
+<span class="co">#&gt;   ..@ age : num NA</span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code> has 9 other arguments but they are either deprecated or not recommended.</p>
+</div>
+<div id="introspection-1" class="section level3" number="15.3.2">
+<h3>
+<span class="header-section-number">15.3.2</span> Introspection<a class="anchor" aria-label="anchor" href="#introspection-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>To determine what classes an object inherits from, use <code><a href="https://rdrr.io/r/methods/is.html">is()</a></code>:</p>
+<div class="sourceCode" id="cb633"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Person"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Person"</span>
+<span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Employee"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Employee" "Person"</span></code></pre></div>
+<p>To test if an object inherits from a specific class, use the second argument of <code><a href="https://rdrr.io/r/methods/is.html">is()</a></code>:</p>
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="va">john</span>, <span class="st">"Person"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
+<div id="redefinition" class="section level3" number="15.3.3">
+<h3>
+<span class="header-section-number">15.3.3</span> Redefinition<a class="anchor" aria-label="anchor" href="#redefinition"><i class="fas fa-link"></i></a>
+</h3>
+<p>In most programming languages, class definition occurs at compile-time and object construction occurs later, at run-time. In R, however, both definition and construction occur at run time. When you call <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code>, you are registering a class definition in a (hidden) global variable. As with all state-modifying functions you need to use <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code> with care. It’s possible to create invalid objects if you redefine a class after already having instantiated an object:</p>
+<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"A"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"A"</span>, x <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"A"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>a_different_slot <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">a</span>
+<span class="co">#&gt; An object of class "A"</span>
+<span class="co">#&gt; Slot "a_different_slot":</span>
+<span class="co">#&gt; Error in slot(object, what): no hay un slot de nombre "a_different_slot" para ese objeto de clase "A"</span></code></pre></div>
+<p>This can cause confusion during interactive creation of new classes. (R6 classes have the same problem, as described in Section <a href="r6.html#r6-important-methods">14.2.2</a>.)</p>
+</div>
+<div id="helper" class="section level3" number="15.3.4">
+<h3>
+<span class="header-section-number">15.3.4</span> Helper<a class="anchor" aria-label="anchor" href="#helper"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+
+
+</p>
+<p><code><a href="https://rdrr.io/r/methods/new.html">new()</a></code> is a low-level constructor suitable for use by you, the developer. User-facing classes should always be paired with a user-friendly helper. A helper should always:</p>
+<ul>
+<li><p>Have the same name as the class, e.g. <code>myclass()</code>.</p></li>
+<li><p>Have a thoughtfully crafted user interface with carefully chosen default
+values and useful conversions.</p></li>
+<li><p>Create carefully crafted error messages tailored towards an end-user.</p></li>
+<li><p>Finish by calling <code><a href="https://rdrr.io/r/methods/new.html">methods::new()</a></code>.</p></li>
+</ul>
+<p>The <code>Person</code> class is so simple so a helper is almost superfluous, but we can use it to clearly define the contract: <code>age</code> is optional but <code>name</code> is required. We’ll also coerce age to a double so the helper also works when passed an integer.</p>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Person</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">age</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html">as.double</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/methods/new.html">new</a></span><span class="op">(</span><span class="st">"Person"</span>, name <span class="op">=</span> <span class="va">name</span>, age <span class="op">=</span> <span class="va">age</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">Person</span><span class="op">(</span><span class="st">"Hadley"</span><span class="op">)</span>
+<span class="co">#&gt; An object of class "Person"</span>
+<span class="co">#&gt; Slot "name":</span>
+<span class="co">#&gt; [1] "Hadley"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "age":</span>
+<span class="co">#&gt; [1] NA</span></code></pre></div>
+</div>
+<div id="validator" class="section level3" number="15.3.5">
+<h3>
+<span class="header-section-number">15.3.5</span> Validator<a class="anchor" aria-label="anchor" href="#validator"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+
+</p>
+<p>The constructor automatically checks that the slots have correct classes:</p>
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">Person</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; Error in validObject(.Object): invalid class "Person" object: invalid object for slot "name" in class "Person": got class "data.frame", should be or extend class "character"</span></code></pre></div>
+<p>You will need to implement more complicated checks (i.e. checks that involve lengths, or multiple slots) yourself. For example, we might want to make it clear that the Person class is a vector class, and can store data about multiple people. That’s not currently clear because <code>@name</code> and <code>@age</code> can be different lengths:</p>
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">Person</span><span class="op">(</span><span class="st">"Hadley"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">37</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; An object of class "Person"</span>
+<span class="co">#&gt; Slot "name":</span>
+<span class="co">#&gt; [1] "Hadley"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "age":</span>
+<span class="co">#&gt; [1] 30 37</span></code></pre></div>
+<p>To enforce these additional constraints we write a validator with <code><a href="https://rdrr.io/r/methods/validObject.html">setValidity()</a></code>. It takes a class and a function that returns <code>TRUE</code> if the input is valid, and otherwise returns a character vector describing the problem(s):</p>
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/validObject.html">setValidity</a></span><span class="op">(</span><span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">object</span><span class="op">@</span><span class="va">name</span><span class="op">)</span> <span class="op">!=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">object</span><span class="op">@</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="st">"@name and @age must be same length"</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="cn">TRUE</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<p>Now we can no longer create an invalid object:</p>
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">Person</span><span class="op">(</span><span class="st">"Hadley"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">37</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error in validObject(.Object): invalid class "Person" object: @name and @age must be same length</span></code></pre></div>
+<p>NB: The validity method is only called automatically by <code><a href="https://rdrr.io/r/methods/new.html">new()</a></code>, so you can still create an invalid object by modifying it:</p>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">alex</span> <span class="op">&lt;-</span> <span class="fu">Person</span><span class="op">(</span><span class="st">"Alex"</span>, age <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
+<span class="va">alex</span><span class="op">@</span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></code></pre></div>
+<p>You can explicitly check the validity yourself by calling <code><a href="https://rdrr.io/r/methods/validObject.html">validObject()</a></code>:</p>
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/validObject.html">validObject</a></span><span class="op">(</span><span class="va">alex</span><span class="op">)</span>
+<span class="co">#&gt; Error in validObject(alex): invalid class "Person" object: @name and @age must be same length</span></code></pre></div>
+<p>In Section <a href="s4.html#accessors">15.4.4</a>, we’ll use <code><a href="https://rdrr.io/r/methods/validObject.html">validObject()</a></code> to create accessors that can not create invalid objects.</p>
+</div>
+<div id="exercises-48" class="section level3" number="15.3.6">
+<h3>
+<span class="header-section-number">15.3.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-48"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Extend the Person class with fields to match <code><a href="https://rdrr.io/r/utils/person.html">utils::person()</a></code>.
+Think about what slots you will need, what class each slot should have,
+and what you’ll need to check in your validity method.</p></li>
+<li><p>What happens if you define a new S4 class that doesn’t have any slots?
+(Hint: read about virtual classes in <code><a href="https://rdrr.io/r/methods/setClass.html">?setClass</a></code>.)</p></li>
+<li><p>Imagine you were going to reimplement factors, dates, and data frames in
+S4. Sketch out the <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code> calls that you would use to define the
+classes. Think about appropriate <code>slots</code> and <code>prototype</code>.</p></li>
+</ol>
+</div>
+</div>
+<div id="s4-generics" class="section level2" number="15.4">
+<h2>
+<span class="header-section-number">15.4</span> Generics and methods<a class="anchor" aria-label="anchor" href="#s4-generics"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+
+
+</p>
+<p>The job of a generic is to perform method dispatch, i.e. find the specific implementation for the combination of classes passed to the generic. Here you’ll learn how to define S4 generics and methods, then in the next section we’ll explore precisely how S4 method dispatch works.</p>
+<p>To create a new S4 generic, call <code><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric()</a></code> with a function that calls <code><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric()</a></code>:</p>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>By convention, new S4 generics should use <code>lowerCamelCase</code>.</p>
+<p>It is bad practice to use <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> in the generic as it triggers a special case that is more expensive, and generally best avoided.</p>
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Don't do this!</span>
+<span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<div id="signature" class="section level3" number="15.4.1">
+<h3>
+<span class="header-section-number">15.4.1</span> Signature<a class="anchor" aria-label="anchor" href="#signature"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Like <code><a href="https://rdrr.io/r/methods/setClass.html">setClass()</a></code>, <code><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric()</a></code> has many other arguments. There is only one that you need to know about: <code>signature</code>. This allows you to control the arguments that are used for method dispatch. If <code>signature</code> is not supplied, all arguments (apart from <code>...</code>) are used. It is occasionally useful to remove arguments from dispatch. This allows you to require that methods provide arguments like <code>verbose = TRUE</code> or <code>quiet = FALSE</code>, but they don’t take part in dispatch.</p>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span>, 
+  <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"myGeneric"</span><span class="op">)</span>,
+  signature <span class="op">=</span> <span class="st">"x"</span>
+<span class="op">)</span></code></pre></div>
+</div>
+<div id="methods" class="section level3" number="15.4.2">
+<h3>
+<span class="header-section-number">15.4.2</span> Methods<a class="anchor" aria-label="anchor" href="#methods"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>A generic isn’t useful without some methods, and in S4 you define methods with <code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code>. There are three important arguments: the name of the generic, the name of the class, and the method itself.</p>
+<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"myGeneric"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># method implementation</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<p>More formally, the second argument to <code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code> is called the <strong>signature</strong>. In S4, unlike S3, the signature can include multiple arguments. This makes method dispatch in S4 substantially more complicated, but avoids having to implement double-dispatch as a special case. We’ll talk more about multiple dispatch in the next section. <code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code> has other arguments, but you should never use them.</p>
+<p>To list all the methods that belong to a generic, or that are associated with a class, use <code>methods("generic")</code> or <code>methods(class = "class")</code>; to find the implementation of a specific method, use <code>selectMethod("generic", "class")</code>.</p>
+</div>
+<div id="show-method" class="section level3" number="15.4.3">
+<h3>
+<span class="header-section-number">15.4.3</span> Show method<a class="anchor" aria-label="anchor" href="#show-method"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>The most commonly defined S4 method that controls printing is <code><a href="https://rdrr.io/r/methods/show.html">show()</a></code>, which controls how the object appears when it is printed. To define a method for an existing generic, you must first determine the arguments. You can get those from the documentation or by looking at the <code><a href="https://rdrr.io/r/base/args.html">args()</a></code> of the generic:</p>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/args.html">args</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/RMethodUtils.html">getGeneric</a></span><span class="op">(</span><span class="st">"show"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; function (object) </span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+<p>Our show method needs to have a single argument <code>object</code>:</p>
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="st">"\n"</span>,
+      <span class="st">"  Name: "</span>, <span class="va">object</span><span class="op">@</span><span class="va">name</span>, <span class="st">"\n"</span>,
+      <span class="st">"  Age:  "</span>, <span class="va">object</span><span class="op">@</span><span class="va">age</span>, <span class="st">"\n"</span>,
+      sep <span class="op">=</span> <span class="st">""</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="va">john</span>
+<span class="co">#&gt; Person</span>
+<span class="co">#&gt;   Name: John Smith</span>
+<span class="co">#&gt;   Age:  50</span></code></pre></div>
+</div>
+<div id="accessors" class="section level3" number="15.4.4">
+<h3>
+<span class="header-section-number">15.4.4</span> Accessors<a class="anchor" aria-label="anchor" href="#accessors"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Slots should be considered an internal implementation detail: they can change without warning and user code should avoid accessing them directly. Instead, all user-accessible slots should be accompanied by a pair of <strong>accessors</strong>. If the slot is unique to the class, this can just be a function:</p>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">person_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">@</span><span class="va">name</span></code></pre></div>
+<p>Typically, however, you’ll define a generic so that multiple classes can use the same interface:</p>
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">@</span><span class="va">name</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">name</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span>
+<span class="co">#&gt; [1] "John Smith"</span></code></pre></div>
+<p>If the slot is also writeable, you should provide a setter function. You should always include <code><a href="https://rdrr.io/r/methods/validObject.html">validObject()</a></code> in the setter to prevent the user from creating invalid objects.</p>
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"name&lt;-"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/standardGeneric.html">standardGeneric</a></span><span class="op">(</span><span class="st">"name&lt;-"</span><span class="op">)</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html">setMethod</a></span><span class="op">(</span><span class="st">"name&lt;-"</span>, <span class="st">"Person"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span><span class="op">@</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="va">value</span>
+  <span class="fu"><a href="https://rdrr.io/r/methods/validObject.html">validObject</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">x</span>
+<span class="op">}</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">name</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Jon Smythe"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">name</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Jon Smythe"</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/name.html">name</a></span><span class="op">(</span><span class="va">john</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span>
+<span class="co">#&gt; Error in validObject(x): invalid class "Person" object: @name and @age must be same length</span></code></pre></div>
+<p>(If the <code>name&lt;-</code> notation is unfamiliar, review Section <a href="functions.html#function-forms">6.8</a>.)</p>
+</div>
+<div id="exercises-49" class="section level3" number="15.4.5">
+<h3>
+<span class="header-section-number">15.4.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-49"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Add <code>age()</code> accessors for the <code>Person</code> class.</p></li>
+<li><p>In the definition of the generic, why is it necessary to repeat the
+name of the generic twice?</p></li>
+<li><p>Why does the <code><a href="https://rdrr.io/r/methods/show.html">show()</a></code> method defined in Section <a href="s4.html#show-method">15.4.3</a> use
+<code>is(object)[[1]]</code>? (Hint: try printing the employee subclass.)</p></li>
+<li><p>What happens if you define a method with different argument names to
+the generic?</p></li>
+</ol>
+</div>
+</div>
+<div id="s4-dispatch" class="section level2" number="15.5">
+<h2>
+<span class="header-section-number">15.5</span> Method dispatch<a class="anchor" aria-label="anchor" href="#s4-dispatch"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>S4 dispatch is complicated because S4 has two important features:</p>
+<ul>
+<li>Multiple inheritance, i.e. a class can have multiple parents,</li>
+<li>Multiple dispatch, i.e. a generic can use multiple arguments to pick a method.</li>
+</ul>
+<p>These features make S4 very powerful, but can also make it hard to understand which method will get selected for a given combination of inputs. In practice, keep method dispatch as simple as possible by avoiding multiple inheritance, and reserving multiple dispatch only for where it is absolutely necessary.</p>
+<p>But it’s important to describe the full details, so here we’ll start simple with single inheritance and single dispatch, and work our way up to the more complicated cases. To illustrate the ideas without getting bogged down in the details, we’ll use an imaginary <strong>class graph</strong> based on emoji:</p>
+<div class="inline-figure"><img src="diagrams/s4/emoji.png" width="226" style="display: block; margin: auto;"></div>
+<p>Emoji give us very compact class names that evoke the relationships between the classes. It should be straightforward to remember that 😜 inherits from 😉 which inherits from 😶, and that 😎 inherits from both 🕶 and 🙂.</p>
+<div id="single-dispatch" class="section level3" number="15.5.1">
+<h3>
+<span class="header-section-number">15.5.1</span> Single dispatch<a class="anchor" aria-label="anchor" href="#single-dispatch"><i class="fas fa-link"></i></a>
+</h3>
+<p></p>
+<p>Let’s start with the simplest case: a generic function that dispatches on a single class with a single parent. The method dispatch here is simple so it’s a good place to define the graphical conventions we’ll use for the more complex cases.</p>
+<div class="inline-figure"><img src="diagrams/s4/single.png" width="189" style="display: block; margin: auto;"></div>
+<p>There are two parts to this diagram:</p>
+<ul>
+<li><p>The top part, <code>f(...)</code>, defines the scope of the diagram. Here we have a
+generic with one argument, that has a class hierarchy that is three levels
+deep.</p></li>
+<li><p>The bottom part is the <strong>method graph</strong> and displays all the possible methods
+that could be defined. Methods that exist, i.e. that have been defined with
+<code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code>, have a grey background.</p></li>
+</ul>
+<p>To find the method that gets called, you start with the most specific class of the actual arguments, then follow the arrows until you find a method that exists. For example, if you called the function with an object of class 😉 you would follow the arrow right to find the method defined for the more general 😶 class. If no method is found, method dispatch has failed and an error is thrown. In practice, this means that you should alway define methods defined for the terminal nodes, i.e. those on the far right.</p>
+<p>
+
+There are two <strong>pseudo-classes</strong> that you can define methods for. These are called pseudo-classes because they don’t actually exist, but allow you to define useful behaviours. The first pseudo-class is <code>ANY</code> which matches any class<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The S4 &lt;code&gt;ANY&lt;/code&gt; pseudo-class plays the same role as the S3 &lt;code&gt;default&lt;/code&gt; pseudo-class.&lt;/p&gt;"><sup>81</sup></a>. For technical reasons that we’ll get to later, the link to the <code>ANY</code> method is longer than the links between the other classes:</p>
+<div class="inline-figure"><img src="diagrams/s4/single-any.png" width="269" style="display: block; margin: auto;"></div>
+<p>The second pseudo-class is <code>MISSING</code>. If you define a method for this pseudo-class, it will match whenever the argument is missing. It’s not useful for single dispatch, but is important for functions like <code>+</code> and <code>-</code> that use double dispatch and behave differently depending on whether they have one or two arguments.</p>
+</div>
+<div id="multiple-inheritance" class="section level3" number="15.5.2">
+<h3>
+<span class="header-section-number">15.5.2</span> Multiple inheritance<a class="anchor" aria-label="anchor" href="#multiple-inheritance"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Things get more complicated when the class has multiple parents.</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple.png" width="179" style="display: block; margin: auto;"></div>
+<p>The basic process remains the same: you start from the actual class supplied to the generic, then follow the arrows until you find a defined method. The wrinkle is that now there are multiple arrows to follow, so you might find multiple methods. If that happens, you pick the method that is closest, i.e. requires travelling the fewest arrows.</p>
+<p>NB: While the method graph is a powerful metaphor for understanding method dispatch, implementing it in this way would be rather inefficient, so the actual approach that S4 uses is somewhat different. You can read the details in <code><a href="https://rdrr.io/r/methods/Methods_Details.html">?Methods_Details</a></code>.</p>
+<p>What happens if methods are the same distance? For example, imagine we’ve defined methods for 🕶 and 🙂, and we call the generic with 😎. Note that no method can be found for the 😶 class, which I’ll highlight with a red double outline.</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple-ambig.png" width="165" style="display: block; margin: auto;"></div>
+<p>This is called an <strong>ambiguous</strong> method, and in diagrams I’ll illustrate it with a thick dotted border. When this happens in R, you’ll get a warning, and the method for the class that comes earlier in the alphabet will be picked (this is effectively random and should not be relied upon). When you discover ambiguity you should always resolve it by providing a more precise method:</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple-ambig-2.png" width="165" style="display: block; margin: auto;"></div>
+<p>The fallback <code>ANY</code> method still exists but the rules are little more complex. As indicated by the wavy dotted lines, the <code>ANY</code> method is always considered further away than a method for a real class. This means that it will never contribute to ambiguity.</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple-any.png" width="241" style="display: block; margin: auto;"></div>
+<p>With multiple inheritances it is hard to simultaneously prevent ambiguity, ensure that every terminal method has an implementation, and minimise the number of defined methods (in order to benefit from OOP). For example, of the six ways to define only two methods for this call, only one is free from problems. For this reason, I recommend using multiple inheritance with extreme care: you will need to carefully think about the method graph and plan accordingly.</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple-all.png" width="416" style="display: block; margin: auto;"></div>
+</div>
+<div id="multiple-dispatch" class="section level3" number="15.5.3">
+<h3>
+<span class="header-section-number">15.5.3</span> Multiple dispatch<a class="anchor" aria-label="anchor" href="#multiple-dispatch"><i class="fas fa-link"></i></a>
+</h3>
+<p>
+</p>
+<p>Once you understand multiple inheritance, understanding multiple dispatch is straightforward. You follow multiple arrows in the same way as previously, but now each method is specified by two classes (separated by a comma).</p>
+<div class="inline-figure"><img src="diagrams/s4/single-single.png" width="316" style="display: block; margin: auto;"></div>
+<p>I’m not going to show examples of dispatching on more than two arguments, but you can follow the basic principles to generate your own method graphs.</p>
+<p>The main difference between multiple inheritance and multiple dispatch is that there are many more arrows to follow. The following diagram shows four defined methods which produce two ambiguous cases:</p>
+<div class="inline-figure"><img src="diagrams/s4/single-single-ambig.png" width="316" style="display: block; margin: auto;"></div>
+<p>Multiple dispatch tends to be less tricky to work with than multiple inheritance because there are usually fewer terminal class combinations. In this example, there’s only one. That means, at a minimum, you can define a single method and have default behaviour for all inputs.</p>
+</div>
+<div id="multiple-dispatch-and-multiple-inheritance" class="section level3" number="15.5.4">
+<h3>
+<span class="header-section-number">15.5.4</span> Multiple dispatch and multiple inheritance<a class="anchor" aria-label="anchor" href="#multiple-dispatch-and-multiple-inheritance"><i class="fas fa-link"></i></a>
+</h3>
+<p>Of course you can combine multiple dispatch with multiple inheritance:</p>
+<div class="inline-figure"><img src="diagrams/s4/single-multiple.png" width="307" style="display: block; margin: auto;"></div>
+<p>A still more complicated case dispatches on two classes, both of which have multiple inheritance:</p>
+<div class="inline-figure"><img src="diagrams/s4/multiple-multiple.png" width="236" style="display: block; margin: auto;"></div>
+<p>As the method graph gets more and more complicated it gets harder and harder to predict which method will get called given a combination of inputs, and it gets harder and harder to make sure that you haven’t introduced ambiguity. If you have to draw diagrams to figure out what method is actually going to be called, it’s a strong indication that you should go back and simplify your design.</p>
+</div>
+<div id="exercises-50" class="section level3" number="15.5.5">
+<h3>
+<span class="header-section-number">15.5.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-50"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Draw the method graph for
+<code>f(</code>😅, 😽<code>)</code>.</p></li>
+<li><p>Draw the method graph for
+<code>f(</code>😃, 😉, 😙<code>)</code>.</p></li>
+<li><p>Take the last example which shows multiple dispatch over two classes that
+use multiple inheritance. What happens if you define a method for all
+terminal classes? Why does method dispatch not save us much work here?</p></li>
+</ol>
+</div>
+</div>
+<div id="s4-s3" class="section level2" number="15.6">
+<h2>
+<span class="header-section-number">15.6</span> S4 and S3<a class="anchor" aria-label="anchor" href="#s4-s3"><i class="fas fa-link"></i></a>
+</h2>
+<p>
+</p>
+<p>When writing S4 code, you’ll often need to interact with existing S3 classes and generics. This section describes how S4 classes, methods, and generics interact with existing code.</p>
+<div id="classes" class="section level3" number="15.6.1">
+<h3>
+<span class="header-section-number">15.6.1</span> Classes<a class="anchor" aria-label="anchor" href="#classes"><i class="fas fa-link"></i></a>
+</h3>
+<p>In <code>slots</code> and <code>contains</code> you can use S4 classes, S3 classes, or the implicit class (Section <a href="s3.html#implicit-class">13.7.1</a>) of a base type. To use an S3 class, you must first register it with <code><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass()</a></code>. You call this function once for each S3 class, giving it the class attribute. For example, the following definitions are already provided by base R:</p>
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass</a></span><span class="op">(</span><span class="st">"data.frame"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ordered"</span>, <span class="st">"factor"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"glm"</span>, <span class="st">"lm"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>However, it’s generally better to be more specific and provide a full S4 definition with <code>slots</code> and a <code>prototype</code>:</p>
+<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span><span class="st">"factor"</span>,
+  contains <span class="op">=</span> <span class="st">"integer"</span>,
+  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    levels <span class="op">=</span> <span class="st">"character"</span>
+  <span class="op">)</span>,
+  prototype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="op">)</span>,
+    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass</a></span><span class="op">(</span><span class="st">"factor"</span>, S4Class <span class="op">=</span> <span class="st">"factor"</span><span class="op">)</span></code></pre></div>
+<p>Generally, these definitions should be provided by the creator of the S3 class. If you’re trying to build an S4 class on top of an S3 class provided by a package, you should request that the package maintainer add this call to their package, rather than adding it to your own code.</p>
+<p>If an S4 object inherits from an S3 class or a base type, it will have a special virtual slot called <code>.Data</code>. This contains the underlying base type or S3 object: </p>
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">RangedNumeric</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/methods/setClass.html">setClass</a></span><span class="op">(</span>
+  <span class="st">"RangedNumeric"</span>,
+  contains <span class="op">=</span> <span class="st">"numeric"</span>,
+  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>min <span class="op">=</span> <span class="st">"numeric"</span>, max <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span>,
+  prototype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="op">)</span>, min <span class="op">=</span> <span class="cn">NA_real_</span>, max <span class="op">=</span> <span class="cn">NA_real_</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">rn</span> <span class="op">&lt;-</span> <span class="fu">RangedNumeric</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+<span class="va">rn</span><span class="op">@</span><span class="va">min</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="va">rn</span><span class="op">@</span><span class="va">.Data</span>
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>It is possible to define S3 methods for S4 generics, and S4 methods for S3 generics (provided you’ve called <code><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass()</a></code>). However, it’s more complicated than it might appear at first glance, so make sure you thoroughly read <code><a href="https://rdrr.io/r/methods/Methods_for_S3.html">?Methods_for_S3</a></code>.</p>
+</div>
+<div id="generics" class="section level3" number="15.6.2">
+<h3>
+<span class="header-section-number">15.6.2</span> Generics<a class="anchor" aria-label="anchor" href="#generics"><i class="fas fa-link"></i></a>
+</h3>
+<p>As well as creating a new generic from scratch, it’s also possible to convert an existing S3 generic to an S4 generic:</p>
+<div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric</a></span><span class="op">(</span><span class="st">"mean"</span><span class="op">)</span></code></pre></div>
+<p>In this case, the existing function becomes the default (<code>ANY</code>) method:</p>
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/methods/getMethod.html">selectMethod</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"ANY"</span><span class="op">)</span>
+<span class="co">#&gt; Method Definition (Class "derivedDefaultMethod"):</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; function (x, ...) </span>
+<span class="co">#&gt; UseMethod("mean")</span>
+<span class="co">#&gt; &lt;bytecode: 0x00000000119bbf30&gt;</span>
+<span class="co">#&gt; &lt;environment: namespace:base&gt;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Signatures:</span>
+<span class="co">#&gt;         x    </span>
+<span class="co">#&gt; target  "ANY"</span>
+<span class="co">#&gt; defined "ANY"</span></code></pre></div>
+<p>NB: <code><a href="https://rdrr.io/r/methods/setMethod.html">setMethod()</a></code> will automatically call <code><a href="https://rdrr.io/r/methods/setGeneric.html">setGeneric()</a></code> if the first argument isn’t already a generic, enabling you to turn any existing function into an S4 generic. It is OK to convert an existing S3 generic to S4, but you should avoid converting regular functions to S4 generics in packages because that requires careful coordination if done by multiple packages.</p>
+</div>
+<div id="exercises-51" class="section level3" number="15.6.3">
+<h3>
+<span class="header-section-number">15.6.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-51"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>What would a full <code><a href="https://rdrr.io/r/methods/setOldClass.html">setOldClass()</a></code> definition look like for an ordered
+factor (i.e. add <code>slots</code> and <code>prototype</code> the definition above)?</p></li>
+<li><p>Define a <code>length</code> method for the <code>Person</code> class.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r6.html"><span class="header-section-number">14</span> R6</a></div>
+<div class="next"><a href="oo-tradeoffs.html"><span class="header-section-number">16</span> Trade-offs</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#s4"><span class="header-section-number">15</span> S4</a></li>
+<li>
+<a class="nav-link" href="#introduction-14"><span class="header-section-number">15.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#outline-13">Outline</a></li>
+<li><a class="nav-link" href="#learning-more">Learning more</a></li>
+<li><a class="nav-link" href="#prerequisites-8">Prerequisites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s4-basics"><span class="header-section-number">15.2</span> Basics</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercises-47"><span class="header-section-number">15.2.1</span> Exercises</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#s4-classes"><span class="header-section-number">15.3</span> Classes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#inheritance-1"><span class="header-section-number">15.3.1</span> Inheritance</a></li>
+<li><a class="nav-link" href="#introspection-1"><span class="header-section-number">15.3.2</span> Introspection</a></li>
+<li><a class="nav-link" href="#redefinition"><span class="header-section-number">15.3.3</span> Redefinition</a></li>
+<li><a class="nav-link" href="#helper"><span class="header-section-number">15.3.4</span> Helper</a></li>
+<li><a class="nav-link" href="#validator"><span class="header-section-number">15.3.5</span> Validator</a></li>
+<li><a class="nav-link" href="#exercises-48"><span class="header-section-number">15.3.6</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s4-generics"><span class="header-section-number">15.4</span> Generics and methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#signature"><span class="header-section-number">15.4.1</span> Signature</a></li>
+<li><a class="nav-link" href="#methods"><span class="header-section-number">15.4.2</span> Methods</a></li>
+<li><a class="nav-link" href="#show-method"><span class="header-section-number">15.4.3</span> Show method</a></li>
+<li><a class="nav-link" href="#accessors"><span class="header-section-number">15.4.4</span> Accessors</a></li>
+<li><a class="nav-link" href="#exercises-49"><span class="header-section-number">15.4.5</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s4-dispatch"><span class="header-section-number">15.5</span> Method dispatch</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#single-dispatch"><span class="header-section-number">15.5.1</span> Single dispatch</a></li>
+<li><a class="nav-link" href="#multiple-inheritance"><span class="header-section-number">15.5.2</span> Multiple inheritance</a></li>
+<li><a class="nav-link" href="#multiple-dispatch"><span class="header-section-number">15.5.3</span> Multiple dispatch</a></li>
+<li><a class="nav-link" href="#multiple-dispatch-and-multiple-inheritance"><span class="header-section-number">15.5.4</span> Multiple dispatch and multiple inheritance</a></li>
+<li><a class="nav-link" href="#exercises-50"><span class="header-section-number">15.5.5</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#s4-s3"><span class="header-section-number">15.6</span> S4 and S3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#classes"><span class="header-section-number">15.6.1</span> Classes</a></li>
+<li><a class="nav-link" href="#generics"><span class="header-section-number">15.6.2</span> Generics</a></li>
+<li><a class="nav-link" href="#exercises-51"><span class="header-section-number">15.6.3</span> Exercises</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/adv-r/blob/master/S4.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/adv-r/edit/master/S4.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R avanzado</strong>" was written by Jeshua Romero Guadarrama. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
