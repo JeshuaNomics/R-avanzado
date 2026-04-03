@@ -1,0 +1,20 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.httr-oauth
+.Renviron
+
+# Bookdown cache
+_bookdown_files/
+**/*_cache/
+*_files/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
